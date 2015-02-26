@@ -11,6 +11,9 @@ var Player = cc.Sprite.extend({
 		var pos = this.getPosition();
 		this.setPosition(new cc.Point( pos.x , pos.y+this.vy ));
 		this.vy += Player.G;
+		if(pos.y<=147){
+			this.vy=0;
+		}
 	},
 	   jump: function() {
     }
