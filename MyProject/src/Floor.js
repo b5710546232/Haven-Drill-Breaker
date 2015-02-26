@@ -6,9 +6,8 @@ var Floor = cc.Sprite.extend({
 	 update: function( dt ) {
 	 	var pos = this.getPosition();
         this.setPositionX( this.getPositionX() - 5 );
-    	if(pos.x<-200){
-    		console.log('should remove');
-    		this.setPositionX(screenWidth+200);
-    	}
+          if(this.getPosition().x<0){
+            console.log('should remove');
+        }
     }
 });

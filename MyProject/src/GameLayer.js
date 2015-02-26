@@ -7,6 +7,7 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
         this.floor = null;
         this.createFloor();
+     this.scheduleUpdate();
 		return true;
 
 	},
@@ -15,7 +16,12 @@ var GameLayer = cc.LayerColor.extend({
         this.floor.setPosition( new cc.Point( 900, -150 ) );
         this.addChild(this.floor,1);
         this.floor.scheduleUpdate();
-    },	
+    },
+     update: function() {
+        if(this.floor.getPosition().x<0){
+            this.removeChild(this.floor);
+        }
+    },
 });
 var StartScene = cc.Scene.extend({
     onEnter: function() {
