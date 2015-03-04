@@ -2,7 +2,6 @@ var Player = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
 		this.initWithFile('res/images/Player.png');
-		this.setPosition(new cc.Point(250,screenHeight/2));
 		this.vy = Player.STARTING_VELOCITY;
 		this.canJump = false;
 		this.grounded = false;
@@ -11,7 +10,7 @@ var Player = cc.Sprite.extend({
     },
 	update: function( dt ) {
 		var pos = this.getPosition();
-		this.setPosition(new cc.Point( pos.x, pos.y+this.vy ));
+		this.setPosition(new cc.Point( pos.x, pos.y+this.vy));
 		this.vy += Player.G;
 	},
 	jump: function() {
@@ -21,19 +20,20 @@ var Player = cc.Sprite.extend({
 			this.grounded = false;
 		}
 		else if(!this.grounded&&this.canJump){
-			this.vy = Player.JUMP;
+			this.vy = Player.JUMP*0.8;
 			this.canJump = false;
 		}
 
     },
     isOnGround: function(){
     	this.grounded = true;
-    	console.log('on g');
+    	
     },
     isOnAir: function(){
     	this.grounded = false;
+    	this.canJump = false;
     }
 });
 Player.JUMP = 15;
-Player.G = -0.1;
+Player.G = -1;
 Player.STARTING_VELOCITY=1;
