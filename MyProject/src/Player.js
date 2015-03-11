@@ -25,13 +25,29 @@ var Player = cc.Sprite.extend({
 		}
 
     },
+    getPlayerRect:function(){
+    	var spriteRect = this.getBoundingBoxToWorld();
+        var spritePos = this.getPosition();
+
+        var dX = this.x - spritePos.x;
+        var dY = this.y - spritePos.y;
+        return cc.rect( spriteRect.x + dX,
+                        spriteRect.y + dY,
+                        spriteRect.width,
+                        spriteRect.height );
+    },
     isOnGround: function(){
+    	this.vy=0;
     	this.grounded = true;
     	
     },
     isOnAir: function(){
+    	this.vy+=Player.G;
     	this.grounded = false;
     	this.canJump = false;
+    },
+    isDead: function(){
+    	this.vy+=Player.G;
     }
 });
 Player.JUMP = 15;

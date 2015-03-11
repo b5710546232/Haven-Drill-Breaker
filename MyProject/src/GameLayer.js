@@ -9,14 +9,13 @@ var GameLayer = cc.LayerColor.extend({
         this.createFloor();
         this.scheduleUpdate();
         this.addKeyboardHandlers();
-        this.floorSet;
-        //this.floorSet = [];
         return true;
 
     },
     createFloor: function(){
-        this.floorSet =  [];
-        for(var i = 0 ;i<8;i++){
+        this.floorSet = [];
+        this.floorSet.length = 8;
+        for(var i = 0 ;i<this.floorSet.length;i++){
             var floor = new Floor();
             floor.setPosition(new cc.Point(Floor.XPOS,10))
             floor.scheduleUpdate();
@@ -29,35 +28,24 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         this.onKeyDown();
         this.playerOnGround();
-    },
+        //console.log(this.floorSet[4].getTopY());
+            },
     playerOnGround: function(){
-        var posY = this.player.getPosition().y;
-        for(var i = 0;i<8;i++){
-                if(this.floorSet[i].hitSide(this.player)){
-                console.log('side die '+this.player.getPosition().y);
-                this.player.isOnAir();
-                    for(var j=0;j<8;j++){
-                        this.floorSet[j].stop();
-                    }
-                }
-                else if(this.floorSet[i].hit(this.player)){
+        var posPlayer = this.player.getPosition();
+        for(var i = 0;i<this.floorSet.length;i++){
+              var playerRect = this.player.getBoundingBoxToWorld();
+                 var top =  cc.rectGetMaxY( this.floorSet[i].getBoundingBoxToWorld())+playerRect.height/2;
+                 if(posPlayer.y<top&&!this.floorSet[i].onTop(this.player.getPlayerRect())&&
+                    this.floorSet[i].onSide(this.player.getPlayerRect())){
+                    console.log('die');
+                 }
+           else if(posPlayer.y<=top&&this.floorSet[i].onTop(this.player.getPlayerRect())){
                 this.player.isOnGround();
-                this.player.setPosition(new cc.Point(this.player.getPosition().x,142));
-                
-
-                if(this.player.getPosition().y<=142){
-                    this.player.vy = 0;
-                    this.player.setPosition(new cc.Point(this.player.getPosition().x,142));
-
-                }
-
-                else {
-                    this.player.vy += Player.G;
-
-                }
+              this.player.setPosition(this.player.getPosition().x,top);
             }
-        }
-    },
+               
+            }
+        },
     onKeyDown: function( e ) {
 
         if ( e == cc.KEY.space ) {
@@ -71,6 +59,8 @@ var GameLayer = cc.LayerColor.extend({
               for(var j=0;j<8;j++){
                         this.floorSet[j].start();
                     }
+            this.removeChild(this.floorSet[4]);
+            this.removeChild(this.floorSet[5]);
 
         }
         if ( e == 39) {

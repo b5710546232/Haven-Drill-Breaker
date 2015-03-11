@@ -1,7 +1,7 @@
 var Floor = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
-		// this.setAnchorPoint( cc.p( 0, 0 ) ); 
+		this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
 		Floor.XPOS+=100;
 		this.speed = 10;
@@ -10,20 +10,20 @@ var Floor = cc.Sprite.extend({
 	 update: function( dt ) {
       this.setPositionX( this.getPositionX() - this.speed );   
       this.loop();
-      //console.log(this.loopXPOS);
     },
 
     hit: function( player ) {
 	var myPos = this.getPosition();
 	var playerPos = player.getPosition();
 	var pPosYend = player.getContentSize().heigth;
-  	return ( Math.abs(playerPos.x-myPos.x  )<=82 )&&
+  	return ( Math.abs(playerPos.x-myPos.x  )<=70 )&&
 		( playerPos.y - myPos.y  < 132&&playerPos.y - myPos.y  >=100 );
     },
+
     hitSide:function(player){
     var myPos = this.getPosition();
 	var playerPos = player.getPosition();
-  	return ( Math.abs(playerPos.x-myPos.x  )<=70 )&&
+  	return ( Math.abs(playerPos.x-myPos.x  )<=82 )&&
 		( playerPos.y - myPos.y  < 110&&playerPos.y - myPos.y  >=0 );
     },
     loop: function(){
@@ -36,6 +36,45 @@ var Floor = cc.Sprite.extend({
     },
        start: function(){
     	this.speed = 10;
-    }
+    },
+      getTopY: function() {
+        return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
+    },
+    getFloorRect: function() {
+        var spriteRect = this.getBoundingBoxToWorld();
+        var spritePos = this.getPosition();
+
+        var dX = this.x - spritePos.x;
+        var dY = this.y - spritePos.y;
+        return cc.rect( spriteRect.x + dX,
+                        spriteRect.y + dY,
+                        spriteRect.width,
+                        spriteRect.height );
+    },
+    checkCollision :function( playerRect) {
+        if(cc.rectOverlapsRect(this.getFloorRect(),playerRect)){
+          return true;
+       console.log('checkCollision');
+       }    
+       return false;
+    },
+    onTop: function( rect ) {
+        var brect = this.getBoundingBoxToWorld();
+        var bminx = cc.rectGetMinX( brect );
+        var bmaxx = cc.rectGetMaxX( brect );
+        var minx = cc.rectGetMinX( rect );
+        var maxx = cc.rectGetMaxX( rect );
+        return ( minx <= bmaxx ) && ( bminx <= maxx );
+    },
+    onSide: function( rect ) {
+        var brect = this.getBoundingBoxToWorld();
+        var bminy = cc.rectGetMinY( brect );
+        var bmaxy = cc.rectGetMaxY( brect );
+        var miny = cc.rectGetMinY( rect );
+        var maxy = cc.rectGetMaxY( rect );
+        return ( miny <= bmaxy ) && ( bminy <= maxy );
+    },
+
+
 });
 Floor.XPOS = 0;
