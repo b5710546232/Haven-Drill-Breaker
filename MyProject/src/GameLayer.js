@@ -28,55 +28,85 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         this.onKeyDown();
         this.playerOnGround();
-        //console.log(this.floorSet[4].getTopY());
-            },
+        this.playerRightSideHitGround();
+    },
+    stopFloor:function(){
+         for(var i = 0;i<this.floorSet.length;i++){
+            this.floorSet[i].stop();
+         }
+    },
+    gameOver:function(){
+        this.stopFloor();
+        this.player.isDead();
+    },
+    playerOutScreen:function(){
+        if(this.player.isFall) this.gameOver();
+    },
+    playerRightSideHitGround:function(){
+        for(var i = 0;i<this.floorSet.length;i++){
+          if(this.floorSet[i].checkCollision  (this.player.getPlayerRectSideR())){
+            console.log('side hitted');
+            this.gameOver();
+
+            }
+        }
+    },
     playerOnGround: function(){
         var posPlayer = this.player.getPosition();
         for(var i = 0;i<this.floorSet.length;i++){
-              var playerRect = this.player.getBoundingBoxToWorld();
-                 var top =  cc.rectGetMaxY( this.floorSet[i].getBoundingBoxToWorld())+playerRect.height/2;
-                 if(posPlayer.y<top&&!this.floorSet[i].onTop(this.player.getPlayerRect())&&
-                    this.floorSet[i].onSide(this.player.getPlayerRect())){
-                    console.log('die');
-                 }
-           else if(posPlayer.y<=top&&this.floorSet[i].onTop(this.player.getPlayerRect())){
+            var playerRect = this.player.getBoundingBoxToWorld();
+            var top =  cc.rectGetMaxY( this.floorSet[i].getBoundingBoxToWorld())+playerRect.height/2;
+            if(this.floorSet[i].checkCollision  (this.player.getPlayerRectFoot())){
                 this.player.isOnGround();
-              this.player.setPosition(this.player.getPosition().x,top);
+                this.player.setPosition(this.player.getPosition().x,top);
+
             }
-               
-            }
-        },
+        }
+    },
     onKeyDown: function( e ) {
 
         if ( e == cc.KEY.space ) {
             this.player.jump();
         }
-        if (e==82){
+        if (e==82){ //r
             this.player.setPosition(200,300);
             this.player.vy = Player.STARTING_VELOCITY;
+            Player.G = -1;
             this.player.canJump = false;
             this.player.grounded = false;
-              for(var j=0;j<8;j++){
-                        this.floorSet[j].start();
-                    }
+            for(var j=0;j<8;j++){
+                this.floorSet[j].start();
+            }
             this.removeChild(this.floorSet[4]);
             this.removeChild(this.floorSet[5]);
 
         }
-        if ( e == 39) {
-            console.log('right');
+        if ( e == 39) { //right
             this.player.setPosition(new cc.Point(this.player.getPosition().x+10
                 ,this.player.getPosition().y));
         }
-        if ( e == 68) {
+        if ( e == 68) { // d
             this.player.setPosition(new cc.Point(500,500));
             this.player.vy = 0;
             Player.G = 0;
         }
-        if ( e == 37) {
-            console.log('right');
+        if ( e == 37) {//right
             this.player.setPosition(new cc.Point(this.player.getPosition().x-10
                 ,this.player.getPosition().y));
+        }
+        if ( e == 84) { //t
+            this.stopFloor();
+            Player.G = 0;
+            this.player.vy=0;
+        }
+        if( e==38){//up
+   this.player.setPosition(new cc.Point(this.player.getPosition().x
+                ,this.player.getPosition().y+10));
+        }
+        if(e==40){ //down
+               this.player.setPosition(new cc.Point(this.player.getPosition().x
+                ,this.player.getPosition().y-5));
+
         }
     },
     onKeyPressed: function(e){

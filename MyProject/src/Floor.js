@@ -10,21 +10,7 @@ var Floor = cc.Sprite.extend({
 	 update: function( dt ) {
       this.setPositionX( this.getPositionX() - this.speed );   
       this.loop();
-    },
-
-    hit: function( player ) {
-	var myPos = this.getPosition();
-	var playerPos = player.getPosition();
-	var pPosYend = player.getContentSize().heigth;
-  	return ( Math.abs(playerPos.x-myPos.x  )<=70 )&&
-		( playerPos.y - myPos.y  < 132&&playerPos.y - myPos.y  >=100 );
-    },
-
-    hitSide:function(player){
-    var myPos = this.getPosition();
-	var playerPos = player.getPosition();
-  	return ( Math.abs(playerPos.x-myPos.x  )<=82 )&&
-		( playerPos.y - myPos.y  < 110&&playerPos.y - myPos.y  >=0 );
+      
     },
     loop: function(){
     	if(this.getPosition().x<=-100){
@@ -64,7 +50,7 @@ var Floor = cc.Sprite.extend({
         var bmaxx = cc.rectGetMaxX( brect );
         var minx = cc.rectGetMinX( rect );
         var maxx = cc.rectGetMaxX( rect );
-        return ( minx <= bmaxx ) && ( bminx <= maxx );
+        return ( minx < bmaxx ) && ( bminx <= maxx );
     },
     onSide: function( rect ) {
         var brect = this.getBoundingBoxToWorld();

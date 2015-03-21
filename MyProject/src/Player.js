@@ -27,14 +27,36 @@ var Player = cc.Sprite.extend({
     },
     getPlayerRect:function(){
     	var spriteRect = this.getBoundingBoxToWorld();
-        var spritePos = this.getPosition();
-
         var dX = this.x - spritePos.x;
         var dY = this.y - spritePos.y;
         return cc.rect( spriteRect.x + dX,
                         spriteRect.y + dY,
                         spriteRect.width,
                         spriteRect.height );
+    },
+    getPlayerRectFoot:function(){
+        var spriteRect = this.getBoundingBoxToWorld();
+        var footHeight = 10;
+        var footWidth = 10;
+          return cc.rect(this.x, spriteRect.y,footWidth,footHeight);
+          /**
+            this.x  คือ ตรงกลาง รูป 
+        
+            *****
+            *   *
+            *   *
+            *****    
+
+          */
+    },
+    getPlayerRectSideR:function(){
+        var spriteRect = this.getBoundingBoxToWorld();
+        var spritePos = this.getPosition();
+        var Height = 32;
+        var Width = 10;
+        var RectPosX= this.x+(this.x-spriteRect.x)-Width;
+        var dY = spritePos.y-(spriteRect.y+Height/2);
+        return cc.rect(RectPosX,spriteRect.y + dY,Width,Height)
     },
     isOnGround: function(){
     	this.vy=0;
@@ -46,8 +68,17 @@ var Player = cc.Sprite.extend({
     	this.grounded = false;
     	this.canJump = false;
     },
+    isFall:function(){
+        if(this.y<screenHeight){
+            return true;
+        }
+
+    },
     isDead: function(){
+        this.grounded = false;
+        this.canJump = false;
     	this.vy+=Player.G;
+        return true;
     }
 });
 Player.JUMP = 15;
