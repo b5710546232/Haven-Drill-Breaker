@@ -69,9 +69,10 @@ var Player = cc.Sprite.extend({
     	this.canJump = false;
     },
     isFall:function(){
-        if(this.y<screenHeight){
+        if(this.y<0){
             return true;
         }
+        return false;
 
     },
     isDead: function(){
