@@ -1,27 +1,33 @@
 var Floor = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
-		// this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
+		 this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
-		Floor.XPOS+=100;
-		this.speed = 10;
+		this.speed = 0;
 		this.loopXPOS+=Floor.XPOS;
+        Floor.NUM++;
+        console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x+' '+Floor.XPOS);
 	},
 	 update: function( dt ) {
       this.setPositionX( this.getPositionX() - this.speed );   
       this.loop();
+      // console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x);
       
+    },
+    setFloorPosition:function(){
+        this.setPosition(new cc.Point(Floor.XPOS,10))
+        Floor.XPOS+=100;
     },
     loop: function(){
     	if(this.getPosition().x<=-100){
-    		this.setPositionX(850);
+    		this.setPositionX(900);
     	}
     },
     stop: function(){
     	this.speed = 0;
     },
-       start: function(){
-    	this.speed = 10;
+       run: function(){
+        this.speed = 8;
     },
       getTopY: function() {
         return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
@@ -44,23 +50,9 @@ var Floor = cc.Sprite.extend({
        }    
        return false;
     },
-    onTop: function( rect ) {
-        var brect = this.getBoundingBoxToWorld();
-        var bminx = cc.rectGetMinX( brect );
-        var bmaxx = cc.rectGetMaxX( brect );
-        var minx = cc.rectGetMinX( rect );
-        var maxx = cc.rectGetMaxX( rect );
-        return ( minx < bmaxx ) && ( bminx <= maxx );
-    },
-    onSide: function( rect ) {
-        var brect = this.getBoundingBoxToWorld();
-        var bminy = cc.rectGetMinY( brect );
-        var bmaxy = cc.rectGetMaxY( brect );
-        var miny = cc.rectGetMinY( rect );
-        var maxy = cc.rectGetMaxY( rect );
-        return ( miny <= bmaxy ) && ( bminy <= maxy );
-    },
+
 
 
 });
-Floor.XPOS = 0;
+Floor.XPOS =    0;
+Floor.NUM = 0;

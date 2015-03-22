@@ -9,6 +9,7 @@ var GameLayer = cc.LayerColor.extend({
         this.createFloor();
         this.scheduleUpdate();
         this.addKeyboardHandlers();
+        this.isStart = false;
         return true;
 
     },
@@ -17,7 +18,7 @@ var GameLayer = cc.LayerColor.extend({
         this.floorSet.length = 8;
         for(var i = 0 ;i<this.floorSet.length;i++){
             var floor = new Floor();
-            floor.setPosition(new cc.Point(Floor.XPOS,10))
+            floor.setFloorPosition();
             floor.scheduleUpdate();
             this.floorSet[i] = floor;
             this.addChild(floor);
@@ -25,7 +26,16 @@ var GameLayer = cc.LayerColor.extend({
 
 
     },
+    gameStart:function(){
+        if(this.isStart){
+            this.player.startToPlay();
+            for(var i = 0 ;i<this.floorSet.length;i++){
+                this.floorSet[i].run();
+            }
+        }
+    },
     update: function() {
+        this.gameStart();
         this.onKeyDown();
         this.playerOnGround();
         this.playerRightSideHitGround();
@@ -65,18 +75,20 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
     onKeyDown: function( e ) {
-
         if ( e == cc.KEY.space ) {
+            if(this.gameStart){
             this.player.jump();
+            }
+            this.isStart = true;
         }
-        if (e==82){ //r
+        if (e==82){ //r refesh
             this.player.setPosition(200,300);
             this.player.vy = Player.STARTING_VELOCITY;
             Player.G = -1;
             this.player.canJump = false;
             this.player.grounded = false;
-            for(var j=0;j<8;j++){
-                this.floorSet[j].start();
+            for(var j=0;j<this.floorSet.length;j++){
+                this.floorSet[j].run();
             }
             this.removeChild(this.floorSet[4]);
             this.removeChild(this.floorSet[5]);
@@ -95,10 +107,11 @@ var GameLayer = cc.LayerColor.extend({
             this.player.setPosition(new cc.Point(this.player.getPosition().x-10
                 ,this.player.getPosition().y));
         }
-        if ( e == 84) { //t
+        if ( e == 84) { //t stop
             this.stopFloor();
             Player.G = 0;
             this.player.vy=0;
+           this.isStart = false;
         }
         if( e==38){//up
    this.player.setPosition(new cc.Point(this.player.getPosition().x

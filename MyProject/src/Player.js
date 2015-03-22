@@ -2,16 +2,21 @@ var Player = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
 		this.initWithFile('res/images/Player.png');
-		this.vy = Player.STARTING_VELOCITY;
+		this.vy = 0;
 		this.canJump = false;
 		this.grounded = false;
+        this.isStart =  false;
 	},
-	 start: function() {
+	 startToPlay: function() {
+            this.vy += Player.G;
+        return !this.isStart
     },
 	update: function( dt ) {
 		var pos = this.getPosition();
 		this.setPosition(new cc.Point( pos.x, pos.y+this.vy));
+        if(this.isStart){
 		this.vy += Player.G;
+        }
 	},
 	jump: function() {
 		if(this.grounded){
