@@ -39,15 +39,6 @@ var Player = cc.Sprite.extend({
         var footHeight = 10;
         var footWidth = 10;
           return cc.rect(this.x, spriteRect.y,footWidth,footHeight);
-          /**
-            this.x  คือ ตรงกลาง รูป 
-        
-            *****
-            *   *
-            *   *
-            *****    
-
-          */
     },
     getPlayerRectSideR:function(){
         var spriteRect = this.getBoundingBoxToWorld();

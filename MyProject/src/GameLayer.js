@@ -29,6 +29,7 @@ var GameLayer = cc.LayerColor.extend({
         this.onKeyDown();
         this.playerOnGround();
         this.playerRightSideHitGround();
+        this.playerOutScreen();
     },
     stopFloor:function(){
          for(var i = 0;i<this.floorSet.length;i++){
@@ -40,12 +41,12 @@ var GameLayer = cc.LayerColor.extend({
         this.player.isDead();
     },
     playerOutScreen:function(){
-        if(this.player.isFall) this.gameOver();
+        if(this.player.isFall()) this.gameOver();
     },
     playerRightSideHitGround:function(){
         for(var i = 0;i<this.floorSet.length;i++){
           if(this.floorSet[i].checkCollision  (this.player.getPlayerRectSideR())){
-            console.log('side hitted');
+            console.log('side R hitted');
             this.gameOver();
 
             }
