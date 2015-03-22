@@ -1,7 +1,7 @@
 var Floor = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
-		this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
+		// this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
 		Floor.XPOS+=100;
 		this.speed = 10;
