@@ -2,16 +2,19 @@ var GameLayer = cc.LayerColor.extend({
 	init: function() {
 		this._super( new cc.Color( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
-        this.player = new Player();
+        this.createPlayer();
+        this.addKeyboardHandlers();
+        this.isStart = false;
+        this.createFloor();
+        this.scheduleUpdate();
+        return true;
+
+    },
+    createPlayer:function(){
+ this.player = new Player();
         this.player.setPosition(new cc.Point(200,300))
         this.addChild(this.player,2)
         this.player.scheduleUpdate();
-        this.createFloor();
-        this.scheduleUpdate();
-        this.addKeyboardHandlers();
-        this.isStart = false;
-        return true;
-
     },
     createFloor: function(){
         this.floorSet = [];
