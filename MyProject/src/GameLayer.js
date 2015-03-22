@@ -15,16 +15,30 @@ var GameLayer = cc.LayerColor.extend({
     },
     createFloor: function(){
         this.floorSet = [];
-        this.floorSet.length = 8;
-        for(var i = 0 ;i<this.floorSet.length;i++){
-            var floor = new Floor();
-            floor.setFloorPosition();
-            floor.scheduleUpdate();
-            this.floorSet[i] = floor;
-            this.addChild(floor);
+        var map = [1,1,1,1,0,1,1,1,1]
+        var index = 0;
+        for(var i = 0 ;i<map.length;i++){
+                if(map[i]==1){
+                    var floor = new Floor();
+                    //floor.setFloorPosition();
+                    floor.setPosition(50+(100*i),10);
+                    floor.scheduleUpdate();
+                    this.addChild(floor);
+                    this.floorSet[index] = floor;
+                    index++;
+                }
+                else {
+                    console.log('ok');
+                }
         }
-
-
+        this.floorSet.length =index;
+    },
+    deleteFloor:function(){
+          for(var i = 0 ;i<this.floorSet.length;i++){
+            if(this.floorSet[i].outOfScreen()){
+                this.removeChild(this.floorSet[i]);
+            }
+          }
     },
     gameStart:function(){
         if(this.isStart){
@@ -40,6 +54,7 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOnGround();
         this.playerRightSideHitGround();
         this.playerOutScreen();
+        this.deleteFloor();
     },
     stopFloor:function(){
          for(var i = 0;i<this.floorSet.length;i++){
@@ -66,7 +81,7 @@ var GameLayer = cc.LayerColor.extend({
         var posPlayer = this.player.getPosition();
         for(var i = 0;i<this.floorSet.length;i++){
             var playerRect = this.player.getBoundingBoxToWorld();
-            var top =  cc.rectGetMaxY( this.floorSet[i].getBoundingBoxToWorld())+playerRect.height/2;
+            var top =  cc.rectGetMaxY(this.floorSet[i].getBoundingBoxToWorld())+playerRect.height/2;
             if(this.floorSet[i].checkCollision  (this.player.getPlayerRectFoot())){
                 this.player.isOnGround();
                 this.player.setPosition(this.player.getPosition().x,top);

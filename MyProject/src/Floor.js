@@ -1,16 +1,16 @@
 var Floor = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
-		 this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
+	//  this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
 		this.speed = 0;
 		this.loopXPOS+=Floor.XPOS;
         Floor.NUM++;
-        console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x+' '+Floor.XPOS);
+        //console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x+' '+Floor.XPOS);
 	},
 	 update: function( dt ) {
       this.setPositionX( this.getPositionX() - this.speed );   
-      this.loop();
+     // this.loop();
       // console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x);
       
     },
@@ -18,10 +18,19 @@ var Floor = cc.Sprite.extend({
         this.setPosition(new cc.Point(Floor.XPOS,10))
         Floor.XPOS+=100;
     },
+    nextFloor:function(){
+        Floor.XPOS+=100;
+    },
     loop: function(){
     	if(this.getPosition().x<=-100){
     		this.setPositionX(900);
     	}
+    },
+    outOfScreen: function(){
+        if(this.getPosition().x<=-100){return true;
+            console.log('this');
+        }
+            return false;
     },
     stop: function(){
     	this.speed = 0;
@@ -54,5 +63,5 @@ var Floor = cc.Sprite.extend({
 
 
 });
-Floor.XPOS =    0;
+Floor.XPOS = 50;
 Floor.NUM = 0;
