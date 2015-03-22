@@ -5,10 +5,10 @@ var GameLayer = cc.LayerColor.extend({
         this.createPlayer();
         this.addKeyboardHandlers();
         this.isStart = false;
-        this.createFloor();
+         this.floorSet = [];
+        this.floorSet = this.createFloor();
         this.scheduleUpdate();
         return true;
-
     },
     createPlayer:function(){
  this.player = new Player();
@@ -16,25 +16,23 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.player,2)
         this.player.scheduleUpdate();
     },
+
     createFloor: function(){
-        this.floorSet = [];
+        var floorSet = [];
         var map = [1,1,1,1,0,1,1,1,1]
         var index = 0;
         for(var i = 0 ;i<map.length;i++){
                 if(map[i]==1){
                     var floor = new Floor();
-                    //floor.setFloorPosition();
                     floor.setPosition(50+(100*i),10);
                     floor.scheduleUpdate();
                     this.addChild(floor);
-                    this.floorSet[index] = floor;
+                    floorSet[index] = floor;
                     index++;
                 }
-                else {
-                    console.log('ok');
-                }
         }
-        this.floorSet.length =index;
+        floorSet.length =index;
+        return floorSet;
     },
     deleteFloor:function(){
           for(var i = 0 ;i<this.floorSet.length;i++){
