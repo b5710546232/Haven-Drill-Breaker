@@ -6,12 +6,9 @@ var Floor = cc.Sprite.extend({
 		this.speed = 0;
 		this.loopXPOS+=Floor.XPOS;
         Floor.NUM++;
-        //console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x+' '+Floor.XPOS);
 	},
 	 update: function( dt ) {
-      this.setPositionX( this.getPositionX() - this.speed );   
-     // this.loop();
-      // console.log('no.' +Floor.NUM+ '   '+this.getBoundingBoxToWorld().x);
+      this.setPositionX( this.getPositionX() - this.speed);   
       
     },
     setFloorPosition:function(){
@@ -28,7 +25,7 @@ var Floor = cc.Sprite.extend({
     	this.speed = 0;
     },
        run: function(){
-        this.speed = 8;
+        this.speed = 5;
     },
       getTopY: function() {
         return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
