@@ -25,7 +25,7 @@ var Floor = cc.Sprite.extend({
     	this.speed = 0;
     },
        run: function(){
-        this.speed = 5;
+        this.speed = 10;
     },
       getTopY: function() {
         return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
