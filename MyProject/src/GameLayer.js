@@ -21,7 +21,7 @@ var GameLayer = cc.LayerColor.extend({
 
     createFloors: function(num){
         var floorSet = [];
-        if (num==0)var map = [1,1,1,1,1,1,1,0,1,0,0,1,1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,0,0,1,0,0,1,0,1,0,0,0,1,0,1,1,1,0,1];
+        if (num==0)var map = [1,1,1,1,1,1,1];
         var index = 0;
         for(var i = 0 ;i<map.length;i++){
                 if(map[i]==1){

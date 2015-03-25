@@ -13,13 +13,13 @@ var Floor = cc.Sprite.extend({
     		this.setPositionX(900);
     },
     outOfScreen: function(){
-    return this.getPosition().x<-this.getBoundingBox().width;
+    return this.getPosition().x<-this.getBoundingBox().width+this.speed;
     },
     stop: function(){
     	this.speed = 0;
     },
     run: function(){
-        this.speed = 10;
+        this.speed = 7;
     },
     getTopY: function() {
         return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
