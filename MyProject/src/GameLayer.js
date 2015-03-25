@@ -8,64 +8,86 @@ var GameLayer = cc.LayerColor.extend({
         this.floorSets = [];
         this.floorSets = this.createFloors(0);
         this.floorSets2 = [];
+       this.floorSets2 = this.createFloors(1);
         this.scheduleUpdate();
         this.checkFloor1 = false;
+        this.floorSpeed = 0;
+        this.isGameOver = false;
         return true;
     },
+    floorManage:function(){
+        // if(this.floorSets[this.floorSets.length-4].getPosition().x<0){
+        //     this.floorSetsRun(this.floorSets2,this.floorSpeed);
+
+        // }
+        // if(this.checkFloor1)
+        var ran = 1+Math.floor(Math.random()*4);
+        //console.log(ran);
+        // run
+        if(this.floorSets[this.floorSets.length-1].outOfScreen()){
+         this.floorSetsRun(this.floorSets2,this.floorSpeed);
+        }
+        //create
+        if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloor1==false){
+        this.checkFloor1=true;
+        this.floorSets = null;
+        this.floorSets = this.createFloors(ran);
+        }
+        // run
+        if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
+        if(this.checkFloor1){
+            this.checkFloor1=false;
+            this.floorSetsRun(this.floorSets,this.floorSpeed);
+        }
+        //create
+        if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
+        this.floorSets2=null;
+        this.floorSets2 = this.createFloors(ran)
+            }
+        }
+    },
     createPlayer:function(){
- this.player = new Player();
+        this.player = new Player();
         this.player.setPosition(new cc.Point(200,300))
         this.addChild(this.player,2)
         this.player.scheduleUpdate();
     },
-
     createFloors: function(num){
         var floorSet = [];
-        if (num==0)var map = [1,1,1,1,1,1,1];
+        if (num==0)var map = [1,1,1,1,1,1,1,1,1,1];
+        if (num==1)var map = [0,1,0,0,1,1,1,1,1,0];
+        if (num==2)var map = [0,1,0,1,1,0,1,0,1,0];
+        if (num==3)var map = [0,1,1,1,1,1,1,1,1,0];
+        if (num==4)var map = [0,1,1,1,1,1,1,1,1,0];
         var index = 0;
         for(var i = 0 ;i<map.length;i++){
                 if(map[i]==1){
-                    var floor = new Floor();
+                    var floor = new Floor(this);
                     if(num==0){
-                    floor.setPosition(50+(100*i),10) ;    
-                    }
+                    floor.setPosition(50+100*i,10) ;    
+                     }
                     else{
-                   // floor.setPosition(screenWidth+(100*i),10);
+                    floor.setPosition(50+screenWidth+(100*i),10);
                     }
                     floor.scheduleUpdate();
                     this.addChild(floor);
                     floorSet.push(floor);
-                    index++;
                 }
         }
         this.FloorSetPosX = floorSet[floorSet.length-1].getBoundingBox().x+50;
-        floorSet.length =index;
         return floorSet;
-    },
-    deleteFloor:function(floorSets){
-          for(var i = 0 ;i<floorSets.length;i++){
-                floorSets[i].removeFromParent();
-                }          
-    },
-    loopFloorSet:function(floorSets){
-         var lastFloor = floorSets[floorSets.length-1];
-          for(var i = 0 ;i<this.floorSets.length;i++){
-                if(this.floorSets[i].outOfScreen()){
-                 this.floorSets[i].setPosition(this.FloorSetPosX,10);
-         }
-         this.scheduleUpdate();
-     }
-
     },
     gameStart:function(){
         if(this.isStart){
             this.player.startToPlay();
-            this.floorSetsRun(this.floorSets);
+            this.floorSpeed = 7;
+            this.floorSetsRun(this.floorSets,this.floorSpeed);
+            this.floorSetsRun(this.floorSets2,this.floorSpeed);
         }
     },
     floorSetsRun:function(floorSets){
           for(var i = 0 ;i<floorSets.length;i++){
-                floorSets[i].run();
+                floorSets[i].run(this.floorSpeed);
             }
 
     },
@@ -92,23 +114,25 @@ var GameLayer = cc.LayerColor.extend({
     //     }
     // },
     update: function() {
-
+        this.floorManage();
         //this.loopFloor();
-        this.loopFloorSet(this.floorSets);
+        //this.loopFloorSet(this.floorSets);
         this.gameStart();
         this.onKeyDown();
-        this.playerOnGround(this.floorSets);
-        this.playerRightSideHitGround(this.floorSets);
         this.playerOutScreen();
+        this.playerRightSideHitGround(this.floorSets);
+        this.playerRightSideHitGround(this.floorSets2);
         },
     stopFloor:function(floorSets){
          for(var i = 0;i<floorSets.length;i++){
-            floorSets[i].stop();
+            floorSets[i].stopMove();
          }
     },
     gameOver:function(){
-        this.stopFloor(this.floorSets);
         this.player.isDead();
+        this.isGameOver = true;
+        this.stopFloor(this.floorSets);
+        this.stopFloor(this.floorSets2);
     },
     setFloorsSpeed:function(floorSets,newSpeed){
      for(var i = 0;i<floorSets.length;i++){
@@ -123,18 +147,6 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0;i<floorSets.length;i++){
           if(floorSets[i].checkCollision  (this.player.getPlayerRectSideR())){
             this.gameOver();
-
-            }
-        }
-    },
-    playerOnGround: function(floorSets){
-        var posPlayer = this.player.getPosition();
-        for(var i = 0;i<floorSets.length;i++){
-            var playerRect = this.player.getBoundingBoxToWorld();
-            var top =  cc.rectGetMaxY(floorSets[i].getBoundingBoxToWorld())+playerRect.height/2;
-            if(floorSets[i].checkCollision  (this.player.getPlayerRectFoot())){
-                this.player.isOnGround();
-                this.player.setPosition(this.player.getPosition().x,top);
 
             }
         }
@@ -156,7 +168,8 @@ var GameLayer = cc.LayerColor.extend({
             this.player.canJump = false;
             this.player.grounded = false;
             this.stop=false;
-            this.floorSetsRun(this.floorSets)
+            this.floorSetsRun(this.floorSets,this.floorSpeed);
+            this.floorSetsRun(this.floorSets2,this.floorSpeed);
 
         }
         if ( e == 39) { //right
@@ -174,6 +187,7 @@ var GameLayer = cc.LayerColor.extend({
         }
         if ( e == 84) { //t stop
             this.stopFloor(this.floorSets);
+            this.stopFloor(this.floorSets2);
             this.isStart = false;
             Player.G = 0;
             this.player.vy=0;

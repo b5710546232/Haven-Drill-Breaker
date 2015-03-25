@@ -1,13 +1,52 @@
 var Floor = cc.Sprite.extend({
-	ctor:function(  ){
+	ctor:function(layer){
 		this._super();
 	 // this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
 		this.speed = 0;
+        this.player = layer.player;
+        this.layer = layer;
+        Floor.nextPos+=100;
+        //this.setPosition(Floor.nextPos,10);
 	},
 	 update: function( dt ) {
+     this.sideHitPlayer(this.layer);
       this.setPositionX( this.getPositionX() - this.speed);   
+      this.playerIsOnTop(this.player);
+      this.destroy();
+      this.gameOver(this.layer,this.player);
       
+    },
+    create: function(layer){
+        if(layer.FloorSets.length>0){
+            layer.createFloor();
+        }
+    },
+    playerIsOnTop:function(player){
+        var playerRect = player.getBoundingBoxToWorld();
+        var top =  cc.rectGetMaxY(this.getBoundingBoxToWorld())+playerRect.height/2;
+        if(this.checkCollision  (player.getPlayerRectFoot())){
+            player.isOnGround();
+            player.setPosition(this.player.getPosition().x,top);
+
+        }
+    },
+     sideHitPlayer:function(layer){
+          if(this.checkCollision (layer.player.getPlayerRectSideR())){
+            console.log('side');
+            layer.gameOver();
+            //this.gameOver(layer);
+            }
+    },
+    gameOver:function(layer){
+        if(layer.isGameOver){
+            this.stopMove();
+        }
+    },
+    destroy:function(){
+        if(this.outOfScreen()){
+            this.removeFromParent();
+        }
     },
     loop: function(){
     		this.setPositionX(900);
@@ -15,11 +54,11 @@ var Floor = cc.Sprite.extend({
     outOfScreen: function(){
     return this.getPosition().x<-this.getBoundingBox().width+this.speed;
     },
-    stop: function(){
+    stopMove: function(){
     	this.speed = 0;
     },
-    run: function(){
-        this.speed = 7;
+    run: function(speed){
+        this.speed = speed;
     },
     getTopY: function() {
         return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
@@ -40,6 +79,5 @@ var Floor = cc.Sprite.extend({
           
     },
 
-
-
 });
+Floor.nextPos = 0;
