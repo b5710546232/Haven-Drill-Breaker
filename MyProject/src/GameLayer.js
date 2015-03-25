@@ -5,9 +5,11 @@ var GameLayer = cc.LayerColor.extend({
         this.createPlayer();
         this.addKeyboardHandlers();
         this.isStart = false;
-         this.floorSet = [];
-        this.floorSet = this.createFloor();
+        this.floorSets = [];
+        this.floorSets = this.createFloors(0);
+        this.floorSets2 = [];
         this.scheduleUpdate();
+        this.checkFloor1 = false;
         return true;
     },
     createPlayer:function(){
@@ -17,73 +19,125 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
     },
 
-    createFloor: function(){
+    createFloors: function(num){
         var floorSet = [];
-        var map = [1,1,1,1,0,1,1,1,1]
+        if (num==0)var map = [1,1,1,1,1,1,1,1,1,1,1];
+        if(num==1) var map = [1,0,1,1,1,0,1,1,1,1,1,1,1];
+        if(num==3) var map = [1,1,1,1,1,1,1,1,1,1,1];
+        // var map = [1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1,0,1,0,1,1,1,1,
+        // 0,0,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
         var index = 0;
         for(var i = 0 ;i<map.length;i++){
                 if(map[i]==1){
                     var floor = new Floor();
-                    floor.setPosition(50+(100*i),10);
+                    if(num==0){
+                    floor.setPosition(50+(100*i),10);    
+                    }
+                    else{
+                    floor.setPosition(screenWidth+300+(100*i),10);
+                    }
                     floor.scheduleUpdate();
                     this.addChild(floor);
-                    floorSet[index] = floor;
+                    floorSet.push(floor);
                     index++;
                 }
         }
+        this.FloorSetPosX = floorSet[floorSet.length-1].getPosition().x;
         floorSet.length =index;
         return floorSet;
     },
-    deleteFloor:function(){
-          for(var i = 0 ;i<this.floorSet.length;i++){
-            if(this.floorSet[i].outOfScreen()){
-                this.removeChild(this.floorSet[i]);
-            }
-          }
+    deleteFloor:function(floorSets){
+          for(var i = 0 ;i<floorSets.length;i++){
+                floorSets[i].removeFromParent();
+                }
+          
+    },
+    loopFloorSet:function(floorSets){
+         var lastFloor = floorSets[floorSets.length-1];
+          for(var i = 0 ;i<this.floorSets.length;i++){
+                if(this.floorSets[i].outOfScreen()){
+                 var x = 0;
+                 this.floorSets[i].setPosition(this.FloorSetPosX+50+x,10);
+         }
+     }
+
     },
     gameStart:function(){
         if(this.isStart){
             this.player.startToPlay();
-            for(var i = 0 ;i<this.floorSet.length;i++){
-                this.floorSet[i].run();
+            this.floorSetsRun(this.floorSets);
+        }
+    },
+    floorSetsRun:function(floorSets){
+          for(var i = 0 ;i<floorSets.length;i++){
+                floorSets[i].run();
+            }
+
+    },
+    loopFloor:function(){
+        if(this.floorSets[this.floorSets.length-8].outOfScreen()){
+         this.floorSetsRun(this.floorSets2);
+        }
+        if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloor1==false){
+        this.deleteFloor(this.floorSets);
+        this.checkFloor1=true;
+        this.floorSets = null;
+        this.floorSets = this.createFloors(3);
+        }
+          if(this.floorSets2[this.floorSets2.length-8].outOfScreen()){
+          if(this.checkFloor1){
+            this.checkFloor1=false;
+            this.floorSetsRun(this.floorSets);
+        }
+        if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
+            this.deleteFloor(this.floorSets2);
+            this.floorSets2=null;
+           this.floorSets2 = this.createFloors(1)
             }
         }
     },
     update: function() {
+
+        //this.loopFloor();
+        this.loopFloorSet(this.floorSets);
         this.gameStart();
         this.onKeyDown();
-        this.playerOnGround();
-        this.playerRightSideHitGround();
+        this.playerOnGround(this.floorSets);
+        this.playerRightSideHitGround(this.floorSets);
         this.playerOutScreen();
-        this.deleteFloor();
-    },
-    stopFloor:function(){
-         for(var i = 0;i<this.floorSet.length;i++){
-            this.floorSet[i].stop();
+        },
+    stopFloor:function(floorSets){
+         for(var i = 0;i<floorSets.length;i++){
+            floorSets[i].stop();
          }
     },
     gameOver:function(){
-        this.stopFloor();
+        this.stopFloor(this.floorSets);
         this.player.isDead();
+    },
+    setFloorsSpeed:function(floorSets,speed){
+     for(var i = 0;i<floorSets.length;i++){
+        
+        floorSets[i].speed = speed;
+      }
     },
     playerOutScreen:function(){
         if(this.player.isFall()) this.gameOver();
     },
-    playerRightSideHitGround:function(){
-        for(var i = 0;i<this.floorSet.length;i++){
-          if(this.floorSet[i].checkCollision  (this.player.getPlayerRectSideR())){
-            console.log('side R hitted');
+    playerRightSideHitGround:function(floorSets){
+        for(var i = 0;i<floorSets.length;i++){
+          if(floorSets[i].checkCollision  (this.player.getPlayerRectSideR())){
             this.gameOver();
 
             }
         }
     },
-    playerOnGround: function(){
+    playerOnGround: function(floorSets){
         var posPlayer = this.player.getPosition();
-        for(var i = 0;i<this.floorSet.length;i++){
+        for(var i = 0;i<floorSets.length;i++){
             var playerRect = this.player.getBoundingBoxToWorld();
-            var top =  cc.rectGetMaxY(this.floorSet[i].getBoundingBoxToWorld())+playerRect.height/2;
-            if(this.floorSet[i].checkCollision  (this.player.getPlayerRectFoot())){
+            var top =  cc.rectGetMaxY(floorSets[i].getBoundingBoxToWorld())+playerRect.height/2;
+            if(floorSets[i].checkCollision  (this.player.getPlayerRectFoot())){
                 this.player.isOnGround();
                 this.player.setPosition(this.player.getPosition().x,top);
 
@@ -92,10 +146,14 @@ var GameLayer = cc.LayerColor.extend({
     },
     onKeyDown: function( e ) {
         if ( e == cc.KEY.space ) {
-            if(this.gameStart){
             this.player.jump();
-            }
             this.isStart = true;
+        }
+        if(e==83){
+            this.isStart = true;
+        }
+        if(e==81){ // q
+            this.setFloorsSpeed(this.floorSets,9);
         }
         if (e==82){ //r refesh
             this.player.setPosition(200,300);
@@ -103,11 +161,8 @@ var GameLayer = cc.LayerColor.extend({
             Player.G = -1;
             this.player.canJump = false;
             this.player.grounded = false;
-            for(var j=0;j<this.floorSet.length;j++){
-                this.floorSet[j].run();
-            }
-            this.removeChild(this.floorSet[4]);
-            this.removeChild(this.floorSet[5]);
+            this.stop=false;
+            this.floorSetsRun(this.floorSets)
 
         }
         if ( e == 39) { //right
@@ -124,10 +179,10 @@ var GameLayer = cc.LayerColor.extend({
                 ,this.player.getPosition().y));
         }
         if ( e == 84) { //t stop
-            this.stopFloor();
+            this.stopFloor(this.floorSets);
+            this.isStart = false;
             Player.G = 0;
             this.player.vy=0;
-           this.isStart = false;
         }
         if( e==38){//up
    this.player.setPosition(new cc.Point(this.player.getPosition().x
@@ -135,7 +190,7 @@ var GameLayer = cc.LayerColor.extend({
         }
         if(e==40){ //down
                this.player.setPosition(new cc.Point(this.player.getPosition().x
-                ,this.player.getPosition().y-5));
+                ,this.player.getPosition().y-10));
 
         }
     },

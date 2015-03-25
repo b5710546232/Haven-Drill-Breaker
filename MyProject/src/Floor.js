@@ -1,7 +1,7 @@
 var Floor = cc.Sprite.extend({
 	ctor:function(){
 		this._super();
-	//  this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
+	 // this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
 		this.speed = 0;
 		this.loopXPOS+=Floor.XPOS;
@@ -18,19 +18,11 @@ var Floor = cc.Sprite.extend({
         this.setPosition(new cc.Point(Floor.XPOS,10))
         Floor.XPOS+=100;
     },
-    nextFloor:function(){
-        Floor.XPOS+=100;
-    },
     loop: function(){
-    	if(this.getPosition().x<=-100){
     		this.setPositionX(900);
-    	}
     },
     outOfScreen: function(){
-        if(this.getPosition().x<=-100){return true;
-            console.log('this');
-        }
-            return false;
+    return this.getPosition().x<-this.getBoundingBox().width;
     },
     stop: function(){
     	this.speed = 0;
@@ -53,11 +45,8 @@ var Floor = cc.Sprite.extend({
                         spriteRect.height );
     },
     checkCollision :function( playerRect) {
-        if(cc.rectOverlapsRect(this.getFloorRect(),playerRect)){
-          return true;
-       console.log('checkCollision');
-       }    
-       return false;
+        return cc.rectOverlapsRect(this.getFloorRect(),playerRect);
+          
     },
 
 
