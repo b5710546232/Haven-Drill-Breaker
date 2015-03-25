@@ -27,7 +27,7 @@ var GameLayer = cc.LayerColor.extend({
                 if(map[i]==1){
                     var floor = new Floor();
                     if(num==0){
-                    floor.setPosition(50+(100*i),10);    
+                    floor.setPosition(50+(100*i),10) ;    
                     }
                     else{
                    // floor.setPosition(screenWidth+(100*i),10);

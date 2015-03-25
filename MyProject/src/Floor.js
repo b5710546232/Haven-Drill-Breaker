@@ -1,19 +1,13 @@
 var Floor = cc.Sprite.extend({
-	ctor:function(){
+	ctor:function(  ){
 		this._super();
 	 // this.setAnchorPoint( cc.p( 0.5, 0 ) ); 
 		this.initWithFile('res/images/ground.png');
 		this.speed = 0;
-		this.loopXPOS+=Floor.XPOS;
-        Floor.NUM++;
 	},
 	 update: function( dt ) {
       this.setPositionX( this.getPositionX() - this.speed);   
       
-    },
-    setFloorPosition:function(){
-        this.setPosition(new cc.Point(Floor.XPOS,10))
-        Floor.XPOS+=100;
     },
     loop: function(){
     		this.setPositionX(900);
@@ -24,10 +18,10 @@ var Floor = cc.Sprite.extend({
     stop: function(){
     	this.speed = 0;
     },
-       run: function(){
+    run: function(){
         this.speed = 10;
     },
-      getTopY: function() {
+    getTopY: function() {
         return cc.rectGetMaxY( this.getBoundingBoxToWorld() );
     },
     getFloorRect: function() {
@@ -49,5 +43,3 @@ var Floor = cc.Sprite.extend({
 
 
 });
-Floor.XPOS = 50;
-Floor.NUM = 0;
