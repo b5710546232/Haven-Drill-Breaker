@@ -23,7 +23,7 @@ var Floor = cc.Sprite.extend({
     playerIsOnTop:function(player){
     var playerRect = player.getBoundingBoxToWorld();
     var top =  cc.rectGetMaxY(this.getBoundingBoxToWorld())+playerRect.height/2;
-    if(this.checkCollision  (player.getPlayerRectFoot())){
+    if(this.checkCollision  (player.getPlayerRectFoot())&&!player.isDie){
         player.isOnGround();
         player.setPosition(this.player.getPosition().x,top);
 

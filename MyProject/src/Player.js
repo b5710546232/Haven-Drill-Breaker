@@ -9,6 +9,7 @@ ctor:function(){
         this.drillType='R';
         this.hp = 5;
         console.log('hp = '+this.hp);
+        this.isDie = false;
     },
 update: function( dt ) {
         var pos = this.getPosition();
@@ -16,7 +17,14 @@ update: function( dt ) {
         if(this.isStart){
             this.vy += Player.G;
         }
+        this.checkStatus();
     },
+checkStatus:function(){
+    if(this.hp<=0){
+        this.isDie = true;
+        this.death();
+    }
+},
 switchDrillType:function(keycode){
     if(keycode==37){//left
         this.drillType = "L";
@@ -60,8 +68,8 @@ getPlayerRect:function(){
 getPlayerBodyRect:function(){
     var spriteRect = this.getBoundingBoxToWorld();
     var bodyHeight = 40;
-    var bodyWidth = 30;
-    return cc.rect(this.x , spriteRect.y,this.x,bodyHeight);
+    var bodyWidth = 40;
+    return cc.rect(this.x-bodyWidth/2, spriteRect.y,bodyWidth,bodyHeight);
 },
 
 getPlayerRectFoot:function(){
@@ -96,7 +104,8 @@ isFall:function(){
     return false;
 
 },
-isDead: function(){
+death: function(){
+    this.isDie = true;
     this.grounded = false;
     this.canJump = false;
     this.vy+=Player.G;

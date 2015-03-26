@@ -40,8 +40,9 @@ var GameLayer = cc.LayerColor.extend({
         if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloor1==false){
             this.checkFloor1=true;
             this.floorSets = null;
-            console.log('ran  ' +ran);
+            console.log('ran  floor1 ' +ran);
             this.floorSets = this.createFloors(ran);
+
         }
         // run
         if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
@@ -52,7 +53,7 @@ var GameLayer = cc.LayerColor.extend({
         //create
         if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
             this.floorSets2=null;
-            console.log('ran  ' +ran);
+            console.log('ran  floor2 ' +ran);
             this.floorSets2 = this.createFloors(ran)
         }
     }
@@ -65,15 +66,15 @@ createPlayer:function(){
 },
 createFloors: function(num){
     var floorSet = [];
-    if (num==0)var map = [1,1,1,1,1,1,1,1,1,1];
-   // if (num==1)var map = [0,1,0,0,1,1,1,1,1,0];
-     //if (num==2)var map = [0,1,1,1,1,1,1,1,1,1];
-    //if (num==3)var map = [0,1,0,1,1,0,1,0,1,0];
-    // if (num==4)var map = [0,1,1,1,1,1,1,1,1,0];
-    // if (num==5)var map = [0,1,1,1,1,1,1,1,1,0];
-    // if (num==6)var map = [0,1,1,1,1,1,1,1,1,1];
-    // if (num==7)var map = [0,1,1,1,1,1,1,1,1,1];
-    if (num==1)var map = [0,1,1,0,0,1,0,0,1,0];
+    if (num==0)var map = [1,1,1,1,1,1,1,1];
+   // if (num==1)var map = [0,1,0,0,1,1,1,1];
+    //if (num==2)var map = [0,1,1,1,1,1,1,1];
+    //if (num==3)var map = [0,1,0,1,1,0,1,0];
+    //if (num==4)var map = [0,1,1,1,1,1,1,1];
+    //if (num==5)var map = [0,1,1,1,1,1,1,1];
+    //if (num==6)var map = [0,1,1,1,1,1,1,1];
+    //if (num==7)var map = [0,1,1,1,1,1,1,1];
+    if (num==1)var map = [1,1,0,1,0,1,1,1];
     var index = 0;
     for(var i = 0 ;i<map.length;i++){
         if(map[i]==1){
@@ -83,9 +84,9 @@ createFloors: function(num){
             }
             else{
                 floor.setPosition(50+screenWidth+(100*i),10);
-            var m = new Monster1(floor);
-            m.scheduleUpdate();
-            this.addChild(m);
+                var m = new Monster1(floor);
+                m.scheduleUpdate();
+                this.addChild(m);
             }
             floor.scheduleUpdate();
             this.addChild(floor);
@@ -98,7 +99,7 @@ createFloors: function(num){
 gameStart:function(){
     if(this.isStart){
         this.player.startToPlay();
-        this.floorSpeed = 5;
+        this.floorSpeed = 7;
         this.floorSetsRun(this.floorSets,this.floorSpeed);
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
     }
@@ -115,7 +116,7 @@ stopFloor:function(floorSets){
 }
 },
 gameOver:function(){
-    this.player.isDead();
+    this.player.death();
     this.isGameOver = true;
     this.stopFloor(this.floorSets);
     this.stopFloor(this.floorSets2);
@@ -156,6 +157,8 @@ onKeyDown: function( e ) {
             this.player.canJump = false;
             this.player.grounded = false;
             this.stop=false;
+            this.player.isDie = false
+            this.player.hp = 5;
             this.floorSetsRun(this.floorSets,this.floorSpeed);
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
 
