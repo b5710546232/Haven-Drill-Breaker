@@ -7,6 +7,8 @@ ctor:function(){
 		this.grounded = false;
         this.isStart =  false;
         this.drillType='R';
+        this.hp = 5;
+        console.log('hp = '+this.hp);
     },
 update: function( dt ) {
         var pos = this.getPosition();
@@ -47,6 +49,7 @@ jump: function() {
 },
 getPlayerRect:function(){
    var spriteRect = this.getBoundingBoxToWorld();
+   var spritePos = this.getPosition();
    var dX = this.x - spritePos.x;
    var dY = this.y - spritePos.y;
    return cc.rect( spriteRect.x + dX,
@@ -54,6 +57,13 @@ getPlayerRect:function(){
     spriteRect.width,
     spriteRect.height );
 },
+getPlayerBodyRect:function(){
+    var spriteRect = this.getBoundingBoxToWorld();
+    var bodyHeight = 40;
+    var bodyWidth = 30;
+    return cc.rect(this.x , spriteRect.y,this.x,bodyHeight);
+},
+
 getPlayerRectFoot:function(){
     var spriteRect = this.getBoundingBoxToWorld();
     var footHeight = 10;

@@ -8,11 +8,12 @@ var Monster1 = cc.Sprite.extend({
     this.player = floor.layer.player;
     var top =cc.rectGetMaxY(floor.getBoundingBoxToWorld())+this.getRect().height/2;
 		this.setPosition(floor.getPosition().x,top);
-    console.log('m is create ');
+    this.monType = 'D';
 	},
 	 update: function( dt ) {
      this.setPositionX( this.getPositionX() - this.floor.speed);  
      this.destroy(this.player);
+     this.isAttacted();
     },
     getRect: function(){
     	var spriteRect = this.getBoundingBoxToWorld();
@@ -28,8 +29,29 @@ var Monster1 = cc.Sprite.extend({
     isHit: function( playerRect){
     	return cc.rectOverlapsRect(this.getRect(),playerRect);
    },
-   destroy:function(player){
-      if(this.isHit(player.getPlayerRectSideR()))
-        this.removeFromParent();
+   isAttacted:function(){
+      if(this.isHit(this.player.getPlayerRectSideR())){
+          if(this.player.drillType != this.monType){
+            this.player.hp-=1;
+            this.removeFromParent();
+            console.log('now hp  = :'+this.player.hp);
+          }
+          else{
+            this.removeFromParent();
+          }
+
       }
+      else if(this.isHit(this.player.getPlayerBodyRect())){
+            this.player.hp-=1;
+            this.removeFromParent();
+            console.log('hit body now hp  = :'+this.player.hp);
+      }
+   },
+   destroy:function(player){
+      if(this.isHit(player.getPlayerRectSideR())||this.outOfScreen())
+        this.removeFromParent();
+    },
+    outOfScreen:function(){
+      return this.getPosition().x<-this.getBoundingBox().width+this.speed;
+    }
 });
