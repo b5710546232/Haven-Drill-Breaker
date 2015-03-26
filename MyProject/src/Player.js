@@ -67,9 +67,9 @@ getPlayerRect:function(){
 },
 getPlayerBodyRect:function(){
     var spriteRect = this.getBoundingBoxToWorld();
-    var bodyHeight = 40;
-    var bodyWidth = 40;
-    return cc.rect(this.x-bodyWidth/2, spriteRect.y,bodyWidth,bodyHeight);
+    var bodyHeight = 30;
+    var bodyWidth = 5;
+    return cc.rect(spriteRect.x, spriteRect.y,bodyWidth,bodyHeight);
 },
 
 getPlayerRectFoot:function(){
@@ -82,7 +82,7 @@ getPlayerRectSideR:function(){
     var spriteRect = this.getBoundingBoxToWorld();
     var spritePos = this.getPosition();
     var Height = 32;
-    var Width = 10;
+    var Width = 30;
     var RectPosX= this.x+(this.x-spriteRect.x)-Width;
     var dY = spritePos.y-(spriteRect.y+Height/2);
     return cc.rect(RectPosX,spriteRect.y + dY,Width,Height)
@@ -93,7 +93,7 @@ isOnGround: function(){
 
 },
 isOnAir: function(){
-   this.vy+=Player.G;
+   this.vy+=Player.G_OFDEAD;
    this.grounded = false;
    this.canJump = false;
 },
@@ -114,4 +114,5 @@ death: function(){
 });
 Player.JUMP = 15;
 Player.G = -1;
+Player.G_OFDEAD = -0.8;
 Player.STARTING_VELOCITY=1;
