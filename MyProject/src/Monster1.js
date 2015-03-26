@@ -1,13 +1,18 @@
 var Monster1 = cc.Sprite.extend({
 	ctor:function(floor){
 		this._super();
-		this.initWithFile('res/images/objectTest1.png');
+		this.initWithFile('res/images/boxTest.png');
 		this.speed = floor.speed;
-		this.ref = floor;
-		this.setPosition(floor.getPosition().x,floor.getPosition().y+96+34);
+		this.floor = floor;
+    this.layer = floor.layer;
+    this.player = floor.layer.player;
+    var top =cc.rectGetMaxY(floor.getBoundingBoxToWorld())+this.getRect().height/2;
+		this.setPosition(floor.getPosition().x,top);
+    console.log('m is create ');
 	},
 	 update: function( dt ) {
-     this.setPositionX( this.getPositionX() - this.ref.speed);   
+     this.setPositionX( this.getPositionX() - this.floor.speed);  
+     this.destroy(this.player);
     },
     getRect: function(){
     	var spriteRect = this.getBoundingBoxToWorld();
@@ -21,9 +26,10 @@ var Monster1 = cc.Sprite.extend({
                         spriteRect.height );
     },
     isHit: function( playerRect){
-    	if(cc.rectOverlapsRect(this.getRect(),playerRect)){
-          return true;
-       }    
-       return false;
+    	return cc.rectOverlapsRect(this.getRect(),playerRect);
    },
+   destroy:function(player){
+      if(this.isHit(player.getPlayerRectSideR()))
+        this.removeFromParent();
+      }
 });

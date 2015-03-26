@@ -30,7 +30,7 @@ var GameLayer = cc.LayerColor.extend({
         this.playerRightSideHitGround(this.floorSets2);
     },
     floorManage:function(){
-        var ran = 1+Math.floor(Math.random()*6);
+        var ran = 1+Math.floor(Math.random()*7);
         //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
@@ -65,11 +65,13 @@ createFloors: function(num){
     var floorSet = [];
     if (num==0)var map = [1,1,1,1,1,1,1,1,1,1];
     if (num==1)var map = [0,1,0,0,1,1,1,1,1,0];
+    if (num==1)var map = [1,1,1,1,1,1,1,1,1,1];
     if (num==2)var map = [0,1,0,1,1,0,1,0,1,0];
     if (num==3)var map = [0,1,1,1,1,1,1,1,1,0];
     if (num==4)var map = [0,1,1,1,1,1,1,1,1,0];
-    if (num==5)var map = [1,1,1,1,1,1,1,1,1,1];
-    if (num==6)var map = [1,1,1,1,1,1,1,1,1,1];
+    if (num==5)var map = [0,1,1,1,1,1,1,1,1,1];
+    if (num==6)var map = [0,1,1,1,1,1,1,1,1,1];
+    if (num==7)var map = [0,1,1,0,0,1,0,0,1,0];
     var index = 0;
     for(var i = 0 ;i<map.length;i++){
         if(map[i]==1){
@@ -80,6 +82,9 @@ createFloors: function(num){
             else{
                 floor.setPosition(50+screenWidth+(100*i),10);
             }
+            var m = new Monster1(floor);
+            m.scheduleUpdate();
+            this.addChild(m);
             floor.scheduleUpdate();
             this.addChild(floor);
             floorSet.push(floor);
@@ -91,7 +96,7 @@ createFloors: function(num){
 gameStart:function(){
     if(this.isStart){
         this.player.startToPlay();
-        this.floorSpeed = 7;
+        this.floorSpeed = 10;
         this.floorSetsRun(this.floorSets,this.floorSpeed);
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
     }
@@ -131,11 +136,12 @@ playerRightSideHitGround:function(floorSets){
 }
 },
 onKeyDown: function( e ) {
+    this.player.switchDrillType(e);
     if ( e == cc.KEY.space ) {
         this.player.jump();
         this.isStart = true;
     }
-    if(e==83){
+    if(e==69){
         this.isStart = true;
     }
         if(e==81){ // q
@@ -151,16 +157,11 @@ onKeyDown: function( e ) {
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
 
         }
-        if ( e == 39) { //right
+        if ( e == 68) { //right
             this.player.setPosition(new cc.Point(this.player.getPosition().x+10
                 ,this.player.getPosition().y));
         }
-        if ( e == 68) { // d
-            this.player.setPosition(new cc.Point(500,500));
-            this.player.vy = 0;
-            Player.G = 0;
-        }
-        if ( e == 37) {//right
+        if ( e == 65) {//right
             this.player.setPosition(new cc.Point(this.player.getPosition().x-10
                 ,this.player.getPosition().y));
         }
@@ -171,11 +172,11 @@ onKeyDown: function( e ) {
             Player.G = 0;
             this.player.vy=0;
         }
-        if( e==38){//up
+        if( e==87){//up
            this.player.setPosition(new cc.Point(this.player.getPosition().x
             ,this.player.getPosition().y+10));
        }
-        if(e==40){ //down
+        if(e==83){ //down
            this.player.setPosition(new cc.Point(this.player.getPosition().x
             ,this.player.getPosition().y-10));
 
