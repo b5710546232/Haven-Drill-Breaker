@@ -8,24 +8,42 @@ var GameLayer = cc.LayerColor.extend({
         this.initFloorSets();
         this.scheduleUpdate();
         this.checkFloor1 = false;
-        this.floorSpeed = 0;
         this.isGameOver = false;
+        this.initTimer();
         return true;
     },
-    initFloorSets:function(){
-        this.floorSets = [];
-        this.floorSets = this.createFloors(0);
-        this.floorSets2 = [];
-        this.floorSets2 = this.createFloors(1);
-
-    },
-    update: function() {
+    update: function(dt) {
+        this.counterTime(dt);
         this.floorManage();
         this.gameStart();
         this.onKeyDown();
+        this.playerHitSideFloorSet();
         this.playerOutScreen();
+    },
+    initTimer:function(){
+        this.totalDeltaTime=0;
+        this.counterSec = 0;
+    },
+    counterTime:function(dt){
+         this.totalDeltaTime+= dt;
+        if(this.totalDeltaTime>1){
+            this.counterSec++;
+            console.log(this.counterSec);
+            this.totalDeltaTime=0;
+        }
+
+    },
+    playerHitSideFloorSet:function(){
         this.playerRightSideHitGround(this.floorSets);
         this.playerRightSideHitGround(this.floorSets2);
+    },
+    initFloorSets:function(){
+        this.floorSpeed = 0;
+        this.floorSets2 = [];
+        this.floorSets  = this.createFloors(0);
+        this.floorSets2 = [];
+        this.floorSets2 = this.createFloors(1);
+
     },
     floorManage:function(){
         var ran = 1+Math.floor(Math.random()*1);
@@ -91,7 +109,7 @@ createFloors: function(num){
                 if(chanceCreateMon!=1){
                 var ranMonType = Math.floor(Math.random()*4)
                 var monType = ['R','L','D','U']
-                var m = new Monster1(floor,monType[ranMonType]);
+                var m = new Monster(floor,monType[ranMonType]);
                 m.scheduleUpdate();
                 this.addChild(m);
                 }
@@ -201,7 +219,7 @@ onKeyDown: function( e ) {
 
    },
     onKeyUp: function( e ) {
-  //  console.log( 'Up: ' + e );
+   console.log( 'Up: ' + e );
 },
     addKeyboardHandlers: function() {
     var self = this;

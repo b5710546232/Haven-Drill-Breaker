@@ -6,7 +6,7 @@ ctor:function(){
 		this.canJump = false;
 		this.grounded = false;
         this.isStart =  false;
-        this.drillType='X';
+        this.drillType='D';
         this.hp = 1000;
         console.log('hp = '+this.hp);
         this.isDie = false;

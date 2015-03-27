@@ -1,4 +1,4 @@
-var Monster1 = cc.Sprite.extend({
+var Monster = cc.Sprite.extend({
 	ctor:function(floor,monType){
 		this._super();
 		//this.initWithFile('res/images/boxTest.png');
@@ -39,7 +39,7 @@ var Monster1 = cc.Sprite.extend({
  },
  isAttacted:function(){
   if(this.isHit(this.player.getPlayerRect())){
-    if(this.player.drillType != this.monType){
+    if(this.player.drillType != this.monType||this.player.drillType!='X'){
       this.player.hp-=1;
       this.removeFromParent();
       console.log('wrong type this type is '+this.monType);

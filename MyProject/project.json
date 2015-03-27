@@ -15,6 +15,6 @@
         "src/GameLayer.js",
         "src/Floor.js",
         "src/Player.js",
-        "src/Monster1.js"
+        "src/Monster.js"
     ]
 }
