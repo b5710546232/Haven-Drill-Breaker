@@ -38,21 +38,17 @@ var Monster1 = cc.Sprite.extend({
     	return cc.rectOverlapsRect(this.getRect(),playerRect);
    },
    isAttacted:function(){
-      if(this.isHit(this.player.getPlayerRectSideR())){
+      if(this.isHit(this.player.getPlayerRect())){
           if(this.player.drillType != this.monType){
             this.player.hp-=1;
             this.removeFromParent();
+            console.log('wrong type this type is '+this.monType);
             console.log('now hp  = :'+this.player.hp);
           }
           else{
             this.removeFromParent();
           }
 
-      }
-      else if(this.isHit(this.player.getPlayerBodyRect())){
-            this.player.hp-=1;
-            this.removeFromParent();
-            console.log('hit body now hp  = :'+this.player.hp);
       }
    },
    destroy:function(player){

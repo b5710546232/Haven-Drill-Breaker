@@ -30,7 +30,7 @@ var GameLayer = cc.LayerColor.extend({
         this.playerRightSideHitGround(this.floorSets2);
     },
     floorManage:function(){
-        var ran = 1+Math.floor(Math.random()*8);
+        var ran = 1+Math.floor(Math.random()*1);
         //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
@@ -40,7 +40,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloor1==false){
             this.checkFloor1=true;
             this.floorSets = null;
-            console.log('ran  floor1 ' +ran);
+           // console.log('ran  floor1 ' +ran);
             this.floorSets = this.createFloors(ran);
 
         }
@@ -53,7 +53,7 @@ var GameLayer = cc.LayerColor.extend({
         //create
         if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
             this.floorSets2=null;
-            console.log('ran  floor2 ' +ran);
+          //  console.log('ran  floor2 ' +ran);
             this.floorSets2 = this.createFloors(ran)
         }
     }
@@ -68,13 +68,13 @@ createFloors: function(num){
     var floorSet = [];
     if (num==0)var map = [1,1,1,1,1,1,1,1];
     if (num==1)var map = [0,1,0,0,1,1,1,1];
-    if (num==2)var map = [0,1,1,1,1,1,1,1];
-    if (num==3)var map = [0,1,0,1,1,0,1,0];
-    if (num==4)var map = [0,1,1,1,1,1,1,1];
-    if (num==5)var map = [0,1,1,1,1,1,1,1];
-    if (num==6)var map = [0,1,1,1,1,1,1,1];
-    if (num==7)var map = [0,1,1,1,1,1,1,1];
-    if (num==8)var map = [0,1,0,1,0,1,1,1];
+    // if (num==2)var map = [0,1,1,1,1,1,1,1];
+    // if (num==3)var map = [0,1,0,1,1,0,1,0];
+    // if (num==4)var map = [0,1,1,1,1,1,1,1];
+    // if (num==5)var map = [0,1,1,1,1,1,1,1];
+    // if (num==6)var map = [0,1,1,1,1,1,1,1];
+    // if (num==7)var map = [0,1,1,1,1,1,1,1];
+    // if (num==8)var map = [0,1,0,1,0,1,1,1];
     var index = 0;
     for(var i = 0 ;i<map.length;i++){
         if(map[i]==1){
@@ -101,7 +101,7 @@ createFloors: function(num){
 gameStart:function(){
     if(this.isStart){
         this.player.startToPlay();
-        this.floorSpeed = 7;
+        this.floorSpeed = 5;
         this.floorSetsRun(this.floorSets,this.floorSpeed);
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
     }
@@ -142,7 +142,7 @@ playerRightSideHitGround:function(floorSets){
 },
 onKeyDown: function( e ) {
     this.player.switchDrillType(e);
-    if ( e == cc.KEY.space ) {
+    if ( e == cc.KEY.space&&!this.player.isDie) {
         this.player.jump();
         this.isStart = true;
     }
@@ -153,6 +153,7 @@ onKeyDown: function( e ) {
         window.location.reload();
         }
         if (e==82){ //r refesh
+            console.log('re');
             this.player.setPosition(200,300);
             this.player.vy = Player.STARTING_VELOCITY;
             Player.G = -1;
@@ -194,7 +195,7 @@ onKeyDown: function( e ) {
 
    },
    onKeyUp: function( e ) {
-    console.log( 'Up: ' + e );
+  //  console.log( 'Up: ' + e );
 },
 addKeyboardHandlers: function() {
     var self = this;

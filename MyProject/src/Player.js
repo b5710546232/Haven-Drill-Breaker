@@ -6,8 +6,8 @@ ctor:function(){
 		this.canJump = false;
 		this.grounded = false;
         this.isStart =  false;
-        this.drillType='R';
-        this.hp = 5;
+        this.drillType='X';
+        this.hp = 1000;
         console.log('hp = '+this.hp);
         this.isDie = false;
     },
@@ -75,8 +75,8 @@ getPlayerBodyRect:function(){
 getPlayerRectFoot:function(){
     var spriteRect = this.getBoundingBoxToWorld();
     var footHeight = 10;
-    var footWidth = 10;
-    return cc.rect(this.x, spriteRect.y,footWidth,footHeight);
+    var footWidth = 36;
+    return cc.rect(spriteRect.x+footWidth/2, spriteRect.y,footWidth,footHeight);
 },
 getPlayerRectSideR:function(){
     var spriteRect = this.getBoundingBoxToWorld();
@@ -84,8 +84,7 @@ getPlayerRectSideR:function(){
     var Height = 32;
     var Width = 10;
     var RectPosX= this.x+(this.x-spriteRect.x)-Width;
-    var dY = spritePos.y-(spriteRect.y+Height/2);
-    return cc.rect(RectPosX,spriteRect.y + dY,Width,Height)
+    return cc.rect(RectPosX,this.y,Width,Height)
 },
 isOnGround: function(){
    this.vy=0;
