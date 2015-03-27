@@ -7,7 +7,7 @@ ctor:function(){
 		this.grounded = false;
         this.isStart =  false;
         this.drillType='D';
-        this.hp = 1000;
+        this.hp = 5;
         console.log('hp = '+this.hp);
         this.isDie = false;
     },

@@ -19,17 +19,43 @@ var GameLayer = cc.LayerColor.extend({
         this.onKeyDown();
         this.playerHitSideFloorSet();
         this.playerOutScreen();
+        //this.createRainbowDrill();
     },
     initTimer:function(){
         this.totalDeltaTime=0;
         this.counterSec = 0;
+        this.delayRainbowDrill = 0;
+        this.xModeTime = 0;
     },
     counterTime:function(dt){
+        if(this.isStart)
          this.totalDeltaTime+= dt;
         if(this.totalDeltaTime>1){
             this.counterSec++;
-            console.log(this.counterSec);
+            // console.log(this.counterSec);
+            this.delayRainbowDrill++;
             this.totalDeltaTime=0;
+            this.playerInXMode();
+        }
+
+    },
+    playerInXMode:function(){
+        if(this.xModeTime>0){
+            this.xModeTime--;
+        }
+        if(this.xModeTime<=0&&this.player.drillType=='X'){
+            console.log('out x mode');
+            this.xModeTime = 0;
+            this.player.drillType = 'D';
+        }
+
+    },
+    createRainbowDrill:function(){ // item to change to X mode 
+        if(this.isStart&&this.delayRainbowDrill==10){
+            var rainbowDrill = new Item(this);
+            rainbowDrill.scheduleUpdate();
+            this.addChild(rainbowDrill);
+            this.delayRainbowDrill = 0;
         }
 
     },
@@ -46,7 +72,7 @@ var GameLayer = cc.LayerColor.extend({
 
     },
     floorManage:function(){
-        var ran = 1+Math.floor(Math.random()*1);
+        var ran = 1+Math.floor(Math.random()*this.numOfMap);
         //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
@@ -82,13 +108,14 @@ var GameLayer = cc.LayerColor.extend({
     createRandomFloorsPatterns: function(num){
         if (num==0)var map = [1,1,1,1,1,1,1,1];
         if (num==1)var map = [0,1,0,0,1,1,1,1];
-        // if (num==2)var map = [0,1,1,1,1,1,1,1];
-        // if (num==3)var map = [0,1,0,1,1,0,1,0];
-        // if (num==4)var map = [0,1,1,1,1,1,1,1];
-        // if (num==5)var map = [0,1,1,1,1,1,1,1];
-        // if (num==6)var map = [0,1,1,1,1,1,1,1];
-        // if (num==7)var map = [0,1,1,1,1,1,1,1];
-        // if (num==8)var map = [0,1,0,1,0,1,1,1];
+        if (num==2)var map = [0,1,1,1,1,1,1,1];
+        if (num==3)var map = [0,1,0,1,1,0,1,0];
+        if (num==4)var map = [0,1,1,1,1,1,1,1];
+        if (num==5)var map = [0,1,1,1,1,1,1,1];
+        if (num==6)var map = [0,1,1,1,1,1,1,1];
+        if (num==7)var map = [0,1,1,1,1,1,1,1];
+        if (num==8)var map = [0,1,0,1,0,1,1,1];
+        this.numOfMap = 8;
         return map;
 
     },
@@ -219,7 +246,7 @@ onKeyDown: function( e ) {
 
    },
     onKeyUp: function( e ) {
-   console.log( 'Up: ' + e );
+  // console.log( 'Up: ' + e );
 },
     addKeyboardHandlers: function() {
     var self = this;
