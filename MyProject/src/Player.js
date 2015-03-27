@@ -28,15 +28,19 @@ checkStatus:function(){
 switchDrillType:function(keycode){
     if(keycode==37){//left
         this.drillType = "L";
+        this.initWithFile('res/images/boxTest3.png');
     }
     if(keycode==39){//right
         this.drillType = "R";
+        this.initWithFile('res/images/boxTest.png');
     }
     if(keycode==38){//up
         this.drillType = "U";
+        this.initWithFile('res/images/boxTest4.png');
     }
     if(keycode==40){//down
         this.drillType = "D";
+        this.initWithFile('res/images/boxTest2.png');
     }
 },
 startToPlay: function() {
