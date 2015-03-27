@@ -20,9 +20,7 @@ var GameLayer = cc.LayerColor.extend({
 
     },
     update: function() {
-    this.floorManage();
-        //this.loopFloor();
-        //this.loopFloorSet(this.floorSets);
+        this.floorManage();
         this.gameStart();
         this.onKeyDown();
         this.playerOutScreen();
@@ -34,48 +32,52 @@ var GameLayer = cc.LayerColor.extend({
         //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
-         this.floorSetsRun(this.floorSets2,this.floorSpeed);
-     }
+            this.floorSetsRun(this.floorSets2,this.floorSpeed);
+        }
         //create
         if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloor1==false){
             this.checkFloor1=true;
             this.floorSets = null;
-           // console.log('ran  floor1 ' +ran);
             this.floorSets = this.createFloors(ran);
 
-        }
+       }
         // run
         if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
             if(this.checkFloor1){
                 this.checkFloor1=false;
                 this.floorSetsRun(this.floorSets,this.floorSpeed);
             }
-        //create
-        if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
-            this.floorSets2=null;
-          //  console.log('ran  floor2 ' +ran);
-            this.floorSets2 = this.createFloors(ran)
+            //create
+            if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
+                this.floorSets2=null;
+              //  console.log('ran  floor2 ' +ran);
+              this.floorSets2 = this.createFloors(ran)
+            }
         }
-    }
-},
-createPlayer:function(){
-    this.player = new Player();
-    this.player.setPosition(new cc.Point(200,300))
-    this.addChild(this.player,2)
-    this.player.scheduleUpdate();
-},
+    },
+    createPlayer:function(){
+        this.player = new Player();
+        this.player.setPosition(new cc.Point(200,300))
+        this.addChild(this.player,2)
+        this.player.scheduleUpdate();
+    },
+    createRandomFloorsPatterns: function(num){
+        if (num==0)var map = [1,1,1,1,1,1,1,1];
+        if (num==1)var map = [0,1,0,0,1,1,1,1];
+        // if (num==2)var map = [0,1,1,1,1,1,1,1];
+        // if (num==3)var map = [0,1,0,1,1,0,1,0];
+        // if (num==4)var map = [0,1,1,1,1,1,1,1];
+        // if (num==5)var map = [0,1,1,1,1,1,1,1];
+        // if (num==6)var map = [0,1,1,1,1,1,1,1];
+        // if (num==7)var map = [0,1,1,1,1,1,1,1];
+        // if (num==8)var map = [0,1,0,1,0,1,1,1];
+        return map;
+
+    },
 createFloors: function(num){
     var floorSet = [];
-    if (num==0)var map = [1,1,1,1,1,1,1,1];
-    if (num==1)var map = [0,1,0,0,1,1,1,1];
-    // if (num==2)var map = [0,1,1,1,1,1,1,1];
-    // if (num==3)var map = [0,1,0,1,1,0,1,0];
-    // if (num==4)var map = [0,1,1,1,1,1,1,1];
-    // if (num==5)var map = [0,1,1,1,1,1,1,1];
-    // if (num==6)var map = [0,1,1,1,1,1,1,1];
-    // if (num==7)var map = [0,1,1,1,1,1,1,1];
-    // if (num==8)var map = [0,1,0,1,0,1,1,1];
     var index = 0;
+    var map = this.createRandomFloorsPatterns(num);
     for(var i = 0 ;i<map.length;i++){
         if(map[i]==1){
             var floor = new Floor(this);
@@ -83,12 +85,16 @@ createFloors: function(num){
                 floor.setPosition(50+100*i,10) ;    
             }
             else{
-                floor.setPosition(50+screenWidth+(100*i),10);
+                var floorWidth = 100;
+                floor.setPosition(floorWidth/2+screenWidth+(100*i),10);
+                var  chanceCreateMon = 1+Math.floor(Math.random()*4)
+                if(chanceCreateMon!=1){
                 var ranMonType = Math.floor(Math.random()*4)
                 var monType = ['R','L','D','U']
                 var m = new Monster1(floor,monType[ranMonType]);
                 m.scheduleUpdate();
                 this.addChild(m);
+                }
             }
             floor.scheduleUpdate();
             this.addChild(floor);
@@ -150,7 +156,7 @@ onKeyDown: function( e ) {
         this.isStart = true;
     }
         if(e==81){ // q
-        window.location.reload();
+            window.location.reload();
         }
         if (e==82){ //r refesh
             console.log('re');
@@ -191,13 +197,13 @@ onKeyDown: function( e ) {
 
        }
    },
-   onKeyPressed: function(e){
+    onKeyPressed: function(e){
 
    },
-   onKeyUp: function( e ) {
+    onKeyUp: function( e ) {
   //  console.log( 'Up: ' + e );
 },
-addKeyboardHandlers: function() {
+    addKeyboardHandlers: function() {
     var self = this;
     cc.eventManager.addListener({
         event: cc.EventListener.KEYBOARD,
