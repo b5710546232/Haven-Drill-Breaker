@@ -30,7 +30,7 @@ var GameLayer = cc.LayerColor.extend({
         this.playerRightSideHitGround(this.floorSets2);
     },
     floorManage:function(){
-        var ran = 1+Math.floor(Math.random()*1);
+        var ran = 1+Math.floor(Math.random()*8);
         //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
@@ -67,14 +67,14 @@ createPlayer:function(){
 createFloors: function(num){
     var floorSet = [];
     if (num==0)var map = [1,1,1,1,1,1,1,1];
-   // if (num==1)var map = [0,1,0,0,1,1,1,1];
-    //if (num==2)var map = [0,1,1,1,1,1,1,1];
-    //if (num==3)var map = [0,1,0,1,1,0,1,0];
-    //if (num==4)var map = [0,1,1,1,1,1,1,1];
-    //if (num==5)var map = [0,1,1,1,1,1,1,1];
-    //if (num==6)var map = [0,1,1,1,1,1,1,1];
-    //if (num==7)var map = [0,1,1,1,1,1,1,1];
-    if (num==1)var map = [1,1,0,1,0,1,1,1];
+    if (num==1)var map = [0,1,0,0,1,1,1,1];
+    if (num==2)var map = [0,1,1,1,1,1,1,1];
+    if (num==3)var map = [0,1,0,1,1,0,1,0];
+    if (num==4)var map = [0,1,1,1,1,1,1,1];
+    if (num==5)var map = [0,1,1,1,1,1,1,1];
+    if (num==6)var map = [0,1,1,1,1,1,1,1];
+    if (num==7)var map = [0,1,1,1,1,1,1,1];
+    if (num==8)var map = [0,1,0,1,0,1,1,1];
     var index = 0;
     for(var i = 0 ;i<map.length;i++){
         if(map[i]==1){
@@ -84,7 +84,9 @@ createFloors: function(num){
             }
             else{
                 floor.setPosition(50+screenWidth+(100*i),10);
-                var m = new Monster1(floor);
+                var ranMonType = Math.floor(Math.random()*4)
+                var monType = ['R','L','D','U']
+                var m = new Monster1(floor,monType[ranMonType]);
                 m.scheduleUpdate();
                 this.addChild(m);
             }

@@ -68,7 +68,7 @@ getPlayerRect:function(){
 getPlayerBodyRect:function(){
     var spriteRect = this.getBoundingBoxToWorld();
     var bodyHeight = 30;
-    var bodyWidth = 5;
+    var bodyWidth = 3;
     return cc.rect(spriteRect.x, spriteRect.y,bodyWidth,bodyHeight);
 },
 
@@ -82,7 +82,7 @@ getPlayerRectSideR:function(){
     var spriteRect = this.getBoundingBoxToWorld();
     var spritePos = this.getPosition();
     var Height = 32;
-    var Width = 30;
+    var Width = 10;
     var RectPosX= this.x+(this.x-spriteRect.x)-Width;
     var dY = spritePos.y-(spriteRect.y+Height/2);
     return cc.rect(RectPosX,spriteRect.y + dY,Width,Height)
