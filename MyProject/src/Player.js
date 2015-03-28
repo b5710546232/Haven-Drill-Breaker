@@ -5,11 +5,11 @@ ctor:function(){
 		this.vy = 0;
 		this.canJump = false;
 		this.grounded = false;
-        this.isStart =  false;
-        this.drillType='D';
-        this.hp = 5;
-        console.log('hp = '+this.hp);
-        this.isDie = false;
+    this.isStart =  false;
+    this.drillType='D';
+    this.hp = 5;
+    console.log('hp = '+this.hp);
+    this.isDie = false;
     },
 update: function( dt ) {
         var pos = this.getPosition();
@@ -28,19 +28,19 @@ checkStatus:function(){
 switchDrillType:function(keycode){
     if(keycode==37){//left
         this.drillType = "L";
-        this.initWithFile('res/images/boxTest3.png');
+        //this.initWithFile('res/images/boxTest3.png');
     }
     if(keycode==39){//right
         this.drillType = "R";
-        this.initWithFile('res/images/boxTest.png');
+        //this.initWithFile('res/images/boxTest.png');
     }
     if(keycode==38){//up
         this.drillType = "U";
-        this.initWithFile('res/images/boxTest4.png');
+        //this.initWithFile('res/images/boxTest4.png');
     }
     if(keycode==40){//down
         this.drillType = "D";
-        this.initWithFile('res/images/boxTest2.png');
+        //this.initWithFile('res/images/boxTest2.png');
     }
 },
 startToPlay: function() {
@@ -96,7 +96,7 @@ isOnGround: function(){
 
 },
 isOnAir: function(){
-   this.vy+=Player.G_OFDEAD;
+   this.vy+=Player.G;
    this.grounded = false;
    this.canJump = false;
 },

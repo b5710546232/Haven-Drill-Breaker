@@ -10,6 +10,9 @@ var GameLayer = cc.LayerColor.extend({
         this.checkFloor1 = false;
         this.isGameOver = false;
         this.initTimer();
+        this.drill = new Drill(this.player);
+        this.drill.scheduleUpdate();
+        this.addChild(this.drill);
         return true;
     },
     update: function(dt) {
@@ -109,7 +112,7 @@ var GameLayer = cc.LayerColor.extend({
         if (num==0)var map = [1,1,1,1,1,1,1,1];
         if (num==1)var map = [0,1,0,0,1,1,1,1];
         if (num==2)var map = [0,1,1,1,1,1,1,1];
-        if (num==3)var map = [0,1,0,1,1,0,1,0];
+        if (num==3)var map = [0,1,0,1,1,0,1,1];
         if (num==4)var map = [0,1,1,1,1,1,1,1];
         if (num==5)var map = [0,1,1,1,1,1,1,1];
         if (num==6)var map = [0,1,1,1,1,1,1,1];
@@ -152,7 +155,7 @@ createFloors: function(num){
 gameStart:function(){
     if(this.isStart){
         this.player.startToPlay();
-        this.floorSpeed = 5;
+        this.floorSpeed = 4;
         this.floorSetsRun(this.floorSets,this.floorSpeed);
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
     }

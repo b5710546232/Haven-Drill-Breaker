@@ -16,6 +16,7 @@
         "src/Floor.js",
         "src/Player.js",
         "src/Monster.js",
-        "src/Item.js"
+        "src/Item.js",
+        "src/Drill.js"
     ]
 }
