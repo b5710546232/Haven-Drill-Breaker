@@ -1,13 +1,13 @@
 var Player = cc.Sprite.extend({
 ctor:function(){
 		this._super();
-		this.initWithFile('res/images/Player.png');
+		this.initWithFile('res/images/PlayerTest2.png');
 		this.vy = 0;
 		this.canJump = false;
 		this.grounded = false;
     this.isStart =  false;
     this.drillType='D';
-    this.hp = 5;
+    this.hp = 1;
     console.log('hp = '+this.hp);
     this.isDie = false;
     },
@@ -108,6 +108,7 @@ isFall:function(){
 
 },
 death: function(){
+  this.jump();
     this.isDie = true;
     this.grounded = false;
     this.canJump = false;
