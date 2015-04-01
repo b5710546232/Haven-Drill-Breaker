@@ -12,7 +12,8 @@ var GameLayer = cc.LayerColor.extend({
         this.initTimer();
         this.drill = new Drill(this.player);
         this.drill.scheduleUpdate();
-        this.addChild(this.drill);
+        this.addChild(this.drill,3);
+        this.createBG();
         return true;
     },
     update: function(dt) {
@@ -23,6 +24,15 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOutScreen();
         //this.createRainbowDrill();
     },
+    createBG:function(){
+        this.bg1 = new BackGround(this);
+        this.bg2 = new BackGround(this);
+        this.bg1.setPosition(screenWidth/2,screenHeight/2);
+       this.bg2.setPosition(screenWidth*1.5,screenHeight/2);
+        this.addChild(this.bg1,0);
+        this.addChild(this.bg2,0);
+    },
+
     initTimer:function(){
         this.totalDeltaTime=0;
         this.counterSec = 0;
@@ -56,7 +66,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.isStart&&this.delayRainbowDrill==10){
             var rainbowDrill = new Item(this);
             rainbowDrill.scheduleUpdate();
-            this.addChild(rainbowDrill);
+            this.addChild(rainbowDrill,2);
             this.delayRainbowDrill = 0;
         }
 
@@ -139,11 +149,11 @@ createFloors: function(num){
                 var monType = ['R','L','D','U']
                 var m = new Monster(floor,monType[ranMonType]);
                 m.scheduleUpdate();
-                this.addChild(m);
+                this.addChild(m,1);
                 }
             }
             floor.scheduleUpdate();
-            this.addChild(floor);
+            this.addChild(floor,1);
             floorSet.push(floor);
         }
     }
