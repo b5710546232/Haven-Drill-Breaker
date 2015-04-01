@@ -8,14 +8,14 @@ ctor:function(){
     this.isStart =  false;
     this.drillType='N';
     this.hp = 5;
-    console.log('hp = '+this.hp);
+    //console.log('hp = '+this.hp);
     this.isDie = false;
     },
 update: function( dt ) {
         var pos = this.getPosition();
         this.setPosition(new cc.Point( pos.x, pos.y+this.vy));
         if(this.isStart){
-            this.vy += Player.G;
+        this.vy += Player.G;
         }
         this.checkStatus();
     },
@@ -28,21 +28,17 @@ checkStatus:function(){
 switchDrillType:function(){
     if(GameLayer.KEYS[cc.KEY.left]){//left
         this.drillType = "L";
-        //this.initWithFile('res/images/boxTest3.png');
     }
     else if(GameLayer.KEYS[cc.KEY.right]){//right
         this.drillType = "R";
-        //this.initWithFile('res/images/boxTest.png');
     }
     else if(GameLayer.KEYS[cc.KEY.up]){//up
         this.drillType = "U";
-        //this.initWithFile('res/images/boxTest4.png');
     }
     else if(GameLayer.KEYS[cc.KEY.down]){//down
         this.drillType = "D";
-        //this.initWithFile('res/images/boxTest2.png');
     }
-    else this.drillType = 'N';
+    else if( this.drillType != 'X')this.drillType = 'N';
 },
 startToPlay: function() {
     this.vy += Player.G;

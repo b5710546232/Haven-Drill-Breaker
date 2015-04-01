@@ -7,7 +7,7 @@ var GameLayer = cc.LayerColor.extend({
         this.isStart = false;
         this.initFloorSets();
         this.scheduleUpdate();
-        this.checkFloor1 = false;
+        this.checkFloorCreate = false;
         this.isGameOver = false;
         this.initTimer();
         this.drill = new Drill(this.player);
@@ -37,21 +37,21 @@ var GameLayer = cc.LayerColor.extend({
             // console.log(this.counterSec);
             this.delayRainbowDrill++;
             this.totalDeltaTime=0;
-            this.playerInXMode();
+            //this.playerInXMode();
         }
 
     },
-    playerInXMode:function(){
-        if(this.xModeTime>0){
-            this.xModeTime--;
-        }
-        if(this.xModeTime<=0&&this.player.drillType=='X'){
-            console.log('out x mode');
-            this.xModeTime = 0;
-            this.player.drillType = 'D';
-        }
+    // playerInXMode:function(){
+    //     if(this.xModeTime>0){
+    //         this.xModeTime--;
+    //     }
+    //     if(this.xModeTime<=0&&this.player.drillType=='X'){
+    //         console.log('out x mode');
+    //         this.xModeTime = 0;
+    //         this.player.drillType = 'D';
+    //     }
 
-    },
+    // },
     createRainbowDrill:function(){ // item to change to X mode 
         if(this.isStart&&this.delayRainbowDrill==10){
             var rainbowDrill = new Item(this);
@@ -81,23 +81,22 @@ var GameLayer = cc.LayerColor.extend({
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
         }
         //create
-        if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloor1==false){
-            this.checkFloor1=true;
+        if(this.floorSets[this.floorSets.length-1].outOfScreen()&&this.checkFloorCreate==false){
+            this.checkFloorCreate=true;
             this.floorSets = null;
             this.floorSets = this.createFloors(ran);
 
        }
         // run
         if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
-            if(this.checkFloor1){
-                this.checkFloor1=false;
+            if(this.checkFloorCreate){
+                this.checkFloorCreate=false;
                 this.floorSetsRun(this.floorSets,this.floorSpeed);
             }
             //create
             if(this.floorSets2[this.floorSets2.length-1].outOfScreen()){
                 this.floorSets2=null;
-              //  console.log('ran  floor2 ' +ran);
-              this.floorSets2 = this.createFloors(ran)
+                this.floorSets2 = this.createFloors(ran)
             }
         }
     },
@@ -193,10 +192,6 @@ playerRightSideHitGround:function(floorSets){
 }
 },
  onKeyDownForCheck: function( e ) {
-    // if ( e == cc.KEY.space&&!this.player.isDie) {
-    // this.player.jump();
-    // this.isStart = true;
-    // }
     if(e==69){
         this.isStart = true;
     }
@@ -257,7 +252,7 @@ playerRightSideHitGround:function(floorSets){
         e==cc.KEY.left){
         this.player.switchDrillType();
 }
-            console.log(e);
+           // console.log(e);
    },
 onKeyUp: function( e ) {
     if(e!=cc.KEY.up||

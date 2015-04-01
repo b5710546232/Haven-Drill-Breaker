@@ -5,14 +5,13 @@ var Floor = cc.Sprite.extend({
 		this.speed = 0;
         this.player = layer.player;
         this.layer = layer;
-        Floor.nextPos+=100;
     },
     update: function( dt ) {
-     this.sideHitPlayer(this.layer);
-     this.setPositionX( this.getPositionX() - this.speed);   
-     this.playerIsOnTop(this.player);
-     this.destroy();
-     this.gameOver(this.layer,this.player);
+        this.sideHitPlayer(this.layer);
+        this.setPositionX( this.getPositionX() - this.speed);   
+        this.playerIsOnTop(this.player);
+        this.destroy();
+        this.gameOver(this.layer,this.player);
 
  },
     create: function(layer){
@@ -33,7 +32,7 @@ var Floor = cc.Sprite.extend({
         if(this.checkCollision (layer.player.getPlayerRectSideR())){
              console.log('side');
              layer.gameOver();
-            }
+        }
     },
     gameOver:function(layer){
         if(layer.isGameOver){
@@ -67,9 +66,9 @@ var Floor = cc.Sprite.extend({
     var dX = this.x - spritePos.x;
     var dY = this.y - spritePos.y;
     return cc.rect( spriteRect.x + dX,
-        spriteRect.y + dY,
-        spriteRect.width,
-        spriteRect.height );
+            spriteRect.y + dY,
+            spriteRect.width,
+            spriteRect.height );
 },
     checkCollision :function( playerRect) {
     return cc.rectOverlapsRect(this.getFloorRect(),playerRect);
@@ -77,4 +76,3 @@ var Floor = cc.Sprite.extend({
 },
 
 });
-Floor.nextPos = 0;
