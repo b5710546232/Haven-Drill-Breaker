@@ -154,14 +154,13 @@ createFloors: function(num){
 gameStart:function(){
     if(this.isStart){
         this.player.startToPlay();
-        this.floorSpeed = 4;
         this.floorSetsRun(this.floorSets,this.floorSpeed);
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
     }
 },
-floorSetsRun:function(floorSets){
+floorSetsRun:function(floorSets,speed){
   for(var i = 0 ;i<floorSets.length;i++){
-    floorSets[i].run(this.floorSpeed);
+    floorSets[i].run(speed);
 }
 
 },
@@ -242,29 +241,37 @@ playerRightSideHitGround:function(floorSets){
             ,this.player.getPosition().y-10));
 
        }
+       if(e==49){
+        this.floorSpeed++;
+       }
    },
    onKeyDown:function(e){
-          if(GameLayer.KEYS[cc.KEY.space]){
-            this.player.jump();
-            this.isStart = true;
-            }
-            if(e==cc.KEY.up||
-                e==cc.KEY.down||
-                e==cc.KEY.right||
-                e==cc.KEY.left){
-                this.player.switchDrillType(e);
-            }
-
-   },
-onKeyUp: function( e ) {
-  // console.log( 'Up: ' + e );
-       if(e==cc.KEY.up||
+    if(GameLayer.KEYS[cc.KEY.space]){
+        this.player.jump();
+        if(!this.isStart)this.floorSpeed=4;
+        this.isStart = true;
+    }
+    if(e==cc.KEY.up||
         e==cc.KEY.down||
         e==cc.KEY.right||
         e==cc.KEY.left){
-            this.player.drillType = 'N';
-        }
- // this.player.drillType = 'N';
+        this.player.switchDrillType();
+}
+            console.log(e);
+   },
+onKeyUp: function( e ) {
+    if(e!=cc.KEY.up||
+        e!=cc.KEY.down||
+        e!=cc.KEY.right||
+        e!=cc.KEY.left){
+        this.player.switchDrillType();
+    }
+    else if(e==cc.KEY.up||
+    e==cc.KEY.down||
+    e==cc.KEY.right||
+    e==cc.KEY.left){
+    this.player.drillType = 'N';
+    }
 },
     addKeyboardHandlers: function() {
     var self = this;

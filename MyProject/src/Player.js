@@ -1,7 +1,7 @@
 var Player = cc.Sprite.extend({
 ctor:function(){
 		this._super();
-		this.initWithFile('res/images/PlayerTest2.png');
+		this.initWithFile('res/images/Player.png');
 		this.vy = 0;
 		this.canJump = false;
 		this.grounded = false;
@@ -42,7 +42,7 @@ switchDrillType:function(){
         this.drillType = "D";
         //this.initWithFile('res/images/boxTest2.png');
     }
-    // else this.drillType = 'N';
+    else this.drillType = 'N';
 },
 startToPlay: function() {
     this.vy += Player.G;
