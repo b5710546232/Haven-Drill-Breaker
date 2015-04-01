@@ -15,6 +15,7 @@ var Drill = cc.Sprite.extend({
 		if(type == 'L')this.initWithFile('res/images/Drill3.png');
 		if(type == 'U')this.initWithFile('res/images/Drill4.png');
 		if(type == 'D')this.initWithFile('res/images/Drill.png');
+		if(type == 'N')this.initWithFile('res/images/Drill5.png');
 		if(type == 'X'){}
 	}
 

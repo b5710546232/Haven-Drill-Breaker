@@ -6,8 +6,8 @@ ctor:function(){
 		this.canJump = false;
 		this.grounded = false;
     this.isStart =  false;
-    this.drillType='D';
-    this.hp = 1;
+    this.drillType='N';
+    this.hp = 5;
     console.log('hp = '+this.hp);
     this.isDie = false;
     },
@@ -25,23 +25,24 @@ checkStatus:function(){
         this.death();
     }
 },
-switchDrillType:function(keycode){
-    if(keycode==37){//left
+switchDrillType:function(){
+    if(GameLayer.KEYS[cc.KEY.left]){//left
         this.drillType = "L";
         //this.initWithFile('res/images/boxTest3.png');
     }
-    if(keycode==39){//right
+    else if(GameLayer.KEYS[cc.KEY.right]){//right
         this.drillType = "R";
         //this.initWithFile('res/images/boxTest.png');
     }
-    if(keycode==38){//up
+    else if(GameLayer.KEYS[cc.KEY.up]){//up
         this.drillType = "U";
         //this.initWithFile('res/images/boxTest4.png');
     }
-    if(keycode==40){//down
+    else if(GameLayer.KEYS[cc.KEY.down]){//down
         this.drillType = "D";
         //this.initWithFile('res/images/boxTest2.png');
     }
+    // else this.drillType = 'N';
 },
 startToPlay: function() {
     this.vy += Player.G;

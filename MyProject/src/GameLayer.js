@@ -19,7 +19,6 @@ var GameLayer = cc.LayerColor.extend({
         this.counterTime(dt);
         this.floorManage();
         this.gameStart();
-        this.onKeyDown();
         this.playerHitSideFloorSet();
         this.playerOutScreen();
         //this.createRainbowDrill();
@@ -194,12 +193,11 @@ playerRightSideHitGround:function(floorSets){
     }
 }
 },
-onKeyDown: function( e ) {
-    this.player.switchDrillType(e);
-    if ( e == cc.KEY.space&&!this.player.isDie) {
-        this.player.jump();
-        this.isStart = true;
-    }
+ onKeyDownForCheck: function( e ) {
+    // if ( e == cc.KEY.space&&!this.player.isDie) {
+    // this.player.jump();
+    // this.isStart = true;
+    // }
     if(e==69){
         this.isStart = true;
     }
@@ -245,21 +243,41 @@ onKeyDown: function( e ) {
 
        }
    },
-    onKeyPressed: function(e){
+   onKeyDown:function(e){
+          if(GameLayer.KEYS[cc.KEY.space]){
+            this.player.jump();
+            this.isStart = true;
+            }
+            if(e==cc.KEY.up||
+                e==cc.KEY.down||
+                e==cc.KEY.right||
+                e==cc.KEY.left){
+                this.player.switchDrillType(e);
+            }
 
    },
-    onKeyUp: function( e ) {
+onKeyUp: function( e ) {
   // console.log( 'Up: ' + e );
+       if(e==cc.KEY.up||
+        e==cc.KEY.down||
+        e==cc.KEY.right||
+        e==cc.KEY.left){
+            this.player.drillType = 'N';
+        }
+ // this.player.drillType = 'N';
 },
     addKeyboardHandlers: function() {
     var self = this;
     cc.eventManager.addListener({
         event: cc.EventListener.KEYBOARD,
-        onKeyPressed : function( e ) {
-            self.onKeyDown( e );
+        onKeyPressed : function(keyCode,event ) {
+            GameLayer.KEYS[keyCode] = true;
+            self.onKeyDown( keyCode);
+            self.onKeyDownForCheck(keyCode);
         },
-        onKeyReleased: function( e ) {
-            self.onKeyUp( e );
+        onKeyReleased: function( keyCode,event) {
+            GameLayer.KEYS[keyCode] = false;
+            self.onKeyUp( keyCode);
         }
     }, this);
 },
@@ -272,3 +290,4 @@ var StartScene = cc.Scene.extend({
         this.addChild( layer );
     },
 });
+GameLayer.KEYS = [];
