@@ -25,12 +25,8 @@ var GameLayer = cc.LayerColor.extend({
         //this.createRainbowDrill();
     },
     createBG:function(){
-        this.bg1 = new BackGround(this);
-        this.bg2 = new BackGround(this);
-        this.bg1.setPosition(screenWidth/2,screenHeight/2);
-       this.bg2.setPosition(screenWidth*1.5,screenHeight/2);
-        this.addChild(this.bg1,0);
-        this.addChild(this.bg2,0);
+      this.bg = new PackBackGround(this);
+      this.addChild(this.bg,0);
     },
 
     initTimer:function(){
@@ -117,167 +113,163 @@ var GameLayer = cc.LayerColor.extend({
         this.player.scheduleUpdate();
     },
     createRandomFloorsPatterns: function(num){
-        if (num==0)var map = [1,1,1,1,1,1,1,1];
-        if (num==1)var map = [0,1,0,0,1,1,1,1];
-        if (num==2)var map = [0,1,1,1,1,1,1,1];
-        if (num==3)var map = [0,1,0,1,1,0,1,1];
-        if (num==4)var map = [0,1,1,1,1,1,1,1];
-        if (num==5)var map = [0,1,1,1,1,1,1,1];
-        if (num==6)var map = [0,1,1,1,1,1,1,1];
-        if (num==7)var map = [0,1,1,1,1,1,1,1];
-        if (num==8)var map = [0,1,0,1,0,1,1,1];
-        this.numOfMap = 8;
-        return map;
+        var map = [ [1,1,1,1,1,1,1,1],
+                    [0,1,0,0,1,1,1,1],
+                    [0,1,1,1,1,1,1,1],
+                    [0,1,0,1,1,0,1,1],
+                    [0,1,1,1,1,1,1,1],
+                    [0,1,1,1,1,1,1,1],
+                    [0,1,1,1,1,1,1,1],
+                    [0,1,1,1,1,1,1,1],
+                    [0,1,0,1,0,1,1,1]
+                    ];
+        this.numOfMap = map.length-1;
+        return map[num];
 
     },
-createFloors: function(num){
-    var floorSet = [];
-    var index = 0;
-    var map = this.createRandomFloorsPatterns(num);
-    for(var i = 0 ;i<map.length;i++){
-        if(map[i]==1){
-            var floor = new Floor(this);
-            if(num==0){
-                floor.setPosition(50+100*i,10) ;    
-            }
-            else{
-                var floorWidth = 100;
-                floor.setPosition(floorWidth/2+screenWidth+(100*i),10);
-                var  chanceCreateMon = 1+Math.floor(Math.random()*4)
-                if(chanceCreateMon!=1){
-                var ranMonType = Math.floor(Math.random()*4)
-                var monType = ['R','L','D','U']
-                var m = new Monster(floor,monType[ranMonType]);
-                m.scheduleUpdate();
-                this.addChild(m,1);
+    createFloors: function(num){
+        var floorSet = [];
+        var index = 0;
+        var map = this.createRandomFloorsPatterns(num);
+        for(var i = 0 ;i<map.length;i++){
+            if(map[i]==1){
+                var floor = new Floor(this);
+                if(num==0){
+                    floor.setPosition(50+100*i,10) ;    
                 }
+                else{
+                    var floorWidth = 100;
+                    floor.setPosition(floorWidth/2+screenWidth+(100*i),10);
+                    var  chanceCreateMon = 1+Math.floor(Math.random()*2)
+                    if(chanceCreateMon!=1){
+                    var ranMonType = Math.floor(Math.random()*4)
+                    var monType = ['R','L','D','U']
+                    var m = new Monster(floor,monType[ranMonType]);
+                    m.scheduleUpdate();
+                    this.addChild(m,1);
+                    }
+                }
+                floor.scheduleUpdate();
+                this.addChild(floor,1);
+                floorSet.push(floor);
             }
-            floor.scheduleUpdate();
-            this.addChild(floor,1);
-            floorSet.push(floor);
         }
-    }
-    this.FloorSetPosX = floorSet[floorSet.length-1].getBoundingBox().x+50;
-    return floorSet;
-},
-gameStart:function(){
-    if(this.isStart){
-        this.player.startToPlay();
-        this.floorSetsRun(this.floorSets,this.floorSpeed);
-        this.floorSetsRun(this.floorSets2,this.floorSpeed);
-    }
-},
-floorSetsRun:function(floorSets,speed){
-  for(var i = 0 ;i<floorSets.length;i++){
-    floorSets[i].run(speed);
-}
-
-},
-stopFloor:function(floorSets){
- for(var i = 0;i<floorSets.length;i++){
-    floorSets[i].stopMove();
-}
-},
-gameOver:function(){
-    this.player.death();
-    this.isGameOver = true;
-    this.stopFloor(this.floorSets);
-    this.stopFloor(this.floorSets2);
-},
-setFloorsSpeed:function(floorSets,newSpeed){
- for(var i = 0;i<floorSets.length;i++){
-
-    floorSets[i].speed = speed;
-}
-},
-playerOutScreen:function(){
-    if(this.player.isFall()) this.gameOver();
-},
-playerRightSideHitGround:function(floorSets){
-    for(var i = 0;i<floorSets.length;i++){
-      if(floorSets[i].checkCollision  (this.player.getPlayerRectSideR())){
-        this.gameOver();
-
-    }
-}
-},
- onKeyDownForCheck: function( e ) {
-    if(e==69){
-        this.isStart = true;
-    }
-        if(e==81){ // q
-            window.location.reload();
-        }
-        if (e==82){ //r refesh
-            console.log('re');
-            this.player.setPosition(200,300);
-            this.player.vy = Player.STARTING_VELOCITY;
-            Player.G = -1;
-            this.player.canJump = false;
-            this.player.grounded = false;
-            this.stop=false;
-            this.player.isDie = false
-            this.player.hp = 5;
+        this.FloorSetPosX = floorSet[floorSet.length-1].getBoundingBox().x+50;
+        return floorSet;
+    },
+    gameStart:function(){
+        if(this.isStart){
+            this.player.startToPlay();
             this.floorSetsRun(this.floorSets,this.floorSpeed);
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
-
         }
-        if ( e == 68) { //right
-            this.player.setPosition(new cc.Point(this.player.getPosition().x+10
-                ,this.player.getPosition().y));
-        }
-        if ( e == 65) {//right
-            this.player.setPosition(new cc.Point(this.player.getPosition().x-10
-                ,this.player.getPosition().y));
-        }
-        if ( e == 84) { //t stop
-            this.stopFloor(this.floorSets);
-            this.stopFloor(this.floorSets2);
-            this.isStart = false;
-            Player.G = 0;
-            this.player.vy=0;
-        }
-        if( e==87){//up
-           this.player.setPosition(new cc.Point(this.player.getPosition().x
-            ,this.player.getPosition().y+10));
-       }
-        if(e==83){ //down
-           this.player.setPosition(new cc.Point(this.player.getPosition().x
-            ,this.player.getPosition().y-10));
-
-       }
-       if(e==49){
-        this.floorSpeed++;
-       }
-   },
-   onKeyDown:function(e){
-    if(GameLayer.KEYS[cc.KEY.space]){
-        this.player.jump();
-        if(!this.isStart)this.floorSpeed=4;
-        this.isStart = true;
+    },
+    floorSetsRun:function(floorSets,speed){
+      for(var i = 0 ;i<floorSets.length;i++){
+        floorSets[i].run(speed);
     }
-    if(e==cc.KEY.up||
+
+    },
+    gameOver:function(){
+        this.player.death();
+        this.isGameOver = true;
+        this.floorSpeed = 0;
+    },
+    setFloorsSpeed:function(floorSets,newSpeed){
+     for(var i = 0;i<floorSets.length;i++){
+
+        floorSets[i].speed = speed;
+    }
+    },
+    playerOutScreen:function(){
+        if(this.player.isFall()) this.gameOver();
+    },
+    playerRightSideHitGround:function(floorSets){
+        for(var i = 0;i<floorSets.length;i++){
+          if(floorSets[i].checkCollision  (this.player.getPlayerRectSideR())){
+            this.gameOver();
+
+        }
+    }
+    },
+     onKeyDownForCheck: function( e ) {
+        if(e==69){
+            this.isStart = true;
+        }
+            if(e==81){ // q
+                window.location.reload();
+            }
+            if (e==82){ //r refesh
+                console.log('re');
+                this.player.setPosition(200,300);
+                this.player.vy = Player.STARTING_VELOCITY;
+                Player.G = -1;
+                this.player.canJump = false;
+                this.player.grounded = false;
+                this.stop=false;
+                this.player.isDie = false
+                this.player.hp = 10;
+                this.floorSpeed = 5;
+
+            }
+            if ( e == 68) { //right
+                this.player.setPosition(new cc.Point(this.player.getPosition().x+10
+                    ,this.player.getPosition().y));
+            }
+            if ( e == 65) {//right
+                this.player.setPosition(new cc.Point(this.player.getPosition().x-10
+                    ,this.player.getPosition().y));
+            }
+            if ( e == 84) { //t stop
+                this.floorSpeed = 0;
+                this.isStart = false;
+                Player.G = 0;
+                this.player.vy=0;
+            }
+            if( e==87){//up
+               this.player.setPosition(new cc.Point(this.player.getPosition().x
+                ,this.player.getPosition().y+10));
+           }
+            if(e==83){ //down
+               this.player.setPosition(new cc.Point(this.player.getPosition().x
+                ,this.player.getPosition().y-10));
+
+           }
+           if(e==49){
+            this.floorSpeed++;
+           }
+       },
+    onKeyDown:function(e){
+        if(GameLayer.KEYS[cc.KEY.space]){
+            this.player.jump();
+            if(!this.isStart)this.floorSpeed=4;
+            this.isStart = true;
+        }
+        if(e==cc.KEY.up||
+            e==cc.KEY.down||
+            e==cc.KEY.right||
+            e==cc.KEY.left){
+            this.player.switchDrillType();
+        }
+           // console.log(e);
+   },
+
+    onKeyUp: function( e ) {
+        if(e!=cc.KEY.up||
+            e!=cc.KEY.down||
+            e!=cc.KEY.right||
+            e!=cc.KEY.left){
+            this.player.switchDrillType();
+        }
+        else if(e==cc.KEY.up||
         e==cc.KEY.down||
         e==cc.KEY.right||
         e==cc.KEY.left){
-        this.player.switchDrillType();
-}
-           // console.log(e);
-   },
-onKeyUp: function( e ) {
-    if(e!=cc.KEY.up||
-        e!=cc.KEY.down||
-        e!=cc.KEY.right||
-        e!=cc.KEY.left){
-        this.player.switchDrillType();
-    }
-    else if(e==cc.KEY.up||
-    e==cc.KEY.down||
-    e==cc.KEY.right||
-    e==cc.KEY.left){
-    this.player.drillType = 'N';
-    }
-},
+        this.player.drillType = 'N';
+        }
+    },
+
+
     addKeyboardHandlers: function() {
     var self = this;
     cc.eventManager.addListener({
@@ -291,8 +283,8 @@ onKeyUp: function( e ) {
             GameLayer.KEYS[keyCode] = false;
             self.onKeyUp( keyCode);
         }
-    }, this);
-},
+     }, this);
+    },
 });
 var StartScene = cc.Scene.extend({
     onEnter: function() {

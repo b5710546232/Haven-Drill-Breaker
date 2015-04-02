@@ -7,7 +7,7 @@ ctor:function(){
 		this.grounded = false;
     this.isStart =  false;
     this.drillType='N';
-    this.hp = 5;
+    this.hp = 5111111;
     //console.log('hp = '+this.hp);
     this.isDie = false;
     },
@@ -21,7 +21,6 @@ update: function( dt ) {
     },
 checkStatus:function(){
     if(this.hp<=0){
-        this.isDie = true;
         this.death();
     }
 },
@@ -105,11 +104,13 @@ isFall:function(){
 
 },
 death: function(){
-  this.jump();
+    if(!this.isDie){
+    this.vy = Player.JUMP*0.8;
+    }
     this.isDie = true;
     this.grounded = false;
     this.canJump = false;
-    this.vy+=Player.G;
+    this.vy+=Player.G_OFDEAD;
     return true;
 }
 });
