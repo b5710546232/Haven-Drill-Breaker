@@ -44,6 +44,7 @@ var Monster = cc.Sprite.extend({
       console.log('now hp  = :'+this.player.hp);
     }
     else{
+      this.layer.score++;
       this.removeFromParent();
     }
 

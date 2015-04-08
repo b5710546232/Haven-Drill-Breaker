@@ -27,7 +27,7 @@ var Item = cc.Sprite.extend({
  isHit: function( playerRect){
    return cc.rectOverlapsRect(this.getRect(),playerRect);
  },
-destroy:function(player){
+ destroy:function(player){
   if(this.outOfScreen())
     this.removeFromParent();
 },
@@ -44,3 +44,6 @@ outOfScreen:function(){
 }
 });
 Item.speed = -2; // move to left.
+// var RainbowDrill == Item.extend({
+
+// });
