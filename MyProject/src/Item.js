@@ -63,3 +63,17 @@ var RainbowDrill = Item.extend({
     }
   },
 });
+
+var SpeedUp = Item.extend({
+  init :function(){
+    console.log(this.speed);
+  },
+
+  effectToPlayer:function(){
+    if(this._super.isHit(this.player.getPlayerRect())){
+      this.floorSpeed++;
+      //this.layer.xModeTime += 3;
+      this.removeFromParent();
+    }
+  },
+});
