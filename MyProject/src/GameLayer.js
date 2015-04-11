@@ -14,6 +14,9 @@ var GameLayer = cc.LayerColor.extend({
         this.createScoreLabel();
         this.score = 0;
         this.scheduleUpdate();
+        this.ww = new SpeedUp(this);
+        this.ww.scheduleUpdate();
+        this.addChild(this.ww);
         return true;
     },
     update: function(dt) {

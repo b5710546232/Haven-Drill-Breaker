@@ -1,7 +1,7 @@
 var Player = cc.Sprite.extend({
 ctor:function(){
 		this._super();
-		this.initWithFile('res/images/Player.png');
+		this.initWithFile('res/images/PUnit.png');
 		this.vy = 0;
 		this.canJump = false;
 		this.grounded = false;
