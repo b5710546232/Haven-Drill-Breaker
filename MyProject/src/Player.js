@@ -12,55 +12,75 @@ var Player = cc.Sprite.extend({
     this.isJummping = true;
     //console.log('hp = '+this.hp);
     this.isDie = false;
-   this.runningAction = this.runAnim();
-   this.jumpAction = this.jumpAnim();
-   this.runAction(this.jumpAction);
+    this.runningAction = this.runAnim();
+    this.jumpAction = this.jumpAnim();
+    this.runAction(this.jumpAction);
+    this.drillDist = 0;
+    this.drillDown = false;
   },
   update: function( dt ) {
     var pos = this.getPosition();
     this.setPosition(new cc.Point( pos.x, pos.y+this.vy));
-    if(this.isStart){
-      this.vy += Player.G;
-    }
+      if(this.isStart){
+        this.vy += Player.G;
+      }
     this.checkStatus();
     this.manangeAnim();
+    this.drillDistMovement();
   },
-  manangeAnim:function(){
-    if(this.isRunning==false&&this.grounded){
+
+  drillDistMovement:function(){
+     if(!this.drillDown){
+      this.drillDist+=0.4;
+        if(this.drillDist>4){
+          this.drillDown = true;
+        }
+    }
+
+    if(this.drillDown){
+      this.drillDist-=0.4;
+        if(this.drillDist<0){
+          this.drillDown = false;
+        }
+    }
+
+},
+manangeAnim:function(){
+  if(this.isRunning==false&&this.grounded){
     this.stopAction(this.jumpAction);
     this.runAction(this.runningAction);
     this.isRunning = true;
     this.isJummping = false
-    }
-    else if(this.canJump&&!this.grounded){ 
-     this.isRunning=false;
-     if(this.isJummping == false){
-      this.stopAction(this.runningAction);
-      this.runAction(this.jumpAction);
-      console.log('jumping');
-        this.isJummping = true; 
-     }
-    }
-  },
-  jumpAnim:function(){
+  }
+  else if(this.canJump&&!this.grounded){ 
+   this.isRunning=false;
+   if(this.isJummping == false){
+    this.stopAction(this.runningAction);
+    this.runAction(this.jumpAction);
+    console.log('jumping');
+    this.isJummping = true; 
+  }
+}
+},
+jumpAnim:function(){
   var animation  = new cc.Animation.create();
   animation.addSpriteFrameWithFile( 'res/images/run_anim/run0001.png' );
   animation.setDelayPerUnit( 0.01 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
-  },
-  runAnim:function(){
-    var animationRun = new cc.Animation.create();
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0001.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0002.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0003.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0004.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0005.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0006.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0007.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0008.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0009.png' );
-    animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0010.png' );
-    animationRun.setDelayPerUnit( 0.05 );
+},
+runAnim:function(){
+  var animationRun = new cc.Animation.create();
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0001.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0002.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0003.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0004.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0005.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0006.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0007.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0008.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0009.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0010.png' );
+  animationRun.setDelayPerUnit( 0.05 );
     // return cc.Animate.create( animationRun );
     return cc.RepeatForever.create( cc.Animate.create( animationRun ) );
 

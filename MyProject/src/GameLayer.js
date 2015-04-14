@@ -221,7 +221,9 @@ setFloorsSpeed:function(floorSets,newSpeed){
 }
 },
 playerOutScreen:function(){
-    if(this.player.isFall()) this.gameOver();
+    if(this.player.isFall()){
+        this.gameOver();
+    }
 },
 playerRightSideHitGround:function(floorSets){
     for(var i = 0;i<floorSets.length;i++){

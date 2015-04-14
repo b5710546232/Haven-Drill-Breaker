@@ -8,7 +8,7 @@ var Drill = cc.Sprite.extend({
 	
 	},
 	update:function(dt){
-		this.setPosition(this.player.getPosition().x+this.width-6,this.player.getPosition().y-this.getBoundingBox().height/2);
+		this.setPosition(this.player.getPosition().x+this.width-6.5,this.player.getPosition().y-this.getBoundingBox().height/2+this.player.drillDist);
 		this.switchDrill(this.player.drillType);
 	},
 	switchDrill:function(type){
