@@ -66,7 +66,7 @@ var RainbowDrill = Item.extend({
 
 var SpeedUp = Item.extend({
   init :function(){
-    console.log(this.speed);
+    console.log('item speed up');
   },
 
   effectToPlayer:function(){

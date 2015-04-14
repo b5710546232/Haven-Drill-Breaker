@@ -21,6 +21,11 @@ var Monster = cc.Sprite.extend({
    this.setPositionX( this.getPositionX() - this.floor.speed);  
    this.destroy(this.player);
    this.isAttacted();
+   if(this.layer.isPlayerGetBomb){
+    console.log('bomb');
+    this.layer.isPlayerGetBomb =false
+    this.removeFromParent();
+   }
  },
  getRect: function(){
    var spriteRect = this.getBoundingBoxToWorld();

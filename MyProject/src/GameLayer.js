@@ -14,9 +14,7 @@ var GameLayer = cc.LayerColor.extend({
         this.createScoreLabel();
         this.score = 0;
         this.scheduleUpdate();
-        this.ww = new SpeedUp(this);
-        this.ww.scheduleUpdate();
-        this.addChild(this.ww);
+        this.isPlayerGetBomb = false;
         return true;
     },
     update: function(dt) {
@@ -267,13 +265,14 @@ onKeyDownForCheck: function( e ) {
 
          }
          if(e==49){
+            this.isPlayerGetBomb = true;
             this.floorSpeed++;
         }
     },
 onKeyDown:function(e){
     if(GameLayer.KEYS[cc.KEY.space]){
             this.player.jump();
-            if(!this.isStart)this.floorSpeed=4;
+            if(!this.isStart)this.floorSpeed=3.5;
             this.isStart = true;
     }
             if(e==cc.KEY.up||
@@ -282,6 +281,7 @@ onKeyDown:function(e){
             e==cc.KEY.left){
                 this.player.switchDrillType();
             }
+    //this.player.stopAction(this.player.movingAction);
            // console.log(e);
 },
 
