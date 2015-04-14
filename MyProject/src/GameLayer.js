@@ -17,6 +17,12 @@ var GameLayer = cc.LayerColor.extend({
         this.isPlayerGetBomb = false;
         return true;
     },
+
+    shakeScreen:function(){
+        var shakeForce = 5;
+        this.setPosition(0,shakeForce);
+    },
+
     update: function(dt) {
         this.counterTime(dt);
         this.floorManage();
@@ -24,6 +30,7 @@ var GameLayer = cc.LayerColor.extend({
         this.playerHitSideFloorSet();
         this.playerOutScreen();
         this.updateScore(this.score);
+        this.setPosition(0,0);
         //this.createRainbowDrill();
     },
 
@@ -202,6 +209,9 @@ floorSetsRun:function(floorSets,speed){
 gameOver:function(){
     this.player.death();
     this.isGameOver = true;
+        if(this.isGameOver){
+            this.shakeScreen();
+        }
     this.floorSpeed = 0;
 },
 setFloorsSpeed:function(floorSets,newSpeed){

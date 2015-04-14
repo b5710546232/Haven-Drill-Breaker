@@ -45,6 +45,7 @@ var Monster = cc.Sprite.extend({
   if(this.isHit(this.player.getPlayerRect())){
     if(this.player.drillType != this.monType&&this.player.drillType!='X'){
       this.player.hp-=1;
+      this.layer.shakeScreen();
       this.removeFromParent();
       console.log('now hp  = :'+this.player.hp);
     }
