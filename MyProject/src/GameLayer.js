@@ -181,7 +181,7 @@ createFloors: function(num){
                 if(chanceCreateMon!=1){
                     var ranMonType = Math.floor(Math.random()*4)
                     var monType = ['R','L','D','U']
-                    var m = new Monster(floor,monType[ranMonType]);
+                       var m = new Monster(floor,monType[ranMonType]);
                     m.scheduleUpdate();
                     this.addChild(m,1);
                 }
@@ -326,6 +326,8 @@ addKeyboardHandlers: function() {
         }
     }, this);
 },
+
+
 });
 var StartScene = cc.Scene.extend({
     onEnter: function() {
