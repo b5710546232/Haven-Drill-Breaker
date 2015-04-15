@@ -16,6 +16,7 @@ var GameLayer = cc.LayerColor.extend({
         this.scheduleUpdate();
         this.isPlayerGetBomb = false;
         this.initSound();
+        this.drillSFX = false;
         return true;
     },
 
@@ -286,6 +287,15 @@ onKeyDownForCheck: function( e ) {
             this.isPlayerGetBomb = true;
             this.floorSpeed++;
         }
+        if(e==cc.KEY.up||
+        e==cc.KEY.down||
+        e==cc.KEY.right||
+        e==cc.KEY.left){
+            if(!this.drillSFX){
+                cc.audioEngine.playEffect( 'res/sounds/220159__gameaudio__spacey-drill-quick.wav');
+                this.drillSFX=true;
+            }
+        }
     },
 onKeyDown:function(e){
     if(GameLayer.KEYS[cc.KEY.space]){
@@ -308,6 +318,7 @@ onKeyUp: function( e ) {
         e!=cc.KEY.down||
         e!=cc.KEY.right||
         e!=cc.KEY.left){
+        this.drillSFX = false;
         this.player.switchDrillType();
     }
     else if(e==cc.KEY.up||
