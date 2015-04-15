@@ -10,7 +10,6 @@ var Monster = cc.Sprite.extend({
     var height = 64;
     var top =cc.rectGetMaxY(floor.getBoundingBoxToWorld())+height/2;
     this.setPosition(floor.getPosition().x,top);
-    console.log(this.monType);
     this.initAnimation(this.monType);
     this.runAction(this.movingAction);
   },

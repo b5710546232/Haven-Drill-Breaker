@@ -25,6 +25,10 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition(0,shakeForce);
     },
 
+    speedLevelUp:function(){
+        this.floorSpeed++
+    },
+
     update: function(dt) {
         this.counterTime(dt);
         this.floorManage();
@@ -87,21 +91,27 @@ counterTime:function(dt){
             // console.log(this.counterSec);
             this.delayRainbowDrill++;
             this.totalDeltaTime=0;
-            //this.playerInXMode();
+            this.XModeDelay();
+    }
+
+    if(this.counterSec>60){
+        this.speedLevelUp();
+        console.log('speed up');
+        this.counterSec=0;
     }
 
     },
-    // playerInXMode:function(){
-    //     if(this.xModeTime>0){
-    //         this.xModeTime--;
-    //     }
-    //     if(this.xModeTime<=0&&this.player.drillType=='X'){
-    //         console.log('out x mode');
-    //         this.xModeTime = 0;
-    //         this.player.drillType = 'D';
-    //     }
+    XModeDelay:function(){
+        if(this.xModeTime>0){
+            this.xModeTime--;
+        }
+        if(this.xModeTime<=0&&this.player.drillType=='X'){
+            console.log('out x mode');
+            this.xModeTime = 0;
+            this.player.drillType = 'N';
+        }
 
-    // },
+    },
     /*will reCode by use extends.
     */
 createRainbowDrill:function(){ // item to change to X mode 

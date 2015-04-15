@@ -62,6 +62,9 @@ var RainbowDrill = Item.extend({
       this.removeFromParent();
     }
   },
+
+
+  
 });
 
 var SpeedUp = Item.extend({
