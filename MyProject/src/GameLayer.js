@@ -15,11 +15,12 @@ var GameLayer = cc.LayerColor.extend({
         this.score = 0;
         this.scheduleUpdate();
         this.isPlayerGetBomb = false;
+        this.initSound();
         return true;
     },
 
     shakeScreen:function(){
-        var shakeForce = 5;
+        var shakeForce = 8;
         this.setPosition(0,shakeForce);
     },
 
@@ -33,6 +34,11 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition(0,0);
         //this.createRainbowDrill();
     },
+
+    initSound:function(){
+    cc.audioEngine.playMusic( 'res/sounds/Blobby Samba.mp3', true );
+    },
+
 
     updateScore:function(score){
         this.scoreLabel.setString("Score : "+score);

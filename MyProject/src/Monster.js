@@ -115,6 +115,7 @@ isAttacted:function(){
       console.log('now hp  = :'+this.player.hp);
     }
     else{
+      cc.audioEngine.playEffect( 'res/sounds/impact_rock_on_rubble_002.mp3' );
       this.layer.score++;
       this.removeFromParent();
     }
