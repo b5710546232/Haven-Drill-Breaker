@@ -108,14 +108,15 @@ isHit: function( playerRect){
 
 isAttacted:function(){
   if(this.isHit(this.player.getPlayerRect())){
+      cc.audioEngine.playEffect( 'res/sounds/impact_rock_on_rubble_002.mp3' );
     if(this.player.drillType != this.monType&&this.player.drillType!='X'){
+      cc.audioEngine.playEffect( 'res/sounds/oops.wav' );
       this.player.hp-=1;
       this.layer.shakeScreen();
       this.removeFromParent();
       console.log('now hp  = :'+this.player.hp);
     }
     else{
-      cc.audioEngine.playEffect( 'res/sounds/impact_rock_on_rubble_002.mp3' );
       this.layer.score++;
       this.removeFromParent();
     }
