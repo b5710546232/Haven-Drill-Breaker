@@ -11,8 +11,8 @@ var Item = cc.Sprite.extend({
 
   update: function( dt ) {
     this.move();
-    this.speed = this.layer.floorSpeed; //speed
     this.destroy(this.player);
+    this.effectToPlayer();
   },
 
   getRect: function(){
@@ -36,27 +36,23 @@ var Item = cc.Sprite.extend({
     this.removeFromParent();
 },
 
-outOfScreen:function(){
-  return this.getPosition().x<-this.getBoundingBox().width+this.speed;
-},
+  outOfScreen:function(){
+    return this.getPosition().x<-this.getBoundingBox().width+this.layer.floorSpeed;
+  },
 
-move:function(){
- this.setPositionX( this.getPositionX() - this.speed);  
-},
+  move:function(){
+   this.setPositionX( this.getPositionX() - this.layer.floorSpeed); //speed);  
+  },
+
 });
-
-Item.speed = -2; // move to left.
-
 
 var RainbowDrill = Item.extend({
   init :function(){
-    console.log('init');
-    console.log(this.speed);
-    console.log('rainbow drill this created');
+    this.initWithFile('res/images/item/rainBowDrill.png');
   },
 
   effectToPlayer:function(){
-    if(this._super.isHit(this.player.getPlayerRect())){
+    if(this.isHit(this.player.getPlayerRect())){
       this.player.drillType = 'X';
       this.layer.xModeTime += 3;
       this.removeFromParent();
@@ -64,18 +60,18 @@ var RainbowDrill = Item.extend({
   },
 
 
-  
+
 });
 
 var SpeedUp = Item.extend({
   init :function(){
-    console.log('item speed up');
+    this.initWithFile('res/images/item/speedUpItem.png');
   },
 
   effectToPlayer:function(){
-    if(this._super.isHit(this.player.getPlayerRect())){
-      this.floorSpeed++;
-      //this.layer.xModeTime += 3;
+    if(this.isHit(this.player.getPlayerRect())){
+      this.layer.speedDt+=3;
+      this.layer.speedDtTime += 3;
       this.removeFromParent();
     }
   },
@@ -83,14 +79,14 @@ var SpeedUp = Item.extend({
 
 var SpeedDown = Item.extend({
   init :function(){
-    console.log(this.speed);
+    this.initWithFile('res/images/item/speedDownItem.png');
   },
 
 
   effectToPlayer:function(){
-    if(this._super.isHit(this.player.getPlayerRect())){
-      this.floorSpeed--;
-      //this.layer.xModeTime += 3;
+    if(this.isHit(this.player.getPlayerRect())){
+      this.layer.speedDt--;
+      this.layer.speedDtTime += 3;
       this.removeFromParent();
     }
   },

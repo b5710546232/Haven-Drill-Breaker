@@ -17,6 +17,8 @@ var GameLayer = cc.LayerColor.extend({
         this.isPlayerGetBomb = false;
         this.initSound();
         this.drillSFX = false;
+        this.ItemCreatedTimer = 0;
+        this.speedDt = 0;
         return true;
     },
 
@@ -37,7 +39,24 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOutScreen();
         this.updateScore(this.score);
         this.setPosition(0,0);
-        //this.createRainbowDrill();
+    },
+
+    createItem:function(){
+        var  ran = 1+Math.floor(Math.random()*2)
+        if(ran==1){
+            var spdU = new SpeedUp(this);
+            spdU.scheduleUpdate();
+            this.addChild(spdU);
+        }
+        if(ran==2){
+            var spdD = new SpeedDown(this);
+            spdD.scheduleUpdate();
+            this.addChild(spdD);
+        }if(ran==3){
+            var rbD = new RainbowDrill(this);
+            rbD.scheduleUpdate();
+            this.addChild(rbD);
+        }
     },
 
     initSound:function(){
@@ -74,33 +93,46 @@ var GameLayer = cc.LayerColor.extend({
     createBG:function(){
       this.bg = new PackBackGround(this);
       this.addChild(this.bg,0);
-  },
+     },
 
-  initTimer:function(){
-    this.totalDeltaTime=0;
-    this.counterSec = 0;
-    this.delayRainbowDrill = 0;
-    this.xModeTime = 0;
-},
-counterTime:function(dt){
-    if(this.isStart){
-       this.totalDeltaTime+= dt;
-   }
-   if(this.totalDeltaTime>1){
-    this.counterSec++;
-            // console.log(this.counterSec);
-            this.delayRainbowDrill++;
-            this.totalDeltaTime=0;
-            this.XModeDelay();
-    }
-
-    if(this.counterSec>30){
-        this.speedLevelUp();
-        console.log('speed up');
-        this.counterSec=0; // reset to count again.
-    }
-
+    initTimer:function(){
+     this.totalDeltaTime=0;
+     this.counterSec = 0;
+     this.delayRainbowDrill = 0;
+     this.xModeTime = 0;
+     this.speedDtTime = 0;
     },
+    counterTime:function(dt){
+        if(this.isStart){
+           this.totalDeltaTime+= dt;
+       }
+       if(this.totalDeltaTime>1){
+                this.counterSec++;
+                this.delayRainbowDrill++;
+                this.totalDeltaTime=0;
+                this.ItemCreatedTimer++
+                this.XModeDelay();
+                this.speedDtDelay();
+        }
+
+        if(this.counterSec>30){
+            this.speedLevelUp();
+            console.log('speed up');
+            this.counterSec=0; // reset to count again.
+        }
+
+        if(this.ItemCreatedTimer>20){
+            this.createItem();
+            var  ran = 1+Math.floor(Math.random()*2)
+            if(ran==1){
+            this.ItemCreatedTimer = -5;
+            }
+            if(ran==2){
+            this.ItemCreatedTimer = -5;
+            }
+        }
+
+        },
     XModeDelay:function(){
         if(this.xModeTime>0){
             this.xModeTime--;
@@ -112,17 +144,20 @@ counterTime:function(dt){
         }
 
     },
-    /*will reCode by use extends.
-    */
-createRainbowDrill:function(){ // item to change to X mode 
-    if(this.isStart&&this.delayRainbowDrill==10){
-            var rainbowDrill = new Item(this);
-            rainbowDrill.scheduleUpdate();
-            this.addChild(rainbowDrill,2);
-            this.delayRainbowDrill = 0;
-    }
 
-},
+     speedDtDelay:function(){
+        if(this.speedDtTime>0){
+            this.speedDtTime--;
+            console.log('speed delay');
+        }
+        if(this.speedDtTime<=0&&this.speedDt!=0){
+            console.log('out speed mode');
+            this.speedDtTime = 0 ;
+            this.speedDt = 0;
+        }
+
+    },
+
 playerHitSideFloorSet:function(){
     this.playerRightSideHitGround(this.floorSets);
     this.playerRightSideHitGround(this.floorSets2);
@@ -176,7 +211,8 @@ createRandomFloorsPatterns: function(num){
     [0,1,1,1,1,1,1,1],
     [0,1,1,1,1,1,1,1],
     [0,1,1,1,1,1,1,1],
-    [0,1,0,1,0,1,1,1]
+    [0,1,0,1,0,1,1,1],
+    [0,1,0,1,0,0,1,1],
     ];
     this.numOfMap = map.length-1;
     return map[num];
@@ -220,7 +256,7 @@ gameStart:function(){
 },
 floorSetsRun:function(floorSets,speed){
     for(var i = 0 ;i<floorSets.length;i++){
-        floorSets[i].run(speed);
+        floorSets[i].run(speed+this.speedDt);
     }
 },
 gameOver:function(){
@@ -230,6 +266,7 @@ gameOver:function(){
             this.shakeScreen();
         }
     this.floorSpeed = 0;
+    this.speedDt = 0;
 },
 setFloorsSpeed:function(floorSets,newSpeed){
    for(var i = 0;i<floorSets.length;i++){
@@ -266,7 +303,7 @@ onKeyDownForCheck: function( e ) {
                 this.player.grounded = false;
                 this.stop=false;
                 this.player.isDie = false
-                this.player.hp = 10;
+                this.player.hp = 100;
                 this.floorSpeed = 5;
 
             }
