@@ -29,7 +29,7 @@ var PackBackGround = cc.Node.extend({
 var BackGround = cc.Sprite.extend({
 	ctor:function(layer){
 		this._super();
-		this.initWithFile('res/images/bg.png');
+		this.initWithFile('res/images/SceneComponent/bg.png');
 		this.layer = layer
 	},
 });

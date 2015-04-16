@@ -1,7 +1,7 @@
 var Floor = cc.Sprite.extend({
 	ctor:function(layer){
 		this._super();
-		this.initWithFile('res/images/ground.png');
+		this.initWithFile('res/images/SceneComponent/ground.png');
 		this.speed = 0;
         this.player = layer.player;
         this.layer = layer;

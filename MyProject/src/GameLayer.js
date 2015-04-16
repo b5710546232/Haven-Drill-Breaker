@@ -26,7 +26,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     speedLevelUp:function(){
-        this.floorSpeed++
+        this.floorSpeed+=0.5;
     },
 
     update: function(dt) {
@@ -94,10 +94,10 @@ counterTime:function(dt){
             this.XModeDelay();
     }
 
-    if(this.counterSec>60){
+    if(this.counterSec>30){
         this.speedLevelUp();
         console.log('speed up');
-        this.counterSec=0;
+        this.counterSec=0; // reset to count again.
     }
 
     },
@@ -279,10 +279,11 @@ onKeyDownForCheck: function( e ) {
                     ,this.player.getPosition().y));
             }
             if ( e == 84) { //t stop
-                this.floorSpeed = 0;
                 this.isStart = false;
                 Player.G = 0;
                 this.player.vy=0;
+                this.floorSetsRun(this.floorSets,0)
+                this.floorSetsRun(this.floorSets2,0)
             }
             if( e==87){//up
              this.player.setPosition(new cc.Point(this.player.getPosition().x

@@ -1,7 +1,7 @@
 var Player = cc.Sprite.extend({
   ctor:function(){
     this._super();
-    this.initWithFile('res/images/Testing.png');
+    this.initWithFile('res/images/player/Player.png');
     this.vy = 0;
     this.canJump = false;
     this.grounded = false;
@@ -10,7 +10,6 @@ var Player = cc.Sprite.extend({
     this.hp = 10;
     this.isRunning = false;
     this.isJummping = true;
-    //console.log('hp = '+this.hp);
     this.isDie = false;
     this.runningAction = this.runAnim();
     this.jumpAction = this.jumpAnim();
@@ -57,29 +56,28 @@ manangeAnim:function(){
    if(this.isJummping == false){
     this.stopAction(this.runningAction);
     this.runAction(this.jumpAction);
-    console.log('jumping');
     this.isJummping = true; 
   }
 }
 },
 jumpAnim:function(){
   var animation  = new cc.Animation.create();
-  animation.addSpriteFrameWithFile( 'res/images/run_anim/run0001.png' );
+  animation.addSpriteFrameWithFile( 'res/images/player/run_anim/run0001.png' );
   animation.setDelayPerUnit( 0.01 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
 },
 runAnim:function(){
   var animationRun = new cc.Animation.create();
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0001.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0002.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0003.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0004.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0005.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0006.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0007.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0008.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0009.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/run_anim/run0010.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0001.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0002.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0003.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0004.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0005.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0006.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0007.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0008.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0009.png' );
+  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0010.png' );
   animationRun.setDelayPerUnit( 0.05 );
     // return cc.Animate.create( animationRun );
     return cc.RepeatForever.create( cc.Animate.create( animationRun ) );
