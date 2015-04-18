@@ -12,10 +12,12 @@ var Monster = cc.Sprite.extend({
     this.setPosition(floor.getPosition().x,top);
     this.initAnimation(this.monType);
     this.runAction(this.movingAction);
+    this.monDie = false;
   },
 
   update: function( dt ) {
-   this.setPositionX( this.getPositionX() - this.floor.speed);  
+   this.speed = this.floor.speed;
+   this.setPositionX( this.getPositionX() - this.speed);  
    this.destroy(this.player);
    this.isAttacted();
    if(this.layer.isPlayerGetBomb){
@@ -110,6 +112,7 @@ isHit: function( playerRect){
 
 isAttacted:function(){
   if(this.isHit(this.player.getPlayerRect())){
+    this.monDie = true;
       cc.audioEngine.playEffect( res.impact_mp3 );
     if(this.player.drillType != this.monType&&this.player.drillType!='X'){
       cc.audioEngine.playEffect( res.oops_wav );

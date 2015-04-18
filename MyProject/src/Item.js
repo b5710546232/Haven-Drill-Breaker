@@ -3,7 +3,7 @@ var Item = cc.Sprite.extend({
 		this._super();
     this.layer  = layer
     this.player = layer.player;
-    var top = 300;
+    var top = 320;
     console.log('create');
     this.setPosition(screenWidth+this.getBoundingBox().width,top);
     this.init();

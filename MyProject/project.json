@@ -18,6 +18,7 @@
         "src/Monster.js",
         "src/Item.js",
         "src/Drill.js",
-        "src/BackGround.js"
+        "src/BackGround.js",
+        "src/Arrow.js "
     ]
 }

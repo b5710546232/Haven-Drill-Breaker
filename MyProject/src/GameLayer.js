@@ -44,7 +44,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createItem:function(){
-        var  ran = 1+Math.floor(Math.random()*2)
+        var  ran = 1+Math.floor(Math.random()*3)
         if(ran==1){
             var spdU = new SpeedUp(this);
             spdU.scheduleUpdate();
@@ -62,7 +62,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     initSound:function(){
-    cc.audioEngine.playMusic( res.sound_bg_mp3, true );
+    //cc.audioEngine.playMusic( res.sound_bg_mp3, true );
     },
 
 
@@ -239,6 +239,9 @@ createFloors: function(num){
                     var ranMonType = Math.floor(Math.random()*4)
                     var monType = ['R','L','D','U']
                        var m = new Monster(floor,monType[ranMonType]);
+                       var arrow = new Arrow(m);
+                       arrow.scheduleUpdate();
+                       this.addChild(arrow,1);
                     m.scheduleUpdate();
                     this.addChild(m,1);
                 }
