@@ -27,10 +27,10 @@ var Monster = cc.Sprite.extend({
 
 
 initSpriteMonster :function(monType){
-  if(monType=='R')this.initWithFile('res/images/monster/boxTest.png');
-  if(monType=='D')this.initWithFile('res/images/monster/boxTest2.png');
-  if(monType=='L')this.initWithFile('res/images/monster/boxTest3.png');
-  if(monType=='U')this.initWithFile('res/images/monster/boxTest4.png');
+  if(monType=='R')this.initWithFile( res.mon1_anim_01_png );
+  if(monType=='D')this.initWithFile( res.mon2_anim_01_png );
+  if(monType=='L')this.initWithFile( res.mon3_anim_01_png );
+  if(monType=='U')this.initWithFile( res.mon4_anim_01_png );
 },
 
 
@@ -44,22 +44,23 @@ initAnimation:function(monType){
 
 monTypeRAnimation:function(){
   var animation = new cc.Animation.create();
-  animation.addSpriteFrameWithFile( 'res/images/mon1_anim/mon1anim0001.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon1_anim/mon1anim0002.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon1_anim/mon1anim0003.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon1_anim/mon1anim0004.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon1_anim/mon1anim0005.png' );
+  animation.addSpriteFrameWithFile( res.mon1_anim_01_png );
+  animation.addSpriteFrameWithFile( res.mon1_anim_02_png );
+  animation.addSpriteFrameWithFile( res.mon1_anim_03_png );
+  animation.addSpriteFrameWithFile( res.mon1_anim_04_png );
+  animation.addSpriteFrameWithFile( res.mon1_anim_05_png );
   animation.setDelayPerUnit( 0.05 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
 },
 
 monTypeDAnimation:function(){
   var animation = new cc.Animation.create();
-  animation.addSpriteFrameWithFile( 'res/images/mon2_anim/mon2anim0001.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon2_anim/mon2anim0002.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon2_anim/mon2anim0003.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon2_anim/mon2anim0004.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon2_anim/mon2anim0005.png' );
+  animation.addSpriteFrameWithFile( res.mon2_anim_01_png );
+  animation.addSpriteFrameWithFile( res.mon2_anim_02_png );
+  animation.addSpriteFrameWithFile( res.mon2_anim_03_png );
+  animation.addSpriteFrameWithFile( res.mon2_anim_04_png );
+  animation.addSpriteFrameWithFile( res.mon2_anim_05_png );
+
   animation.setDelayPerUnit( 0.05 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
 },
@@ -67,22 +68,24 @@ monTypeDAnimation:function(){
 
 monTypeLAnimation:function(){
   var animation = new cc.Animation.create();
-  animation.addSpriteFrameWithFile( 'res/images/mon3_anim/mon3anim0001.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon3_anim/mon3anim0002.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon3_anim/mon3anim0003.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon3_anim/mon3anim0004.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon3_anim/mon3anim0005.png' );
+  animation.addSpriteFrameWithFile( res.mon3_anim_01_png );
+  animation.addSpriteFrameWithFile( res.mon3_anim_02_png );
+  animation.addSpriteFrameWithFile( res.mon3_anim_03_png );
+  animation.addSpriteFrameWithFile( res.mon3_anim_04_png );
+  animation.addSpriteFrameWithFile( res.mon3_anim_05_png );
+
   animation.setDelayPerUnit( 0.05 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
 },
 
 monTypeUAnimation:function(){
   var animation = new cc.Animation.create();
-  animation.addSpriteFrameWithFile( 'res/images/mon4_anim/mon4anim0001.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon4_anim/mon4anim0002.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon4_anim/mon4anim0003.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon4_anim/mon4anim0004.png' );
-  animation.addSpriteFrameWithFile( 'res/images/mon4_anim/mon4anim0005.png' );
+  animation.addSpriteFrameWithFile( res.mon4_anim_01_png );
+  animation.addSpriteFrameWithFile( res.mon4_anim_02_png );
+  animation.addSpriteFrameWithFile( res.mon4_anim_03_png );
+  animation.addSpriteFrameWithFile( res.mon4_anim_04_png );
+  animation.addSpriteFrameWithFile( res.mon4_anim_05_png );
+
   animation.setDelayPerUnit( 0.05 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
 },
@@ -107,9 +110,9 @@ isHit: function( playerRect){
 
 isAttacted:function(){
   if(this.isHit(this.player.getPlayerRect())){
-      cc.audioEngine.playEffect( 'res/sounds/impact_rock_on_rubble_002.mp3' );
+      cc.audioEngine.playEffect( res.impact_mp3 );
     if(this.player.drillType != this.monType&&this.player.drillType!='X'){
-      cc.audioEngine.playEffect( 'res/sounds/oops.wav' );
+      cc.audioEngine.playEffect( res.oops_wav );
       this.player.hp-=1;
       this.layer.shakeScreen();
       this.removeFromParent();

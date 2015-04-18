@@ -28,7 +28,9 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     speedLevelUp:function(){
-        this.floorSpeed+=0.5;
+        this.floorSpeed++;
+        this.floorSetsRun(this.floorSets,this.floorSpeed);
+        this.floorSetsRun(this.floorSets2,this.floorSpeed);
     },
 
     update: function(dt) {
@@ -60,7 +62,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     initSound:function(){
-    cc.audioEngine.playMusic( 'res/sounds/Blobby Samba.mp3', true );
+    cc.audioEngine.playMusic( res.sound_bg_mp3, true );
     },
 
 
@@ -115,17 +117,18 @@ var GameLayer = cc.LayerColor.extend({
                 this.speedDtDelay();
         }
 
-        if(this.counterSec>30){
+        if(this.counterSec>30&&this.isStart){
             this.speedLevelUp();
             console.log('speed up');
+            console.log('now speed  = '+this.floorSpeed);
             this.counterSec=0; // reset to count again.
         }
 
-        if(this.ItemCreatedTimer>20){
+        if(this.ItemCreatedTimer>20&&this.isStart){
             this.createItem();
             var  ran = 1+Math.floor(Math.random()*2)
             if(ran==1){
-            this.ItemCreatedTimer = -5;
+            this.ItemCreatedTimer = -0;
             }
             if(ran==2){
             this.ItemCreatedTimer = -5;
@@ -153,6 +156,7 @@ var GameLayer = cc.LayerColor.extend({
         if(this.speedDtTime<=0&&this.speedDt!=0){
             console.log('out speed mode');
             this.speedDtTime = 0 ;
+            console.log('now speed  = '+this.floorSpeed);
             this.speedDt = 0;
         }
 
@@ -303,8 +307,8 @@ onKeyDownForCheck: function( e ) {
                 this.player.grounded = false;
                 this.stop=false;
                 this.player.isDie = false
-                this.player.hp = 100;
-                this.floorSpeed = 5;
+                this.player.hp = 10;
+                this.floorSpeed = 12;
 
             }
             if ( e == 68) { //right
@@ -332,7 +336,6 @@ onKeyDownForCheck: function( e ) {
 
          }
          if(e==49){
-            this.isPlayerGetBomb = true;
             this.floorSpeed++;
         }
         if(e==cc.KEY.up||
@@ -403,3 +406,4 @@ var StartScene = cc.Scene.extend({
     },
 });
 GameLayer.KEYS = [];
+GameLayer.MAX_SPEED = 15;

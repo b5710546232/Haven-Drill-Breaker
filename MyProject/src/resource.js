@@ -1,5 +1,5 @@
 var res = {
-    floor_png: 			'res/images/SceneComponent/floor.png',
+    floor_png: 			'res/images/SceneComponent/ground.png',
     dirll_png: 			'res/images/drill/Drill.png',
     dirll2_png: 		'res/images/drill/Drill2.png',
     dirll3_png: 		'res/images/drill/Drill3.png',
@@ -15,10 +15,8 @@ var res = {
     hero_run07_png: 	'res/images/player/run_anim/run0007.png',
     hero_run08_png: 	'res/images/player/run_anim/run0008.png',
     hero_run09_png: 	'res/images/player/run_anim/run0009.png',
-    hero_run10_png: 	'res/images/player/run_anim/run00010.png',
-    bg_png: 			'res/images/SceneComponent/bg.png',
-    sound_bg_mp3:  		'res/sounds/Blobby Samba.mp3',
-    impact_mp3: 		'res/sounds/impact_rock_on_rubble_002.mp3',
+    hero_run10_png: 	'res/images/player/run_anim/run0010.png',
+    bg_png: 			'res/images/SceneComponent/bg.png',  
 
     //mon anim
 
@@ -28,23 +26,26 @@ var res = {
     mon1_anim_04_png: 	'res/images/mon1_anim/mon1anim0004.png',
     mon1_anim_05_png: 	'res/images/mon1_anim/mon1anim0005.png',
 
-    mon2_anim_01_png: 	'res/images/mon1_anim/mon2anim0001.png',
-    mon2_anim_02_png: 	'res/images/mon1_anim/mon2anim0002.png',
-    mon2_anim_03_png: 	'res/images/mon1_anim/mon2anim0003.png',
-    mon2_anim_04_png: 	'res/images/mon1_anim/mon2anim0004.png',
-    mon2_anim_05_png: 	'res/images/mon1_anim/mon2anim0005.png',
+    mon2_anim_01_png: 	'res/images/mon2_anim/mon2anim0001.png',
+    mon2_anim_02_png: 	'res/images/mon2_anim/mon2anim0002.png',
+    mon2_anim_03_png: 	'res/images/mon2_anim/mon2anim0003.png',
+    mon2_anim_04_png: 	'res/images/mon2_anim/mon2anim0004.png',
+    mon2_anim_05_png: 	'res/images/mon2_anim/mon2anim0005.png',
 
-    mon3_anim_01_png: 	'res/images/mon1_anim/mon3anim0001.png',
-    mon3_anim_02_png: 	'res/images/mon1_anim/mon3anim0002.png',
-    mon3_anim_03_png: 	'res/images/mon1_anim/mon3anim0003.png',
-    mon3_anim_04_png: 	'res/images/mon1_anim/mon3anim0004.png',
-    mon3_anim_05_png: 	'res/images/mon1_anim/mon3anim0005.png',
+    mon3_anim_01_png: 	'res/images/mon3_anim/mon3anim0001.png',
+    mon3_anim_02_png: 	'res/images/mon3_anim/mon3anim0002.png',
+    mon3_anim_03_png: 	'res/images/mon3_anim/mon3anim0003.png',
+    mon3_anim_04_png: 	'res/images/mon3_anim/mon3anim0004.png',
+    mon3_anim_05_png: 	'res/images/mon3_anim/mon3anim0005.png',
 
-    mon4_anim_01_png: 	'res/images/mon1_anim/mon4anim0001.png',
-    mon4_anim_02_png: 	'res/images/mon1_anim/mon4anim0002.png',
-    mon4_anim_03_png: 	'res/images/mon1_anim/mon4anim0003.png',
-    mon4_anim_04_png: 	'res/images/mon1_anim/mon4anim0004.png',
-    mon4_anim_05_png: 	'res/images/mon1_anim/mon4anim0005.png',
+    mon4_anim_01_png: 	'res/images/mon4_anim/mon4anim0001.png',
+    mon4_anim_02_png: 	'res/images/mon4_anim/mon4anim0002.png',
+    mon4_anim_03_png: 	'res/images/mon4_anim/mon4anim0003.png',
+    mon4_anim_04_png: 	'res/images/mon4_anim/mon4anim0004.png',
+    mon4_anim_05_png: 	'res/images/mon4_anim/mon4anim0005.png',
+    oops_wav : 			'res/sounds/oops.wav',
+    sound_bg_mp3:          'res/sounds/Blobby Samba.mp3',
+    impact_mp3:         'res/sounds/impact_rock_on_rubble_002.mp3',
  };
 
 var g_resources = [];

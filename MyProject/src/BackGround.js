@@ -8,7 +8,6 @@ var PackBackGround = cc.Node.extend({
     this.addChild(this.bg1,0);
     this.addChild(this.bg2,0);
     this.scheduleUpdate();
-    console.log('create bh');
     this.layer = layer;
 	},
 	update:function(){

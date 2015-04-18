@@ -1,13 +1,13 @@
 var Player = cc.Sprite.extend({
   ctor:function(){
     this._super();
-    this.initWithFile('res/images/player/Player.png');
+    this.initWithFile( res.hero_png);
     this.vy = 0;
     this.canJump = false;
     this.grounded = false;
     this.isStart =  false;
     this.drillType='N';
-    this.hp = 10000;
+    this.hp = 10;
     this.isRunning = false;
     this.isJummping = true;
     this.isDie = false;
@@ -62,22 +62,22 @@ manangeAnim:function(){
 },
 jumpAnim:function(){
   var animation  = new cc.Animation.create();
-  animation.addSpriteFrameWithFile( 'res/images/player/run_anim/run0001.png' );
+  animation.addSpriteFrameWithFile( res.hero_run01_png );
   animation.setDelayPerUnit( 0.01 );
   return cc.RepeatForever.create( cc.Animate.create( animation ) );
 },
 runAnim:function(){
   var animationRun = new cc.Animation.create();
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0001.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0002.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0003.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0004.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0005.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0006.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0007.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0008.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0009.png' );
-  animationRun.addSpriteFrameWithFile( 'res/images/player/run_anim/run0010.png' );
+  animationRun.addSpriteFrameWithFile( res.hero_run01_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run02_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run03_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run04_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run05_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run06_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run07_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run08_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run09_png );
+  animationRun.addSpriteFrameWithFile( res.hero_run10_png );
   animationRun.setDelayPerUnit( 0.05 );
     // return cc.Animate.create( animationRun );
     return cc.RepeatForever.create( cc.Animate.create( animationRun ) );
@@ -139,7 +139,7 @@ runAnim:function(){
 getPlayerRectFoot:function(){
   var spriteRect = this.getBoundingBoxToWorld();
   var footHeight = 10;
-  var footWidth = 20;
+  var footWidth = 15;
   return cc.rect(spriteRect.x+this.getBoundingBox().width/2, spriteRect.y,footWidth,footHeight);
 },
 getPlayerRectSideR:function(){
@@ -148,7 +148,7 @@ getPlayerRectSideR:function(){
   var Height = 32;
   var Width = 10;
   var RectPosX= this.x+(this.x-spriteRect.x)-Width;
-  return cc.rect(RectPosX,this.y,Width,Height)
+  return cc.rect(RectPosX,this.y-Height/2,Width,Height)
 },
 isOnGround: function(){
  this.vy=0;
