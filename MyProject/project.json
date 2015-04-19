@@ -20,6 +20,7 @@
         "src/Drill.js",
         "src/BackGround.js",
         "src/Arrow.js ",
-        "src/EffectBomb.js"
+        "src/EffectBomb.js",
+        "src/StatusBar.js"
     ]
 }

@@ -1,11 +1,15 @@
 var res = {
     floor_png: 			'res/images/SceneComponent/ground.png',
+
+    //drill
     dirll_png: 			'res/images/drill/Drill.png',
     dirll2_png: 		'res/images/drill/Drill2.png',
     dirll3_png: 		'res/images/drill/Drill3.png',
     dirll4_png: 		'res/images/drill/Drill4.png',
     dirll5_png: 		'res/images/drill/Drill5.png',
     dirllR_png:         'res/images/drill/DrillR.png',
+
+    //player
     hero_png: 			'res/images/player/Player.png',
     hero_run01_png: 	'res/images/player/run_anim/run0001.png',
     hero_run02_png: 	'res/images/player/run_anim/run0002.png',
@@ -44,6 +48,9 @@ var res = {
     mon4_anim_03_png: 	'res/images/mon4_anim/mon4anim0003.png',
     mon4_anim_04_png: 	'res/images/mon4_anim/mon4anim0004.png',
     mon4_anim_05_png: 	'res/images/mon4_anim/mon4anim0005.png',
+
+    //sound 
+
     oops_wav : 			'res/sounds/oops.wav',
     sound_bg_mp3:          'res/sounds/Blobby Samba.mp3',
     impact_mp3:         'res/sounds/impact_rock_on_rubble_002.mp3',

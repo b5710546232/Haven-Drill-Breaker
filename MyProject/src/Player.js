@@ -89,7 +89,8 @@ runAnim:function(){
     }
   },
   switchDrillType:function(){
-    if(GameLayer.KEYS[cc.KEY.left]){//left
+    if( this.drillType != 'X'){
+         if(GameLayer.KEYS[cc.KEY.left]){//left
       this.drillType = "L";
     }
     else if(GameLayer.KEYS[cc.KEY.right]){//right
@@ -101,7 +102,7 @@ runAnim:function(){
     else if(GameLayer.KEYS[cc.KEY.down]){//down
       this.drillType = "D";
     }
-    else if( this.drillType != 'X'){
+    else
       this.drillType = 'N';
     }
   },
@@ -116,7 +117,7 @@ runAnim:function(){
      this.grounded = false;
    }
    else if(!this.grounded&&this.canJump){
-     this.vy = Player.JUMP*0.8;
+     this.vy = Player.JUMP*Player.JUMP_SECOND_RATE;
      this.canJump = false;
    }
 
@@ -161,7 +162,6 @@ isOnAir: function(){
  this.vy+=Player.G;
  this.grounded = false;
  this.canJump = false;
- // this.unschedule(this.stopAction(this.movingAction));
 },
 isFall:function(){
   if(this.y<0){
@@ -174,12 +174,14 @@ death: function(){
   if(!this.isDie){
     this.vy = Player.JUMP*0.7;
   }
+  this.hp = 0;
   this.isDie = true;
   this.grounded = false;
   this.canJump = false;
   return true;
 }
 });
-Player.JUMP = 13;
+Player.JUMP = 12;
 Player.G = -0.7;
+Player.JUMP_SECOND_RATE = 0.9;
 Player.STARTING_VELOCITY=1;

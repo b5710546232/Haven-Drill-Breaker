@@ -7,6 +7,8 @@ var GameLayer = cc.LayerColor.extend({
 
         this.addKeyboardHandlers();
 
+        this.createStatusBar();
+
         this.initCondition();
         this.initFloorSets();
         this.initTimer();
@@ -22,19 +24,6 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
 
-    shakeScreen:function(){
-        var shakeForce = 8;
-        this.setPosition(0,shakeForce);
-    },
-
-    speedLevelUp:function(){
-        if(!this.gameOver){
-            this.floorSpeed++;
-            this.floorSetsRun(this.floorSets,this.floorSpeed);
-            this.floorSetsRun(this.floorSets2,this.floorSpeed);
-        }
-    },
-
     update: function(dt) {
         this.counterTime(dt);
         this.floorManage();
@@ -43,6 +32,30 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOutScreen();
         this.updateScore(this.score);
         this.setPosition(0,0);
+    },
+
+    createStatusBar:function(){
+        this.avatar = new Avatar ();
+        this.addChild(this.avatar,6);
+        this.hpBarRed = new HpBarRed ();
+        this.addChild(this.hpBarRed,4);
+        this.hpBarGreen = new HpBarGreen(this.player);
+        this.addChild(this.hpBarGreen,5);
+    },
+
+    shakeScreen:function(){
+        var shakeForce = 8;
+        this.setPosition(0,shakeForce);
+    },
+
+    speedLevelUp:function(){
+        if(!this.isGameOver){
+            if(this.floorSpeed<=GameLayer.MAX_SPEED){
+                this.floorSpeed++;
+            }
+            this.floorSetsRun(this.floorSets,this.floorSpeed);
+            this.floorSetsRun(this.floorSets2,this.floorSpeed);
+        }
     },
 
     createItem:function(){
@@ -64,7 +77,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     initSound:function(){
-    //cc.audioEngine.playMusic( res.sound_bg_mp3, true );
+    cc.audioEngine.playMusic( res.sound_bg_mp3, true );
 },
 
 
@@ -119,7 +132,7 @@ counterTime:function(dt){
     this.speedDtDelay();
 }
 
-if(this.counterSec>30&&this.isStart){
+if(this.counterSec>20&&this.isStart){
     this.speedLevelUp();
     console.log('speed up');
     console.log('now speed  = '+this.floorSpeed);
@@ -359,12 +372,14 @@ onKeyDownForCheck: function( e ) {
             if(!this.isStart)this.floorSpeed=3.5;
             this.isStart = true;
         }
-        if(this.player.drillType!='X'&&(e==cc.KEY.up||
-            e==cc.KEY.down||
-            e==cc.KEY.right||
-            e==cc.KEY.left)){
-            this.player.switchDrillType();
-    }
+        if(this.player.drillType!='X'){
+            if((e==cc.KEY.up||
+                e==cc.KEY.down||
+                e==cc.KEY.right||
+                e==cc.KEY.left)){
+                this.player.switchDrillType();
+            }  
+        }
        },
 
        onKeyUp: function( e ) {
