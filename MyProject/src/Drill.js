@@ -5,7 +5,7 @@ var Drill = cc.Sprite.extend({
 		this.player = player
 		this.count = 0;
 		this.up = true;
-	
+
 	},
 	update:function(dt){
 		this.setPosition(this.player.getPosition().x+this.width-6.5,this.player.getPosition().y-this.getBoundingBox().height/2+this.player.drillDist);
@@ -17,7 +17,7 @@ var Drill = cc.Sprite.extend({
 		if(type == 'U')this.initWithFile( res.dirll4_png );
 		if(type == 'D')this.initWithFile( res.dirll_png  );
 		if(type == 'N')this.initWithFile( res.dirll5_png );
-		if(type == 'X'){}
+		if(type == 'X')this.initWithFile( res.dirllR_png );
 	}
 
 });

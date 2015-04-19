@@ -5,6 +5,7 @@ var res = {
     dirll3_png: 		'res/images/drill/Drill3.png',
     dirll4_png: 		'res/images/drill/Drill4.png',
     dirll5_png: 		'res/images/drill/Drill5.png',
+    dirllR_png:         'res/images/drill/DrillR.png',
     hero_png: 			'res/images/player/Player.png',
     hero_run01_png: 	'res/images/player/run_anim/run0001.png',
     hero_run02_png: 	'res/images/player/run_anim/run0002.png',

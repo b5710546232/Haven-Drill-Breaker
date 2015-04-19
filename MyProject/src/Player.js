@@ -101,7 +101,9 @@ runAnim:function(){
     else if(GameLayer.KEYS[cc.KEY.down]){//down
       this.drillType = "D";
     }
-    else if( this.drillType != 'X')this.drillType = 'N';
+    else if( this.drillType != 'X'){
+      this.drillType = 'N';
+    }
   },
   startToPlay: function() {
     this.vy += Player.G;
@@ -170,7 +172,7 @@ isFall:function(){
 },
 death: function(){
   if(!this.isDie){
-    this.vy = Player.JUMP*0.8;
+    this.vy = Player.JUMP*0.7;
   }
   this.isDie = true;
   this.grounded = false;
@@ -178,6 +180,6 @@ death: function(){
   return true;
 }
 });
-Player.JUMP = 15;
-Player.G = -1;
+Player.JUMP = 13;
+Player.G = -0.7;
 Player.STARTING_VELOCITY=1;

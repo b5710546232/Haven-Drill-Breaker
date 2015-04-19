@@ -359,14 +359,12 @@ onKeyDownForCheck: function( e ) {
             if(!this.isStart)this.floorSpeed=3.5;
             this.isStart = true;
         }
-        if(e==cc.KEY.up||
+        if(this.player.drillType!='X'&&(e==cc.KEY.up||
             e==cc.KEY.down||
             e==cc.KEY.right||
-            e==cc.KEY.left){
+            e==cc.KEY.left)){
             this.player.switchDrillType();
     }
-    //this.player.stopAction(this.player.movingAction);
-           // console.log(e);
        },
 
        onKeyUp: function( e ) {
