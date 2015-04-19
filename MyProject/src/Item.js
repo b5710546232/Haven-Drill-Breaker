@@ -7,6 +7,7 @@ var Item = cc.Sprite.extend({
     console.log('create');
     this.setPosition(screenWidth+this.getBoundingBox().width,top);
     this.init();
+    this.speedY = 1;
   },
 
   update: function( dt ) {

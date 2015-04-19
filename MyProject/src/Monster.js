@@ -27,6 +27,13 @@ var Monster = cc.Sprite.extend({
   }
 },
 
+callEffect:function(){
+  if(this.monDie){
+    var effect = new EffectBomb(this);
+      this.layer.addChild(effect,3);
+      effect.scheduleUpdate();
+  }
+},
 
 initSpriteMonster :function(monType){
   if(monType=='R')this.initWithFile( res.mon1_anim_01_png );
@@ -111,8 +118,9 @@ isHit: function( playerRect){
 
 
 isAttacted:function(){
-  if(this.isHit(this.player.getPlayerRect())){
+  if(this.isHit(this.player.getPlayerRect())&&!this.player.isDie){
     this.monDie = true;
+    this.callEffect();
       cc.audioEngine.playEffect( res.impact_mp3 );
     if(this.player.drillType != this.monType&&this.player.drillType!='X'){
       cc.audioEngine.playEffect( res.oops_wav );
@@ -131,8 +139,10 @@ isAttacted:function(){
 
 
 destroy:function(player){
-  if(this.isHit(player.getPlayerRectSideR())||this.outOfScreen())
+  if((!player.isDie&&this.isHit(player.getPlayerRectSideR()))||this.outOfScreen()){
+    this.monDie = true;
     this.removeFromParent();
+  }
 },
 outOfScreen:function(){
   return this.getPosition().x<-this.getBoundingBox().width+this.speed;

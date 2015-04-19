@@ -28,9 +28,11 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     speedLevelUp:function(){
-        this.floorSpeed++;
-        this.floorSetsRun(this.floorSets,this.floorSpeed);
-        this.floorSetsRun(this.floorSets2,this.floorSpeed);
+        if(!this.gameOver){
+            this.floorSpeed++;
+            this.floorSetsRun(this.floorSets,this.floorSpeed);
+            this.floorSetsRun(this.floorSets2,this.floorSpeed);
+        }
     },
 
     update: function(dt) {
@@ -44,7 +46,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createItem:function(){
-        var  ran = 1+Math.floor(Math.random()*3)
+        var  ran = 3;
         if(ran==1){
             var spdU = new SpeedUp(this);
             spdU.scheduleUpdate();
@@ -63,79 +65,79 @@ var GameLayer = cc.LayerColor.extend({
 
     initSound:function(){
     //cc.audioEngine.playMusic( res.sound_bg_mp3, true );
-    },
+},
 
 
-    updateScore:function(score){
-        this.scoreLabel.setString("Score : "+score);
+updateScore:function(score){
+    this.scoreLabel.setString("Score : "+score);
 
-    },
+},
 
-    initCondition:function(){
-        this.isStart = false;
-        this.checkFloorCreate = false;
-        this.isGameOver = false;
+initCondition:function(){
+    this.isStart = false;
+    this.checkFloorCreate = false;
+    this.isGameOver = false;
 
-    },
+},
 
 
-    createDrill:function(){
-        this.drill = new Drill(this.player);
-        this.drill.scheduleUpdate();
-        this.addChild(this.drill,3);
+createDrill:function(){
+    this.drill = new Drill(this.player);
+    this.drill.scheduleUpdate();
+    this.addChild(this.drill,3);
 
-    },
+},
 
-    createScoreLabel:function(){
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
-        this.scoreLabel.setPosition( new cc.Point( 680, 400 ) );
-        this.addChild( this.scoreLabel );
-    },
-    
-    createBG:function(){
-      this.bg = new PackBackGround(this);
-      this.addChild(this.bg,0);
-     },
+createScoreLabel:function(){
+    this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
+    this.scoreLabel.setPosition( new cc.Point( 680, 400 ) );
+    this.addChild( this.scoreLabel );
+},
 
-    initTimer:function(){
-     this.totalDeltaTime=0;
-     this.counterSec = 0;
-     this.delayRainbowDrill = 0;
-     this.xModeTime = 0;
-     this.speedDtTime = 0;
-    },
-    counterTime:function(dt){
-        if(this.isStart){
-           this.totalDeltaTime+= dt;
-       }
-       if(this.totalDeltaTime>1){
-                this.counterSec++;
-                this.delayRainbowDrill++;
-                this.totalDeltaTime=0;
-                this.ItemCreatedTimer++
-                this.XModeDelay();
-                this.speedDtDelay();
-        }
+createBG:function(){
+  this.bg = new PackBackGround(this);
+  this.addChild(this.bg,0);
+},
 
-        if(this.counterSec>30&&this.isStart){
-            this.speedLevelUp();
-            console.log('speed up');
-            console.log('now speed  = '+this.floorSpeed);
+initTimer:function(){
+   this.totalDeltaTime=0;
+   this.counterSec = 0;
+   this.delayRainbowDrill = 0;
+   this.xModeTime = 0;
+   this.speedDtTime = 0;
+},
+counterTime:function(dt){
+    if(this.isStart){
+     this.totalDeltaTime+= dt;
+ }
+ if(this.totalDeltaTime>1){
+    this.counterSec++;
+    this.delayRainbowDrill++;
+    this.totalDeltaTime=0;
+    this.ItemCreatedTimer++
+    this.XModeDelay();
+    this.speedDtDelay();
+}
+
+if(this.counterSec>30&&this.isStart){
+    this.speedLevelUp();
+    console.log('speed up');
+    console.log('now speed  = '+this.floorSpeed);
             this.counterSec=0; // reset to count again.
         }
 
-        if(this.ItemCreatedTimer>20&&this.isStart){
+        if(this.ItemCreatedTimer>1&&!this.isGameOver){
             this.createItem();
             var  ran = 1+Math.floor(Math.random()*2)
             if(ran==1){
-            this.ItemCreatedTimer = -0;
+                this.ItemCreatedTimer = -0;
             }
             if(ran==2){
-            this.ItemCreatedTimer = -5;
+                this.ItemCreatedTimer = -5;
             }
         }
 
-        },
+    },
     XModeDelay:function(){
         if(this.xModeTime>0){
             this.xModeTime--;
@@ -148,7 +150,7 @@ var GameLayer = cc.LayerColor.extend({
 
     },
 
-     speedDtDelay:function(){
+    speedDtDelay:function(){
         if(this.speedDtTime>0){
             this.speedDtTime--;
             console.log('speed delay');
@@ -162,19 +164,19 @@ var GameLayer = cc.LayerColor.extend({
 
     },
 
-playerHitSideFloorSet:function(){
-    this.playerRightSideHitGround(this.floorSets);
-    this.playerRightSideHitGround(this.floorSets2);
-},
-initFloorSets:function(){
-    this.floorSpeed = 0;
-    this.floorSets2 = [];
-    this.floorSets  = this.createFloors(0);
-    this.floorSets2 = [];
-    this.floorSets2 = this.createFloors(1);
-},
-floorManage:function(){
-    var ran = 1+Math.floor(Math.random()*this.numOfMap);
+    playerHitSideFloorSet:function(){
+        this.playerRightSideHitGround(this.floorSets);
+        this.playerRightSideHitGround(this.floorSets2);
+    },
+    initFloorSets:function(){
+        this.floorSpeed = 0;
+        this.floorSets2 = [];
+        this.floorSets  = this.createFloors(0);
+        this.floorSets2 = [];
+        this.floorSets2 = this.createFloors(1);
+    },
+    floorManage:function(){
+        var ran = 1+Math.floor(Math.random()*this.numOfMap);
         //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
@@ -200,59 +202,59 @@ floorManage:function(){
             }
         }
     },
-createPlayer:function(){
-    this.player = new Player();
-    this.player.setPosition(new cc.Point(200,300))
-    this.addChild(this.player,2)
-    this.player.scheduleUpdate();
-},
-createRandomFloorsPatterns: function(num){
-    var map = [ [1,1,1,1,1,1,1,1],
-    [0,1,0,0,1,1,1,1],
-    [0,1,1,1,1,1,1,1],
-    [0,1,0,1,1,0,1,1],
-    [0,1,1,1,1,1,1,1],
-    [0,1,1,1,1,1,1,1],
-    [0,1,1,1,1,1,1,1],
-    [0,1,1,1,1,1,1,1],
-    [0,1,0,1,0,1,1,1],
-    [0,1,0,1,0,0,1,1],
-    ];
-    this.numOfMap = map.length-1;
-    return map[num];
-},
-createFloors: function(num){
-    var floorSet = [];
-    var index = 0;
-    var map = this.createRandomFloorsPatterns(num);
-    for(var i = 0 ;i<map.length;i++){
-        if(map[i]==1){
-            var floor = new Floor(this);
-            if(num==0){
-             floor.setPosition(50+100*i,10) ;    
-         }
-         else{
+    createPlayer:function(){
+        this.player = new Player();
+        this.player.setPosition(new cc.Point(200,300))
+        this.addChild(this.player,2)
+        this.player.scheduleUpdate();
+    },
+    createRandomFloorsPatterns: function(num){
+        var map = [ [1,1,1,1,1,1,1,1],
+        [0,1,0,0,1,1,1,1],
+        [0,1,1,1,1,1,1,1],
+        [0,1,0,1,1,0,1,1],
+        [0,1,1,1,1,1,1,1],
+        [0,1,1,1,1,1,1,1],
+        [0,1,1,1,1,1,1,1],
+        [0,1,1,1,1,1,1,1],
+        [0,1,0,1,0,1,1,1],
+        [0,1,0,1,0,0,1,1],
+        ];
+        this.numOfMap = map.length-1;
+        return map[num];
+    },
+    createFloors: function(num){
+        var floorSet = [];
+        var index = 0;
+        var map = this.createRandomFloorsPatterns(num);
+        for(var i = 0 ;i<map.length;i++){
+            if(map[i]==1){
+                var floor = new Floor(this);
+                if(num==0){
+                   floor.setPosition(50+100*i,10) ;    
+               }
+               else{
                 var floorWidth = 100;
                 floor.setPosition(floorWidth/2+screenWidth+(100*i),10);
                 var  chanceCreateMon = 1+Math.floor(Math.random()*2)
                 if(chanceCreateMon!=1){
                     var ranMonType = Math.floor(Math.random()*4)
                     var monType = ['R','L','D','U']
-                       var m = new Monster(floor,monType[ranMonType]);
-                       var arrow = new Arrow(m);
-                       arrow.scheduleUpdate();
-                       this.addChild(arrow,1);
+                    var m = new Monster(floor,monType[ranMonType]);
+                    var arrow = new Arrow(m);
+                    arrow.scheduleUpdate();
+                    this.addChild(arrow,1);
                     m.scheduleUpdate();
                     this.addChild(m,1);
                 }
-        }
+            }
             floor.scheduleUpdate();
             this.addChild(floor,1);
             floorSet.push(floor);
         }
     }   
     this.FloorSetPosX = floorSet[floorSet.length-1].getBoundingBox().x+50;
-return floorSet;
+    return floorSet;
 },
 gameStart:function(){
     if(this.isStart){
@@ -269,14 +271,14 @@ floorSetsRun:function(floorSets,speed){
 gameOver:function(){
     this.player.death();
     this.isGameOver = true;
-        if(this.isGameOver){
-            this.shakeScreen();
-        }
+    if(this.isGameOver){
+        this.shakeScreen();
+    }
     this.floorSpeed = 0;
     this.speedDt = 0;
 },
 setFloorsSpeed:function(floorSets,newSpeed){
-   for(var i = 0;i<floorSets.length;i++){
+ for(var i = 0;i<floorSets.length;i++){
 
     floorSets[i].speed = speed;
 }
@@ -330,49 +332,49 @@ onKeyDownForCheck: function( e ) {
                 this.floorSetsRun(this.floorSets2,0)
             }
             if( e==87){//up
-             this.player.setPosition(new cc.Point(this.player.getPosition().x
+               this.player.setPosition(new cc.Point(this.player.getPosition().x
                 ,this.player.getPosition().y+10));
-         }
+           }
             if(e==83){ //down
-             this.player.setPosition(new cc.Point(this.player.getPosition().x
+               this.player.setPosition(new cc.Point(this.player.getPosition().x
                 ,this.player.getPosition().y-10));
 
-         }
-         if(e==49){
+           }
+           if(e==49){
             this.floorSpeed++;
         }
         if(e==cc.KEY.up||
-        e==cc.KEY.down||
-        e==cc.KEY.right||
-        e==cc.KEY.left){
+            e==cc.KEY.down||
+            e==cc.KEY.right||
+            e==cc.KEY.left){
             if(!this.drillSFX){
                 cc.audioEngine.playEffect( 'res/sounds/220159__gameaudio__spacey-drill-quick.wav');
                 this.drillSFX=true;
             }
         }
     },
-onKeyDown:function(e){
-    if(GameLayer.KEYS[cc.KEY.space]){
+    onKeyDown:function(e){
+        if(GameLayer.KEYS[cc.KEY.space]){
             this.player.jump();
             if(!this.isStart)this.floorSpeed=3.5;
             this.isStart = true;
-    }
-            if(e==cc.KEY.up||
+        }
+        if(e==cc.KEY.up||
             e==cc.KEY.down||
             e==cc.KEY.right||
             e==cc.KEY.left){
-                this.player.switchDrillType();
-            }
+            this.player.switchDrillType();
+    }
     //this.player.stopAction(this.player.movingAction);
            // console.log(e);
-},
+       },
 
-onKeyUp: function( e ) {
-    if(e!=cc.KEY.up||
-        e!=cc.KEY.down||
-        e!=cc.KEY.right||
-        e!=cc.KEY.left){
-        this.drillSFX = false;
+       onKeyUp: function( e ) {
+        if(e!=cc.KEY.up||
+            e!=cc.KEY.down||
+            e!=cc.KEY.right||
+            e!=cc.KEY.left){
+            this.drillSFX = false;
         this.player.switchDrillType();
     }
     else if(e==cc.KEY.up||
@@ -380,7 +382,7 @@ onKeyUp: function( e ) {
         e==cc.KEY.right||
         e==cc.KEY.left){
         this.player.drillType = 'N';
-    }
+}
 },
 addKeyboardHandlers: function() {
     var self = this;
