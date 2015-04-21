@@ -20,11 +20,6 @@ var Monster = cc.Sprite.extend({
    this.setPositionX( this.getPositionX() - this.speed);  
    this.destroy(this.player);
    this.isAttacted();
-   if(this.layer.isPlayerGetBomb){
-    console.log('bomb');
-    this.layer.isPlayerGetBomb =false
-    this.removeFromParent();
-  }
 },
 
 callEffect:function(){
@@ -127,9 +122,9 @@ isAttacted:function(){
       this.player.hp-=1;
       this.layer.shakeScreen();
       this.removeFromParent();
-      console.log('now hp  = :'+this.player.hp);
     }
     else{
+      this.player.canJump  = true;
       this.layer.score++;
       this.removeFromParent();
     }

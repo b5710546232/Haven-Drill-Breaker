@@ -3,7 +3,6 @@ var EffectBomb = cc.Sprite.extend({
 		this._super();
 		this.initWithFile( 'res/images/effect/bomb_anim0001.png');
 		this.mon = monster;
-		console.log('effect');
 		this.setPosition(this.mon.getPosition().x,this.mon.getPosition().y);
 		this.count = 0;
 		this.runAction(this.bombAnim());

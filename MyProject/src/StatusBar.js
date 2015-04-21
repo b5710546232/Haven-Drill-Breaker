@@ -3,7 +3,6 @@ var Avatar = cc.Sprite.extend({
 		this._super();
 		this.initWithFile('res/images/player/player_avatar.png');
 		this.setPosition(50,410)
-		console.log('ava');
 	},
 });
 var HpBarRed = cc.Sprite.extend({
@@ -21,7 +20,7 @@ var HpBarGreen = cc.Sprite.extend({
 		this.setAnchorPoint( new cc.Point( 0, 0) );
 		this.setPosition(65,388)
 		this.player = player;
-		this.maxScale = this.player.hp;
+		this.maxScale = Player.HP_MAX;
 		this.scheduleUpdate();
 	},
 	update:function(){

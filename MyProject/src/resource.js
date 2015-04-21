@@ -52,7 +52,7 @@ var res = {
     //sound 
 
     oops_wav : 			'res/sounds/oops.wav',
-    sound_bg_mp3:          'res/sounds/Blobby Samba.mp3',
+    sound_bg_mp3:          'res/sounds/run_128.mp3',
     impact_mp3:         'res/sounds/impact_rock_on_rubble_002.mp3',
  };
 

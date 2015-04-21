@@ -4,7 +4,6 @@ var Item = cc.Sprite.extend({
     this.layer  = layer
     this.player = layer.player;
     var top = 320;
-    console.log('create');
     this.setPosition(screenWidth+this.getBoundingBox().width,top);
     this.init();
     this.speedY = 1;
@@ -55,7 +54,7 @@ var RainbowDrill = Item.extend({
   effectToPlayer:function(){
     if(this.isHit(this.player.getPlayerRect())){
       this.player.drillType = 'X';
-      this.layer.xModeTime += 3;
+      this.layer.xModeTime += 5;
       this.removeFromParent();
     }
   },
@@ -88,6 +87,22 @@ var SpeedDown = Item.extend({
     if(this.isHit(this.player.getPlayerRect())){
       this.layer.speedDt--;
       this.layer.speedDtTime += 3;
+      this.removeFromParent();
+    }
+  },
+
+});
+var HpUpItem = Item.extend({
+  init :function(){
+    this.initWithFile('res/images/item/speedDownItem.png');
+  },
+
+
+  effectToPlayer:function(){
+    if(this.isHit(this.player.getPlayerRect())){
+      if(this.player.hp<Player.HP_MAX){
+        this.player.hp++;
+      }
       this.removeFromParent();
     }
   },

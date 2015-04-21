@@ -2,25 +2,9 @@ var GameLayer = cc.LayerColor.extend({
 	init: function() {
 		this._super( new cc.Color( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
-        this.createPlayer();
-        this.createDrill();
-
         this.addKeyboardHandlers();
-
-        this.createStatusBar();
-
-        this.initCondition();
-        this.initFloorSets();
-        this.initTimer();
-        this.createBG();
-        this.createScoreLabel();
-        this.score = 0;
+        this.initComponent();
         this.scheduleUpdate();
-        this.isPlayerGetBomb = false;
-        this.initSound();
-        this.drillSFX = false;
-        this.ItemCreatedTimer = 0;
-        this.speedDt = 0;
         return true;
     },
 
@@ -32,6 +16,18 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOutScreen();
         this.updateScore(this.score);
         this.setPosition(0,0);
+    },
+    initComponent:function(){
+        this.createPlayer();
+        this.createDrill();
+        this.createStatusBar();
+        this.initCondition();
+        this.initFloorSets();
+        this.initTimer();
+        this.createBG();
+        this.createScoreLabel();
+        this.initSound();  
+
     },
 
     createStatusBar:function(){
@@ -59,7 +55,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createItem:function(){
-        var  ran = 3;
+        var  ran = 1+Math.floor(Math.random()*4);
         if(ran==1){
             var spdU = new SpeedUp(this);
             spdU.scheduleUpdate();
@@ -69,11 +65,18 @@ var GameLayer = cc.LayerColor.extend({
             var spdD = new SpeedDown(this);
             spdD.scheduleUpdate();
             this.addChild(spdD);
-        }if(ran==3){
+        }
+        if(ran==3){
             var rbD = new RainbowDrill(this);
             rbD.scheduleUpdate();
             this.addChild(rbD);
         }
+        if(ran == 4 ){
+            var hpUp = new HpUpItem(this);
+            hpUp.scheduleUpdate();
+            this.addChild(hpUp);
+        }
+
     },
 
     initSound:function(){
@@ -90,7 +93,10 @@ initCondition:function(){
     this.isStart = false;
     this.checkFloorCreate = false;
     this.isGameOver = false;
-
+    this.score = 0;
+    this.drillSFX = false;
+    this.ItemCreatedTimer = 0;
+    this.speedDt = 0;
 },
 
 
@@ -105,6 +111,11 @@ createScoreLabel:function(){
     this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
     this.scoreLabel.setPosition( new cc.Point( 680, 400 ) );
     this.addChild( this.scoreLabel );
+
+    // this.scoreMaxLabel = cc.LabelTTF.create( '0', 'Arial', 10 );
+    // this.scoreMaxLabel.setPosition( new cc.Point( 680, 420 ) );
+    // this.addChild( this.scoreMaxLabel );
+    // this.scoreMaxLabel.setString("Higt Score : "+this.scoreMax);
 },
 
 createBG:function(){
@@ -139,7 +150,7 @@ if(this.counterSec>20&&this.isStart){
             this.counterSec=0; // reset to count again.
         }
 
-        if(this.ItemCreatedTimer>1&&!this.isGameOver){
+        if(this.ItemCreatedTimer>15&&!this.isGameOver){
             this.createItem();
             var  ran = 1+Math.floor(Math.random()*2)
             if(ran==1){
@@ -318,15 +329,20 @@ onKeyDownForCheck: function( e ) {
             }
             if (e==82){ //r refesh
                 console.log('re');
-                this.player.setPosition(200,300);
-                this.player.vy = Player.STARTING_VELOCITY;
-                Player.G = -1;
-                this.player.canJump = false;
-                this.player.grounded = false;
-                this.stop=false;
-                this.player.isDie = false
-                this.player.hp = 10;
-                this.floorSpeed = 12;
+                // this.player.setPosition(200,300);
+                // this.player.vy = Player.STARTING_VELOCITY;
+                // Player.G = -1;
+                // this.player.canJump = false;
+                // this.player.grounded = false;
+                // this.stop=false;
+                // this.player.isDie = false
+                // this.player.hp = 10;
+                // this.floorSpeed = 12;
+                cc.director.runScene(new StartScene());
+                // if(this.score>this.scoreMax)
+                // cc.director.runScene(new StartScene(this.score));
+                // else
+                // cc.director.runScene(new StartScene(this.scoreMax));
 
             }
             if ( e == 68) { //right

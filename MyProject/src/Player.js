@@ -105,6 +105,7 @@ runAnim:function(){
     else
       this.drillType = 'N';
     }
+
   },
   startToPlay: function() {
     this.vy += Player.G;
@@ -181,6 +182,7 @@ death: function(){
   return true;
 }
 });
+Player.HP_MAX = 10;
 Player.JUMP = 12;
 Player.G = -0.7;
 Player.JUMP_SECOND_RATE = 0.9;
