@@ -5,6 +5,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addKeyboardHandlers();
         this.initComponent();
         this.scheduleUpdate();
+        this.isStart = true;
         return true;
     },
 
@@ -96,6 +97,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     initCondition:function(){
+        this.scoreMax = ScoreRecord
         this.isStart = false;
         this.checkFloorCreate = false;
         this.isGameOver = false;
@@ -114,14 +116,14 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createScoreLabel:function(){
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 25 );
         this.scoreLabel.setPosition( new cc.Point( 680, 400 ) );
         this.addChild( this.scoreLabel );
 
-    // this.scoreMaxLabel = cc.LabelTTF.create( '0', 'Arial', 10 );
-    // this.scoreMaxLabel.setPosition( new cc.Point( 680, 420 ) );
-    // this.addChild( this.scoreMaxLabel );
-    // this.scoreMaxLabel.setString("Higt Score : "+this.scoreMax);
+    this.scoreMaxLabel = cc.LabelTTF.create( '0', 'Arial', 15 );
+    this.scoreMaxLabel.setPosition( new cc.Point( 680, 420 ) );
+    this.addChild( this.scoreMaxLabel );
+    this.scoreMaxLabel.setString("High Score : "+this.scoreMax);
     },
 
     createBG:function(){
@@ -295,6 +297,7 @@ var GameLayer = cc.LayerColor.extend({
     gameStart:function(){
         if(this.isStart){
             this.player.startToPlay();
+            this.floorSpeed=3.5;
             this.floorSetsRun(this.floorSets,this.floorSpeed);
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
         }
@@ -314,6 +317,8 @@ var GameLayer = cc.LayerColor.extend({
         }
         this.floorSpeed = 0;
         this.speedDt = 0;
+        this.floorSetsRun(this.floorSets,this.floorSpeed);
+        this.floorSetsRun(this.floorSets2,this.floorSpeed);
     },
 
     setFloorsSpeed:function(floorSets,newSpeed){
@@ -333,6 +338,7 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0;i<floorSets.length;i++){
             if(floorSets[i].checkCollision  (this.player.getPlayerRectSideR())){
              this.gameOver();
+             ScoreRecord = this.score;
 
             }
         }
@@ -347,21 +353,13 @@ var GameLayer = cc.LayerColor.extend({
                 }
                 if (e==82){ //r refesh
                     console.log('re');
-                    // this.player.setPosition(200,300);
-                    // this.player.vy = Player.STARTING_VELOCITY;
-                    // Player.G = -1;
-                    // this.player.canJump = false;
-                    // this.player.grounded = false;
-                    // this.stop=false;
-                    // this.player.isDie = false
-                    // this.player.hp = 10;
-                    // this.floorSpeed = 12;
+     
                     cc.audioEngine.stopMusic( res.sound_bg_mp3);
                     cc.director.runScene(new StartScene());
-                    // if(this.score>this.scoreMax)
-                    // cc.director.runScene(new StartScene(this.score));
-                    // else
-                    // cc.director.runScene(new StartScene(this.scoreMax));
+                    if(this.score>ScoreRecord){
+                    ScoreRecord = this.score;
+                    }
+                    
 
                 }
                 if ( e == 68) { //right
@@ -395,7 +393,7 @@ var GameLayer = cc.LayerColor.extend({
                 e==cc.KEY.down||
                 e==cc.KEY.right||
                 e==cc.KEY.left){
-                if(!this.drillSFX){
+                if(!this.drillSFX&&!this.isGameOver){
                     cc.audioEngine.playEffect( 'res/sounds/220159__gameaudio__spacey-drill-quick.wav');
                     this.drillSFX=true;
                 }
@@ -405,8 +403,8 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown:function(e){
         if(GameLayer.KEYS[cc.KEY.space]){
             this.player.jump();
-            if(!this.isStart)this.floorSpeed=3.5;
-            this.isStart = true;
+            // if(!this.isStart)this.floorSpeed=3.5;
+            // this.isStart = true;
         }
         if(this.player.drillType!='X'){
             if((e==cc.KEY.up||
@@ -460,3 +458,4 @@ var StartScene = cc.Scene.extend({
 });
 GameLayer.KEYS = [];
 GameLayer.MAX_SPEED = 15;
+var ScoreRecord = 0;
