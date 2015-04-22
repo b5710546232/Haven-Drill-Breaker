@@ -338,7 +338,7 @@ var GameLayer = cc.LayerColor.extend({
             this.isStart = true;
         }
                 if(e==81){ // q
-                    window.location.reload();
+                     
                 }
                 if (e==82){ //r refesh
                     console.log('re');
@@ -351,6 +351,7 @@ var GameLayer = cc.LayerColor.extend({
                     // this.player.isDie = false
                     // this.player.hp = 10;
                     // this.floorSpeed = 12;
+                    cc.audioEngine.stopMusic( res.sound_bg_mp3);
                     cc.director.runScene(new StartScene());
                     // if(this.score>this.scoreMax)
                     // cc.director.runScene(new StartScene(this.score));

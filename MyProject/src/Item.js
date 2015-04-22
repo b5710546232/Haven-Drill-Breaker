@@ -94,7 +94,7 @@ var SpeedDown = Item.extend({
 });
 var HpUpItem = Item.extend({
   init :function(){
-    this.initWithFile('res/images/item/speedDownItem.png');
+    this.initWithFile('res/images/item/heartItem.png');
   },
 
 
