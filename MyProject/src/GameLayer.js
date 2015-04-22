@@ -38,6 +38,8 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.hpBarRed,4);
         this.hpBarGreen = new HpBarGreen(this.player);
         this.addChild(this.hpBarGreen,5);
+        this.signLevelUp = new SignLevelUp(this);
+        this.addChild(this.signLevelUp,5);
     },
 
     shakeScreen:function(){
@@ -48,7 +50,10 @@ var GameLayer = cc.LayerColor.extend({
     speedLevelUp:function(){
         if(!this.isGameOver){
             if(this.floorSpeed<=GameLayer.MAX_SPEED){
+                   console.log('speed up');
+            console.log('now speed  = '+this.floorSpeed);
                 this.floorSpeed++;
+                this.signLevelUp.call = true;
             }
             this.floorSetsRun(this.floorSets,this.floorSpeed);
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
@@ -130,6 +135,7 @@ var GameLayer = cc.LayerColor.extend({
      this.delayRainbowDrill = 0;
      this.xModeTime = 0;
      this.speedDtTime = 0;
+     this.timeLimitLevelUp = 20;
     },
 
     counterTime:function(dt){
@@ -145,10 +151,8 @@ var GameLayer = cc.LayerColor.extend({
             this.speedDtDelay();
         }
 
-        if(this.counterSec>20&&this.isStart){
+        if(this.counterSec>this.timeLimitLevelUp&&this.isStart){
             this.speedLevelUp();
-            console.log('speed up');
-            console.log('now speed  = '+this.floorSpeed);
                     this.counterSec=0; // reset to count again.
         }
 
@@ -321,6 +325,7 @@ var GameLayer = cc.LayerColor.extend({
 
     playerOutScreen:function(){
         if(this.player.isFall()){
+            this.player.playSoundHit();
             this.gameOver();
         }
     },
@@ -384,7 +389,7 @@ var GameLayer = cc.LayerColor.extend({
 
              }
              if(e==49){
-                this.floorSpeed++;
+                this.speedLevelUp();
             }
             if(e==cc.KEY.up||
                 e==cc.KEY.down||

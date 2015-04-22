@@ -27,3 +27,42 @@ var HpBarGreen = cc.Sprite.extend({
 		this.setScaleX(this.player.hp/this.maxScale)
 	}
 });
+var SignLevelUp = cc.Sprite.extend({
+	ctor:function (layer) {
+		this._super();
+		this.initWithFile('res/images/SceneComponent/speedUpSign.png');
+		this.setAnchorPoint( new cc.Point( 0, 0) );
+		var size = 320;
+		this.setPosition(screenWidth,screenHeight/2)
+		this.layer = layer;
+		this.call = false;
+		this.dtDist = 0;
+		this.dist = size;
+		// this.setAnchorPoint( new cc.Point( 0, 0) );
+		console.log(this.dist);
+		this.count = 0;
+		this.scheduleUpdate();
+	},
+	update:function(dt){
+		if(this.call){
+			if(this.dtDist<this.dist){
+				this.dtDist+=10;
+				console.log('in');
+				this.x-=10;
+			}
+			else if(this.dtDist>=this.dist){
+				this.count+=dt;
+				if(this.count>1){
+					this.count = 0;
+					this.call = false;
+				}
+			}
+		}
+		else{
+			if(!this.call&&this.dtDist>=0){
+				this.dtDist-=10;
+				this.x+=10;
+			}
+		}
+	}
+});

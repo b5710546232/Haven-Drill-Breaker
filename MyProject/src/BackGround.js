@@ -16,13 +16,14 @@ var PackBackGround = cc.Node.extend({
 		this.loop();
 	},
 	loop:function(){
-		if(-this.x>screenWidth){
+		if(-this.getPosition().x>screenWidth){
 			this.setPositionX(0);
+			console.log('loop');
 		}
 	},
 
 	move:function(){
-		this.x+= this.speed; 
+		this.x+= this.speed-this.layer.speedDt;
 	},
 });
 var BackGround = cc.Sprite.extend({

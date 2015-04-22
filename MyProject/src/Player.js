@@ -16,6 +16,7 @@ var Player = cc.Sprite.extend({
     this.runAction(this.jumpAction);
     this.drillDist = 0;
     this.drillDown = false;
+    this.isHiting = false;
   },
   update: function( dt ) {
     var pos = this.getPosition();
@@ -44,6 +45,14 @@ var Player = cc.Sprite.extend({
     }
 
 },
+
+playSoundHit:function(){
+  if(!this.isHiting){
+      cc.audioEngine.playEffect( 'res/sounds/human_face_punch.mp3');
+      this.isHiting = true;
+  }
+},
+
 manangeAnim:function(){
   if(this.isRunning==false&&this.grounded){
     this.stopAction(this.jumpAction);
