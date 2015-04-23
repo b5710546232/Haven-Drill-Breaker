@@ -21,6 +21,7 @@
         "src/BackGround.js",
         "src/Arrow.js ",
         "src/EffectBomb.js",
-        "src/StatusBar.js"
+        "src/StatusBar.js",
+        "src/MenuLayer.js"
     ]
 }

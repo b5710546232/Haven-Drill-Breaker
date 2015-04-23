@@ -361,7 +361,8 @@ var GameLayer = cc.LayerColor.extend({
                     console.log('re');
      
                     cc.audioEngine.stopMusic( res.sound_bg_mp3);
-                    cc.director.runScene(new StartScene());
+                    // cc.director.runScene(new StartScene());
+                    cc.director.runScene(new GamePlayScene() );
                     if(this.score>ScoreRecord){
                     ScoreRecord = this.score;
                     }
@@ -454,14 +455,14 @@ var GameLayer = cc.LayerColor.extend({
         }, this);
     },
 });
-var StartScene = cc.Scene.extend({
-    onEnter: function() {
-        this._super();
-        var layer = new GameLayer();
-        layer.init();
-        this.addChild( layer );
-    },
-});
+// var StartScene = cc.Scene.extend({
+//     onEnter: function() {
+//         this._super();
+//         var layer = new GameLayer();
+//         layer.init();
+//         this.addChild( layer );
+//     },
+// });
 GameLayer.KEYS = [];
 GameLayer.MAX_SPEED = 12.5;
 var ScoreRecord = 0;
