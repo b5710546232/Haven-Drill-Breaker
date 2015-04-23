@@ -50,11 +50,11 @@ var GameLayer = cc.LayerColor.extend({
 
     speedLevelUp:function(){
         if(!this.isGameOver){
-            if(this.floorSpeed<=GameLayer.MAX_SPEED){
-                   console.log('speed up');
-            console.log('now speed  = '+this.floorSpeed);
+            if(this.floorSpeed<GameLayer.MAX_SPEED){
                 this.floorSpeed++;
                 this.signLevelUp.call = true;
+            console.log('speed up');
+            console.log('now speed  = '+this.floorSpeed);
             }
             this.floorSetsRun(this.floorSets,this.floorSpeed);
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
@@ -463,5 +463,5 @@ var StartScene = cc.Scene.extend({
     },
 });
 GameLayer.KEYS = [];
-GameLayer.MAX_SPEED = 15;
+GameLayer.MAX_SPEED = 12.5;
 var ScoreRecord = 0;
