@@ -22,6 +22,7 @@
         "src/Arrow.js ",
         "src/EffectBomb.js",
         "src/StatusBar.js",
-        "src/MenuLayer.js"
+        "src/MenuLayer.js",
+        "src/CreditPage.js"
     ]
 }

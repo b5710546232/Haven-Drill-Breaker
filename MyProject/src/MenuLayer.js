@@ -41,8 +41,9 @@ var MenuLayer = cc.LayerColor.extend({
     createCreditButton:function(){
       this.creditButItem = new cc.MenuItemImage(
         'res/images/SceneComponent/credit_but.png',
-        'res/images/SceneComponent/credit_but.png',
+        'res/images/SceneComponent/credit_but2.png',
         function () {
+         cc.director.runScene(new CreditScene() );
         console.log('credit click');
         }, this);
       this.creditButton = new cc.Menu(this.creditButItem);
@@ -58,9 +59,8 @@ var MenuLayer = cc.LayerColor.extend({
     },
 });
 
-var CreditLayer = cc.LayerColor.extend({
 
-});
+
 
 var MenuBackGround = cc.Sprite.extend({
     ctor:function(){
@@ -69,6 +69,8 @@ var MenuBackGround = cc.Sprite.extend({
         this.setPosition(screenWidth/2,screenHeight/2);
     },
 });
+
+
 
 
 
