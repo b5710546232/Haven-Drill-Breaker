@@ -53,6 +53,8 @@ var GameLayer = cc.LayerColor.extend({
             if(this.floorSpeed<GameLayer.MAX_SPEED){
                 this.floorSpeed++;
                 this.signLevelUp.call = true;
+            console.log('speed up');
+            console.log('now speed  = '+this.floorSpeed);
             }
             this.floorSetsRun(this.floorSets,this.floorSpeed);
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
@@ -176,6 +178,7 @@ var GameLayer = cc.LayerColor.extend({
                 this.xModeTime--;
             }
             if(this.xModeTime<=0&&this.player.drillType=='X'){
+                console.log('out x mode');
                 this.xModeTime = 0;
                 this.player.drillType = 'N';
             }
@@ -186,9 +189,12 @@ var GameLayer = cc.LayerColor.extend({
 
         if(this.speedDtTime>0){
             this.speedDtTime--;
+            console.log('speed delay');
         }
         if(this.speedDtTime<=0&&this.speedDt!=0){
+            console.log('out speed mode');
             this.speedDtTime = 0 ;
+            console.log('now speed  = '+this.floorSpeed);
             this.speedDt = 0;
         }
 
@@ -209,6 +215,7 @@ var GameLayer = cc.LayerColor.extend({
 
     floorManage:function(){
         var ran = 1+Math.floor(Math.random()*this.numOfMap);
+        //console.log(ran);
         // run
         if(this.floorSets[this.floorSets.length-1].outOfScreen()){
             this.floorSetsRun(this.floorSets2,this.floorSpeed);
@@ -349,6 +356,51 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDownForCheck: function( e ) {
+        if(e==69){
+            this.isStart = true;
+        }
+                if(e==81){ // q
+                     
+                }
+                if (e==82){ //r refesh
+                    console.log('re');
+     
+                    cc.audioEngine.stopMusic( res.sound_bg_mp3);
+                    // cc.director.runScene(new StartScene());
+                    cc.director.runScene(new GamePlayScene() );
+                    if(this.score>ScoreRecord){
+                    ScoreRecord = this.score;
+                    }
+                    
+
+                }
+                if ( e == 68) { //right
+                    this.player.setPosition(new cc.Point(this.player.getPosition().x+10
+                        ,this.player.getPosition().y));
+                }
+                if ( e == 65) {//right
+                    this.player.setPosition(new cc.Point(this.player.getPosition().x-10
+                        ,this.player.getPosition().y));
+                }
+                if ( e == 84) { //t stop
+                    this.isStart = false;
+                    Player.G = 0;
+                    this.player.vy=0;
+                    this.floorSetsRun(this.floorSets,0)
+                    this.floorSetsRun(this.floorSets2,0)
+                }
+                if( e==87){//up
+                 this.player.setPosition(new cc.Point(this.player.getPosition().x
+                    ,this.player.getPosition().y+10));
+             }
+                if(e==83){ //down
+                 this.player.setPosition(new cc.Point(this.player.getPosition().x
+                    ,this.player.getPosition().y-10));
+
+             }
+             if(e==49){
+                this.speedLevelUp();
+            }
             if(e==cc.KEY.up||
                 e==cc.KEY.down||
                 e==cc.KEY.right||
@@ -363,6 +415,8 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown:function(e){
         if(GameLayer.KEYS[cc.KEY.space]){
             this.player.jump();
+            // if(!this.isStart)this.floorSpeed=3.5;
+            // this.isStart = true;
         }
         if(this.player.drillType!='X'){
             if((e==cc.KEY.up||

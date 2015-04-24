@@ -44,7 +44,6 @@ var MenuLayer = cc.LayerColor.extend({
         'res/images/SceneComponent/credit_but2.png',
         function () {
          cc.director.runScene( new CreditScene() );
-        console.log('credit click');
         }, this);
       this.creditButton = new cc.Menu(this.creditButItem);
       this.addChild(this.creditButton);

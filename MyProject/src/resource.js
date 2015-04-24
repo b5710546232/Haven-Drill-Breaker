@@ -54,6 +54,13 @@ var res = {
     oops_wav : 			'res/sounds/oops.wav',
     sound_bg_mp3:          'res/sounds/run_128.mp3',
     impact_mp3:         'res/sounds/impact_rock_on_rubble_002.mp3',
+
+    //button
+    backToMenu_But_png: 'res/images/SceneComponent/backtoMenu.png',
+    backToMenu2_But_png: 'res/images/SceneComponent/backtoMenu2.png',
+    playAgain_but_png: 'res/images/SceneComponent/playAgain_but.png',
+    playAgain2_but_png: 'res/images/SceneComponent/playAgain_but2.png',
+
  };
 
 var g_resources = [];

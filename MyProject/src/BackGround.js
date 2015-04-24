@@ -18,7 +18,6 @@ var PackBackGround = cc.Node.extend({
 	loop:function(){
 		if(-this.getPosition().x>screenWidth){
 			this.setPositionX(0);
-			console.log('loop');
 		}
 	},
 

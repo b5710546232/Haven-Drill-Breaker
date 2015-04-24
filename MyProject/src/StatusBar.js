@@ -38,7 +38,6 @@ var SignLevelUp = cc.Sprite.extend({
 		this.call = false;
 		this.dtDist = 0;
 		this.dist = size;
-		console.log(this.dist);
 		this.count = 0;
 		this.scheduleUpdate();
 	},

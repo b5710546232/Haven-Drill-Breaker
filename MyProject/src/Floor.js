@@ -30,7 +30,6 @@ var Floor = cc.Sprite.extend({
 },
     sideHitPlayer:function(layer){
         if(this.checkCollision (layer.player.getPlayerRectSideR())){
-             console.log('side');
              layer.player.playSoundHit();
              layer.gameOver();
         }
