@@ -12,7 +12,7 @@ var HowToLayer = cc.LayerColor.extend({
         this.howToPage = new HowToPage()
         this.addChild(this.howToPage);
         this.createBackButton();
-
+        return true;
     },
     createBackButton:function(){
     	this.backButItem = new cc.MenuItemImage(

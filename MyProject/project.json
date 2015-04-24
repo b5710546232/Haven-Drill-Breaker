@@ -24,6 +24,7 @@
         "src/StatusBar.js",
         "src/MenuLayer.js",
         "src/CreditPage.js",
-        "src/HowToPage.js"
+        "src/HowToPage.js",
+        "src/GameOverLayer.js"
     ]
 }

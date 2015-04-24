@@ -323,6 +323,11 @@ var GameLayer = cc.LayerColor.extend({
         this.speedDt = 0;
         this.floorSetsRun(this.floorSets,this.floorSpeed);
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
+        if(this.player.getPosition().y<-screenHeight/2){
+            SCORE = this.score;
+            cc.audioEngine.stopMusic( res.sound_bg_mp3);
+            cc.director.runScene( new GameOverScene() );
+        }
     },
 
     setFloorsSpeed:function(floorSets,newSpeed){
@@ -455,14 +460,7 @@ var GameLayer = cc.LayerColor.extend({
         }, this);
     },
 });
-// var StartScene = cc.Scene.extend({
-//     onEnter: function() {
-//         this._super();
-//         var layer = new GameLayer();
-//         layer.init();
-//         this.addChild( layer );
-//     },
-// });
 GameLayer.KEYS = [];
+var SCORE = 0;
 GameLayer.MAX_SPEED = 12.5;
 var ScoreRecord = 0;

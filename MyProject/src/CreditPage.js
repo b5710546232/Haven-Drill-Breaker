@@ -12,6 +12,7 @@ var CreditLayer = cc.LayerColor.extend({
         this.creditsPage = new CreditsPage()
         this.addChild(this.creditsPage);
         this.createBackButton();
+        return true;
 
     },
     createBackButton:function(){
