@@ -16,6 +16,7 @@ var GameOverLayer = cc.LayerColor.extend({
         this.createScoreLabel();
         this.createBackButton();
         this.createPlayAgainButton();
+        cc.audioEngine.playMusic( res.lostVilage_mp3, true );
         return true;
     },
     createScoreLabel:function(){
@@ -30,6 +31,7 @@ var GameOverLayer = cc.LayerColor.extend({
     		 res.backToMenu_But_png,
     		 res.backToMenu2_But_png,
     		function () {
+                cc.audioEngine.stopMusic( res.lostVilage_mp3);
                 cc.audioEngine.playEffect( res.press_mp3 );
     			cc.director.runScene(new StartScene() );
     		}, this);
@@ -43,6 +45,7 @@ var GameOverLayer = cc.LayerColor.extend({
     		res.playAgain_but_png,
     		res.playAgain2_but_png,
     		function () {
+                cc.audioEngine.stopMusic( res.lostVilage_mp3);
                 cc.audioEngine.playEffect( res.press_mp3 );
     			cc.director.runScene(new GamePlayScene() );
     		}, this);

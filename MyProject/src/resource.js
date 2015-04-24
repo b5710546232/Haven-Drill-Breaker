@@ -64,6 +64,8 @@ var res = {
     drill_wav:  'res/sounds/220159__gameaudio__spacey-drill-quick.wav',
     punch_mp3: 'res/sounds/human_face_punch.mp3',
     press_mp3: 'res/sounds/laptop_notebook_spacebar_press.mp3',
+    pickUp_wav: 'res/sounds/Pickup_Coin36.wav',
+    lostVilage_mp3: 'res/sounds/lost_village_128.mp3',
 
     //button
     backToMenu_But_png: 'res/images/SceneComponent/backtoMenu.png',
@@ -98,6 +100,8 @@ var res = {
     effect03_png:   'res/images/effect/bomb_anim0003.png',
     effect04_png:   'res/images/effect/bomb_anim0004.png',
     effect05_png:   'res/images/effect/bomb_anim0005.png',
+
+
 
 };
 

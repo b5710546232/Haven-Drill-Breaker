@@ -13,6 +13,7 @@ var Item = cc.Sprite.extend({
     this.move();
     this.destroy(this.player);
     this.effectToPlayer();
+    this.playSFX();
   },
 
   getRect: function(){
@@ -55,6 +56,7 @@ var RainbowDrill = Item.extend({
     if(this.isHit(this.player.getPlayerRect())){
       this.player.drillType = 'X';
       this.layer.xModeTime += 5;
+      cc.audioEngine.playEffect( res.pickUp_wav );
       this.removeFromParent();
     }
   },
@@ -72,6 +74,7 @@ var SpeedUp = Item.extend({
     if(this.isHit(this.player.getPlayerRect())){
       this.layer.speedDt+=3;
       this.layer.speedDtTime += 3;
+      cc.audioEngine.playEffect( res.pickUp_wav );
       this.removeFromParent();
     }
   },
@@ -87,6 +90,7 @@ var SpeedDown = Item.extend({
     if(this.isHit(this.player.getPlayerRect())){
       this.layer.speedDt--;
       this.layer.speedDtTime += 3;
+      cc.audioEngine.playEffect( res.pickUp_wav );
       this.removeFromParent();
     }
   },
@@ -103,6 +107,7 @@ var HpUpItem = Item.extend({
       if(this.player.hp<Player.HP_MAX){
         this.player.hp++;
       }
+      cc.audioEngine.playEffect( res.pickUp_wav );
       this.removeFromParent();
     }
   },
