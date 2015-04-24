@@ -13,6 +13,7 @@ var MenuLayer = cc.LayerColor.extend({
     initComponent:function(){
     this.createPlayButton();
     this.createHowToButton();
+    this.createCreditButton();
     },
 
     createPlayButton:function(){
@@ -30,12 +31,24 @@ var MenuLayer = cc.LayerColor.extend({
         'res/images/SceneComponent/howtoPlay_But.png',
         'res/images/SceneComponent/howtoPlay_But2.png',
         function () {
-            cc.director.runScene(new GamePlayScene() );
+        console.log('how to click');
         }, this);
       this.howToButton = new cc.Menu(this.howToButItem);
       this.addChild(this.howToButton);
       var deltaDistance = -80;
       this.howToButton.setPosition(screenWidth/2,(screenHeight/2)+deltaDistance);
+    },
+    createCreditButton:function(){
+      this.creditButItem = new cc.MenuItemImage(
+        'res/images/SceneComponent/credit_but.png',
+        'res/images/SceneComponent/credit_but.png',
+        function () {
+        console.log('credit click');
+        }, this);
+      this.creditButton = new cc.Menu(this.creditButItem);
+      this.addChild(this.creditButton);
+      var deltaDistance = -80*2;
+      this.creditButton.setPosition(screenWidth/2,(screenHeight/2)+deltaDistance);
     },
 
 
@@ -43,6 +56,10 @@ var MenuLayer = cc.LayerColor.extend({
     update: function(dt) {
 
     },
+});
+
+var CreditLayer = cc.LayerColor.extend({
+
 });
 
 var MenuBackGround = cc.Sprite.extend({
