@@ -30,6 +30,7 @@ var GameOverLayer = cc.LayerColor.extend({
     		 res.backToMenu_But_png,
     		 res.backToMenu2_But_png,
     		function () {
+                cc.audioEngine.playEffect( res.press_mp3 );
     			cc.director.runScene(new StartScene() );
     		}, this);
     	this.backButton = new cc.Menu(this.backButItem);
@@ -42,6 +43,7 @@ var GameOverLayer = cc.LayerColor.extend({
     		res.playAgain_but_png,
     		res.playAgain2_but_png,
     		function () {
+                cc.audioEngine.playEffect( res.press_mp3 );
     			cc.director.runScene(new GamePlayScene() );
     		}, this);
     	this.playAgainButton = new cc.Menu(this.playAgainButItem);

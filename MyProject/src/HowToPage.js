@@ -19,6 +19,7 @@ var HowToLayer = cc.LayerColor.extend({
     		res.backToMenu_But_png,
     		res.backToMenu2_But_png,
     		function () {
+                cc.audioEngine.playEffect( res.press_mp3 );
     			cc.director.runScene(new StartScene() );
     		}, this);
     	this.backButton = new cc.Menu(this.backButItem);

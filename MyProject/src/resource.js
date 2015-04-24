@@ -63,6 +63,7 @@ var res = {
     impact_mp3:         'res/sounds/impact_rock_on_rubble_002.mp3',
     drill_wav:  'res/sounds/220159__gameaudio__spacey-drill-quick.wav',
     punch_mp3: 'res/sounds/human_face_punch.mp3',
+    press_mp3: 'res/sounds/laptop_notebook_spacebar_press.mp3',
 
     //button
     backToMenu_But_png: 'res/images/SceneComponent/backtoMenu.png',
