@@ -16,8 +16,8 @@ var HowToLayer = cc.LayerColor.extend({
     },
     createBackButton:function(){
     	this.backButItem = new cc.MenuItemImage(
-    		'res/images/SceneComponent/backtoMenu.png',
-    		'res/images/SceneComponent/backtoMenu2.png',
+    		res.backToMenu_But_png,
+    		res.backToMenu2_But_png,
     		function () {
     			cc.director.runScene(new StartScene() );
     		}, this);
@@ -31,7 +31,7 @@ var HowToLayer = cc.LayerColor.extend({
 var HowToPage = cc.Sprite.extend({
     ctor:function(){
         this._super();
-        this.initWithFile('res/images/SceneComponent/howToPlay.png');
+        this.initWithFile(res.howToPlay_png);
         this.setPosition(screenWidth/2,screenHeight/2);
     },
 });

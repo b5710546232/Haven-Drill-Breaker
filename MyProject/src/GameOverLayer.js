@@ -27,8 +27,8 @@ var GameOverLayer = cc.LayerColor.extend({
     },
      createBackButton:function(){
     	this.backButItem = new cc.MenuItemImage(
-    		 backToMenu_But_png,
-    		 backToMenu2_But_png,
+    		 res.backToMenu_But_png,
+    		 res.backToMenu2_But_png,
     		function () {
     			cc.director.runScene(new StartScene() );
     		}, this);
@@ -39,8 +39,8 @@ var GameOverLayer = cc.LayerColor.extend({
     },
     createPlayAgainButton:function(){
     	this.playAgainButItem = new cc.MenuItemImage(
-    		playAgain_but_png,
-    		playAgain2_but_png,
+    		res.playAgain_but_png,
+    		res.playAgain2_but_png,
     		function () {
     			cc.director.runScene(new GamePlayScene() );
     		}, this);
@@ -54,6 +54,6 @@ var GameOverLayer = cc.LayerColor.extend({
 var GameOverBG =  cc.Sprite.extend({
 	ctor:function(){
 		this._super();
-		this.initWithFile('res/images/SceneComponent/gameOverBg.png');
+		this.initWithFile(res.gameOverBG_png);
 	},
 });

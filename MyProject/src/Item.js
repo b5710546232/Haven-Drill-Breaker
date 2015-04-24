@@ -48,7 +48,7 @@ var Item = cc.Sprite.extend({
 
 var RainbowDrill = Item.extend({
   init :function(){
-    this.initWithFile('res/images/item/rainBowDrill.png');
+    this.initWithFile(res.rainbowDrill_png);
   },
 
   effectToPlayer:function(){
@@ -65,7 +65,7 @@ var RainbowDrill = Item.extend({
 
 var SpeedUp = Item.extend({
   init :function(){
-    this.initWithFile('res/images/item/speedUpItem.png');
+    this.initWithFile(res.speedUpItem_png);
   },
 
   effectToPlayer:function(){
@@ -79,7 +79,7 @@ var SpeedUp = Item.extend({
 
 var SpeedDown = Item.extend({
   init :function(){
-    this.initWithFile('res/images/item/speedDownItem.png');
+    this.initWithFile(res.speedDownItem_png);
   },
 
 
@@ -94,7 +94,7 @@ var SpeedDown = Item.extend({
 });
 var HpUpItem = Item.extend({
   init :function(){
-    this.initWithFile('res/images/item/heartItem.png');
+    this.initWithFile(res.heartItem_png);
   },
 
 

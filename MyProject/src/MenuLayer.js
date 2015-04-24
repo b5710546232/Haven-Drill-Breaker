@@ -18,8 +18,8 @@ var MenuLayer = cc.LayerColor.extend({
 
     createPlayButton:function(){
       this.playButItem = new cc.MenuItemImage(
-        'res/images/SceneComponent/playBut.png',
-        'res/images/SceneComponent/playBut2.png',
+        res.play_but_png,
+        res.play2_but_png,
         function () {
             cc.director.runScene(new GamePlayScene() );
         }, this);
@@ -28,8 +28,8 @@ var MenuLayer = cc.LayerColor.extend({
     },
     createHowToButton:function(){
       this.howToButItem = new cc.MenuItemImage(
-        'res/images/SceneComponent/howtoPlay_But.png',
-        'res/images/SceneComponent/howtoPlay_But2.png',
+        res.howToPlay_but_png,
+        res.howtoPlay2_But_png,
         function () {
         cc.director.runScene( new HowToScene() );
         }, this);
@@ -40,8 +40,8 @@ var MenuLayer = cc.LayerColor.extend({
     },
     createCreditButton:function(){
       this.creditButItem = new cc.MenuItemImage(
-        'res/images/SceneComponent/credit_but.png',
-        'res/images/SceneComponent/credit_but2.png',
+        res.credit_But_png,
+        res.credit2_But_png,
         function () {
          cc.director.runScene( new CreditScene() );
         }, this);
@@ -64,7 +64,7 @@ var MenuLayer = cc.LayerColor.extend({
 var MenuBackGround = cc.Sprite.extend({
     ctor:function(){
         this._super();
-        this.initWithFile('res/images/SceneComponent/mainMenuBG.png');
+        this.initWithFile(res.mainBG_png);
         this.setPosition(screenWidth/2,screenHeight/2);
     },
 });

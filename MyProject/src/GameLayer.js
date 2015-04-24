@@ -354,7 +354,7 @@ var GameLayer = cc.LayerColor.extend({
                 e==cc.KEY.right||
                 e==cc.KEY.left){
                 if(!this.drillSFX&&!this.isGameOver){
-                    cc.audioEngine.playEffect( 'res/sounds/220159__gameaudio__spacey-drill-quick.wav');
+                    cc.audioEngine.playEffect( res.drill_wav);
                     this.drillSFX=true;
                 }
             }

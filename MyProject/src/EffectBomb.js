@@ -1,7 +1,7 @@
 var EffectBomb = cc.Sprite.extend({
 	ctor:function(monster){
 		this._super();
-		this.initWithFile( 'res/images/effect/bomb_anim0001.png');
+		this.initWithFile( res.effect01_png );
 		this.mon = monster;
 		this.setPosition(this.mon.getPosition().x,this.mon.getPosition().y);
 		this.count = 0;
@@ -16,11 +16,11 @@ var EffectBomb = cc.Sprite.extend({
 	},
 	bombAnim:function(){
 		var animation = new cc.Animation.create();
-		animation.addSpriteFrameWithFile( 'res/images/effect/bomb_anim0001.png' );
-		animation.addSpriteFrameWithFile( 'res/images/effect/bomb_anim0002.png' );
-		animation.addSpriteFrameWithFile( 'res/images/effect/bomb_anim0003.png' );
-		animation.addSpriteFrameWithFile( 'res/images/effect/bomb_anim0004.png' );
-		animation.addSpriteFrameWithFile( 'res/images/effect/bomb_anim0005.png' );
+		animation.addSpriteFrameWithFile(  res.effect01_png  );
+		animation.addSpriteFrameWithFile(  res.effect02_png  );
+		animation.addSpriteFrameWithFile(  res.effect03_png  );
+		animation.addSpriteFrameWithFile(  res.effect04_png  );
+		animation.addSpriteFrameWithFile(  res.effect05_png  );
 
 		animation.setDelayPerUnit( 0.05 );
 		return cc.Animate.create( animation ) ;

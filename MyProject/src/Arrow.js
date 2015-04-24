@@ -1,7 +1,7 @@
 var Arrow = cc.Sprite.extend({
 	ctor:function(monster){
 		this._super();
-		this.initWithFile( 'res/images/drill/arrow.png');
+		this.initWithFile( res.arrow_png );
 		this.mon = monster;
 		var top = this.mon.getPosition().y + 55 ;
 		this.setPosition(this.mon.getPosition().x,top);

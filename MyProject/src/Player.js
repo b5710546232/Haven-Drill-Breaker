@@ -48,7 +48,7 @@ var Player = cc.Sprite.extend({
 
 playSoundHit:function(){
   if(!this.isHiting){
-      cc.audioEngine.playEffect( 'res/sounds/human_face_punch.mp3');
+      cc.audioEngine.playEffect( res.punch_mp3 );
       this.isHiting = true;
   }
 },

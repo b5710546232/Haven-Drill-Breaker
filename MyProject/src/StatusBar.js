@@ -1,14 +1,14 @@
 var Avatar = cc.Sprite.extend({
 	ctor:function () {
 		this._super();
-		this.initWithFile('res/images/player/player_avatar.png');
+		this.initWithFile(res.player_avatar_png);
 		this.setPosition(50,410)
 	},
 });
 var HpBarRed = cc.Sprite.extend({
 	ctor:function () {
 		this._super();
-		this.initWithFile('res/images/player/hpBar_red.png');
+		this.initWithFile(res.hp_bar_red_png);
 		this.setPosition(65,388)
 		this.setAnchorPoint( new cc.Point( 0, 0) );
 	},
@@ -16,7 +16,7 @@ var HpBarRed = cc.Sprite.extend({
 var HpBarGreen = cc.Sprite.extend({
 	ctor:function (player) {
 		this._super();
-		this.initWithFile('res/images/player/hpBar_green.png');
+		this.initWithFile( res.hp_bar_green_png );
 		this.setAnchorPoint( new cc.Point( 0, 0) );
 		this.setPosition(65,388)
 		this.player = player;
@@ -30,7 +30,7 @@ var HpBarGreen = cc.Sprite.extend({
 var SignLevelUp = cc.Sprite.extend({
 	ctor:function (layer) {
 		this._super();
-		this.initWithFile('res/images/SceneComponent/speedUpSign.png');
+		this.initWithFile(res.speedUpSign_png);
 		this.setAnchorPoint( new cc.Point( 0, 0) );
 		var size = 320;
 		this.setPosition(screenWidth,screenHeight/2)
