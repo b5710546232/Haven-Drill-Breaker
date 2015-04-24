@@ -37,7 +37,7 @@ var GameOverLayer = cc.LayerColor.extend({
     		}, this);
     	this.backButton = new cc.Menu(this.backButItem);
     	this.addChild(this.backButton);
-    	var deltaDistance = -80*2;
+    	var deltaDistance = -80;
       	this.backButton.setPosition(screenWidth/4,(screenHeight/2)+deltaDistance);
     },
     createPlayAgainButton:function(){
@@ -51,7 +51,7 @@ var GameOverLayer = cc.LayerColor.extend({
     		}, this);
     	this.playAgainButton = new cc.Menu(this.playAgainButItem);
     	this.addChild(this.playAgainButton);
-    	var deltaDistance = -80*2;
+    	var deltaDistance = -80;
       	this.playAgainButton.setPosition(screenWidth*3/4,(screenHeight/2)+deltaDistance);
     },
 });
