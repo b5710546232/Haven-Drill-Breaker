@@ -13,7 +13,6 @@ var Item = cc.Sprite.extend({
     this.move();
     this.destroy(this.player);
     this.effectToPlayer();
-    this.playSFX();
   },
 
   getRect: function(){
