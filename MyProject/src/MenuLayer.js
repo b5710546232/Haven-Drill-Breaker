@@ -31,7 +31,7 @@ var MenuLayer = cc.LayerColor.extend({
         'res/images/SceneComponent/howtoPlay_But.png',
         'res/images/SceneComponent/howtoPlay_But2.png',
         function () {
-        console.log('how to click');
+        cc.director.runScene( new HowToScene() );
         }, this);
       this.howToButton = new cc.Menu(this.howToButItem);
       this.addChild(this.howToButton);
@@ -43,7 +43,7 @@ var MenuLayer = cc.LayerColor.extend({
         'res/images/SceneComponent/credit_but.png',
         'res/images/SceneComponent/credit_but2.png',
         function () {
-         cc.director.runScene(new CreditScene() );
+         cc.director.runScene( new CreditScene() );
         console.log('credit click');
         }, this);
       this.creditButton = new cc.Menu(this.creditButItem);
@@ -84,7 +84,7 @@ var GamePlayScene = cc.Scene.extend({
 });
 
 
-var StartScene = cc.Scene.extend({
+var StartScene = cc.Scene.extend({  
     onEnter: function() {
         this._super();
         var layer = new MenuLayer();

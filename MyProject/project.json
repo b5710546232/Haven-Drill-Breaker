@@ -23,6 +23,7 @@
         "src/EffectBomb.js",
         "src/StatusBar.js",
         "src/MenuLayer.js",
-        "src/CreditPage.js"
+        "src/CreditPage.js",
+        "src/HowToPage.js"
     ]
 }
