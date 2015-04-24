@@ -7,6 +7,7 @@ var MenuLayer = cc.LayerColor.extend({
         this.addChild(this.bg);
         this.scheduleUpdate();
         this.initComponent();
+        this.playSoundBG();
         return true;
     },
 
@@ -16,11 +17,20 @@ var MenuLayer = cc.LayerColor.extend({
     this.createCreditButton();
     },
 
+    playSoundBG:function(){
+      if(!isPlayingSong){
+        cc.audioEngine.playMusic( res.thePassing_mp3 , true );
+        isPlayingSong = true;
+      }
+    },
+
     createPlayButton:function(){
       this.playButItem = new cc.MenuItemImage(
         res.play_but_png,
         res.play2_but_png,
         function () {
+            cc.audioEngine.stopMusic( res.lostVilage_mp3);
+            isPlayingSong = false;
             cc.audioEngine.playEffect( res.press_mp3 );
             cc.director.runScene(new GamePlayScene() );
         }, this);

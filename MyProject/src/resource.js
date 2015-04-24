@@ -66,6 +66,7 @@ var res = {
     press_mp3: 'res/sounds/laptop_notebook_spacebar_press.mp3',
     pickUp_wav: 'res/sounds/Pickup_Coin36.wav',
     lostVilage_mp3: 'res/sounds/lost_village_128.mp3',
+    thePassing_mp3: 'res/sounds/The-Passing_64.mp3',
 
     //button
     backToMenu_But_png: 'res/images/SceneComponent/backtoMenu.png',
