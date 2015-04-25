@@ -318,6 +318,9 @@ var GameLayer = cc.LayerColor.extend({
         this.floorSetsRun(this.floorSets2,this.floorSpeed);
         if(this.player.getPosition().y<-screenHeight/2){
             SCORE = this.score;
+            if(this.score>ScoreRecord){
+               ScoreRecord = this.score;
+           }
             cc.audioEngine.stopMusic( res.sound_bg_mp3);
             cc.director.runScene( new GameOverScene() );
         }
@@ -340,9 +343,6 @@ var GameLayer = cc.LayerColor.extend({
         for(var i = 0;i<floorSets.length;i++){
             if(floorSets[i].checkCollision  (this.player.getPlayerRectSideR())){
              this.gameOver();
-              if(this.score>ScoreRecord){
-                 ScoreRecord = this.score;
-            }
 
             }
         }

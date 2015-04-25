@@ -59,34 +59,34 @@ var res = {
     //sound 
 
     oops_wav : 			'res/sounds/oops.wav',
-    sound_bg_mp3:          'res/sounds/run_128.mp3',
+    sound_bg_mp3:       'res/sounds/run_128.mp3',
     impact_mp3:         'res/sounds/impact_rock_on_rubble_002.mp3',
-    drill_wav:  'res/sounds/220159__gameaudio__spacey-drill-quick.wav',
-    punch_mp3: 'res/sounds/human_face_punch.mp3',
-    press_mp3: 'res/sounds/laptop_notebook_spacebar_press.mp3',
-    pickUp_wav: 'res/sounds/Pickup_Coin36.wav',
-    lostVilage_mp3: 'res/sounds/lost_village_128.mp3',
-    thePassing_mp3: 'res/sounds/The-Passing_64.mp3',
+    drill_wav:          'res/sounds/220159__gameaudio__spacey-drill-quick.wav',
+    punch_mp3:          'res/sounds/human_face_punch.mp3',
+    press_mp3:          'res/sounds/laptop_notebook_spacebar_press.mp3',
+    pickUp_wav:         'res/sounds/Pickup_Coin36.wav',
+    lostVilage_mp3:     'res/sounds/lost_village_128.mp3',
+    thePassing_mp3:     'res/sounds/The-Passing_64.mp3',
 
     //button
     backToMenu_But_png: 'res/images/SceneComponent/backtoMenu.png',
-    backToMenu2_But_png: 'res/images/SceneComponent/backtoMenu2.png',
-    playAgain_but_png: 'res/images/SceneComponent/playAgain_but.png',
+    backToMenu2_But_png:'res/images/SceneComponent/backtoMenu2.png',
+    playAgain_but_png:  'res/images/SceneComponent/playAgain_but.png',
     playAgain2_but_png: 'res/images/SceneComponent/playAgain_but2.png',
     play_but_png:       'res/images/SceneComponent/playBut.png',
-    play2_but_png:       'res/images/SceneComponent/playBut2.png',
-    howToPlay_but_png: 'res/images/SceneComponent/howtoPlay_But.png',
+    play2_but_png:      'res/images/SceneComponent/playBut2.png',
+    howToPlay_but_png:  'res/images/SceneComponent/howtoPlay_But.png',
     howtoPlay2_But_png: 'res/images/SceneComponent/howtoPlay_But2.png',
-    credit_But_png: 'res/images/SceneComponent/credit_but.png',
-    credit2_But_png: 'res/images/SceneComponent/credit_but2.png',
+    credit_But_png:     'res/images/SceneComponent/credit_but.png',
+    credit2_But_png:    'res/images/SceneComponent/credit_but2.png',
 
     //page
-    howToPlay_png: 'res/images/SceneComponent/howToPlay.png',
-    credit_png: 'res/images/SceneComponent/credits.png',
+    howToPlay_png:      'res/images/SceneComponent/howToPlay.png',
+    credit_png:         'res/images/SceneComponent/credits.png',
     //bg
-    gameOverBG_png: 'res/images/SceneComponent/gameOverBg.png',
+    gameOverBG_png:     'res/images/SceneComponent/gameOverBg.png',
     gameBG_png:         'res/images/SceneComponent/bg.png',
-    mainBG_png:     'res/images/SceneComponent/mainMenuBG.png',
+    mainBG_png:         'res/images/SceneComponent/mainMenuBG.png',
 
     //statusBar
 
@@ -96,11 +96,11 @@ var res = {
     speedUpSign_png:    'res/images/SceneComponent/speedUpSign.png',
 
     //efect
-    effect01_png:   'res/images/effect/bomb_anim0001.png',
-    effect02_png:   'res/images/effect/bomb_anim0002.png',
-    effect03_png:   'res/images/effect/bomb_anim0003.png',
-    effect04_png:   'res/images/effect/bomb_anim0004.png',
-    effect05_png:   'res/images/effect/bomb_anim0005.png',
+    effect01_png:        'res/images/effect/bomb_anim0001.png',
+    effect02_png:        'res/images/effect/bomb_anim0002.png',
+    effect03_png:        'res/images/effect/bomb_anim0003.png',
+    effect04_png:        'res/images/effect/bomb_anim0004.png',
+    effect05_png:        'res/images/effect/bomb_anim0005.png',
 
 
 
