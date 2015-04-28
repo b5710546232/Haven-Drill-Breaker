@@ -164,12 +164,12 @@ getPlayerRectSideR:function(){
   return cc.rect(RectPosX,this.y-Height/2,Width,Height)
 },
 isOnGround: function(){
- this.vy=0;
+ this.vy = 0;
  this.grounded = true;
 
 },
 isOnAir: function(){
- this.vy+=Player.G;
+ this.vy += Player.G;
  this.grounded = false;
  this.canJump = false;
 },
