@@ -25,6 +25,7 @@
         "src/MenuLayer.js",
         "src/CreditPage.js",
         "src/HowToPage.js",
-        "src/GameOverLayer.js"
+        "src/GameOverLayer.js",
+        "src/ComboText.js"
     ]
 }

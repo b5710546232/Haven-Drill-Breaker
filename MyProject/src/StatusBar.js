@@ -2,14 +2,14 @@ var Avatar = cc.Sprite.extend({
 	ctor:function () {
 		this._super();
 		this.initWithFile(res.player_avatar_png);
-		this.setPosition(50,410)
+		this.setPosition(50,410);
 	},
 });
 var HpBarRed = cc.Sprite.extend({
 	ctor:function () {
 		this._super();
 		this.initWithFile(res.hp_bar_red_png);
-		this.setPosition(65,388)
+		this.setPosition(65,388);
 		this.setAnchorPoint( new cc.Point( 0, 0) );
 	},
 });
@@ -18,7 +18,7 @@ var HpBarGreen = cc.Sprite.extend({
 		this._super();
 		this.initWithFile( res.hp_bar_green_png );
 		this.setAnchorPoint( new cc.Point( 0, 0) );
-		this.setPosition(65,388)
+		this.setPosition(65,388);
 		this.player = player;
 		this.maxScale = Player.HP_MAX;
 		this.scheduleUpdate();

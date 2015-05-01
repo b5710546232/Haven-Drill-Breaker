@@ -28,7 +28,13 @@ var GameLayer = cc.LayerColor.extend({
         this.initTimer();
         this.createBG();
         this.createScoreLabel();
+        this.createComboText();
         this.initSound();  
+
+    },
+    createComboText:function(){
+        this.combo = new ComboText(this)
+        this.addChild(this.combo,10);
 
     },
 
@@ -91,7 +97,24 @@ var GameLayer = cc.LayerColor.extend({
 
     updateScore:function(score){
         this.scoreLabel.setString("Score : "+score);
+        this.scoreLabel.setScale(1+this.scoreScaleDt,1+this.scoreScaleDt);
+        this.motionScoreLabel();
 
+    },
+
+    motionScoreLabel:function(){
+        if(this.scoreLabelIsOn){
+                    this.scoreScaleDt+= 0.01;
+                    if(this.scoreScaleDt>=0.1){
+                        this.scoreLabelIsOn = false;
+                    }
+                }
+                else{
+                    this.scoreScaleDt-= 0.02;
+                    if(this.scoreScaleDt<=0){
+                        this.scoreScaleDt = 0;
+                    }
+                }
     },
 
     initCondition:function(){
@@ -115,9 +138,11 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     createScoreLabel:function(){
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 25 );
-        this.scoreLabel.setPosition( new cc.Point( 680, 400 ) );
-        this.addChild( this.scoreLabel );
+    this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 25 );
+    this.scoreLabel.setPosition( new cc.Point( 680, 400 ) );
+    this.addChild( this.scoreLabel );
+    this.scoreScaleDt = 0;
+    this.scoreLabelIsOn = false;
 
     this.scoreMaxLabel = cc.LabelTTF.create( '0', 'Arial', 15 );
     this.scoreMaxLabel.setPosition( new cc.Point( 680, 420 ) );
@@ -410,3 +435,4 @@ GameLayer.KEYS = [];
 var SCORE = 0;
 GameLayer.MAX_SPEED = 12.5;
 var ScoreRecord = 0;
+var COMBO_COUNT = 0 ;

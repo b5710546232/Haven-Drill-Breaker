@@ -120,11 +120,22 @@ var Monster = cc.Sprite.extend({
       if(this.player.drillType != this.monType&&this.player.drillType!='X'){
         cc.audioEngine.playEffect( res.oops_wav );
         this.player.hp-=1;
+        if(COMBO_COUNT>1){
+          this.layer.scoreLabelIsOn = true;
+          this.layer.score += COMBO_COUNT;
+        }
+        COMBO_COUNT = 0;
+        this.layer.combo.isCombo = false;
         this.layer.shakeScreen();
         this.removeFromParent();
       }
       else{
         this.player.canJump  = true;
+        COMBO_COUNT++;
+        if(COMBO_COUNT>1){
+          this.layer.combo.isCombo = true;
+          this.layer.combo.isOn = true;
+        }
         this.layer.score++;
         this.removeFromParent();
       }
