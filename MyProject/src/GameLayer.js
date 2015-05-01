@@ -19,6 +19,15 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition(0, 0);
     },
 
+    createPauseText:function(){
+        this.pauseLabel = cc.LabelTTF.create('0', 'Arial', 55);
+        this.pauseLabel.setPosition(screenWidth/2,screenHeight/2);
+        this.addChild(this.pauseLabel,5);
+        this.pauseLabel.setString("");
+        this.pauseOpacityDt = 0;
+        this.pauseIsMotionOn = false;
+    },
+
     initComponent: function() {
         this.createPlayer();
         this.createDrill();
@@ -30,6 +39,7 @@ var GameLayer = cc.LayerColor.extend({
         this.createScoreLabel();
         this.createComboText();
         this.initSound();
+        this.createPauseText();
 
     },
     createComboText: function() {
@@ -126,6 +136,7 @@ var GameLayer = cc.LayerColor.extend({
         this.ItemCreatedTimer = 0;
         this.speedDt = 0;
         this.firstRun = false;
+        this.isPause = false;
     },
 
 
@@ -386,6 +397,18 @@ var GameLayer = cc.LayerColor.extend({
             if (!this.drillSFX && !this.isGameOver) {
                 cc.audioEngine.playEffect(res.drill_wav);
                 this.drillSFX = true;
+            }
+        }
+        if(e==80){
+            this.pauseLabel.setString("Pause");
+            if(!this.isPause){
+                this.isPause = true;
+                cc.director.pause();
+            }
+            else{
+                this.isPause = false;
+                cc.director.resume();
+                this.pauseLabel.setString("");
             }
         }
     },
