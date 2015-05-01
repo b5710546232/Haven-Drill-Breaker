@@ -104,12 +104,12 @@ var GameLayer = cc.LayerColor.extend({
 
     motionScoreLabel: function() {
         if (this.scoreLabelIsOn) {
-            this.scoreScaleDt += 0.01;
-            if (this.scoreScaleDt >= 0.1) {
+            this.scoreScaleDt += 0.025;
+            if (this.scoreScaleDt >= 0.25) {
                 this.scoreLabelIsOn = false;
             }
         } else {
-            this.scoreScaleDt -= 0.02;
+            this.scoreScaleDt -= 0.025;
             if (this.scoreScaleDt <= 0) {
                 this.scoreScaleDt = 0;
             }
@@ -332,6 +332,12 @@ var GameLayer = cc.LayerColor.extend({
 
     gameOver: function() {
         this.player.death();
+        if (COMBO_COUNT > 1) {
+            this.scoreLabelIsOn = true;
+            this.score += COMBO_COUNT;
+        }
+        COMBO_COUNT = 0;
+        this.combo.isCombo = false;
         this.isGameOver = true;
         if (this.isGameOver) {
             this.shakeScreen();
