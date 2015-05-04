@@ -46,6 +46,13 @@
  }
  *
  */
+
+function is_touch_device() {
+  return 'ontouchstart' in window // works on most browsers 
+      || 'onmsgesturechange' in window; // works on ie10
+};
+
+
 var screenWidth = 800;
 var screenHeight = 450;
 cc.game.onStart = function(){

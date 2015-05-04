@@ -102,6 +102,24 @@ var res = {
     effect04_png: 'res/images/effect/bomb_anim0004.png',
     effect05_png: 'res/images/effect/bomb_anim0005.png',
 
+    //ui & touch
+    pause_B_png:    'res/images/button/pauseB.png',
+    pause_B_S_png: '    res/images/button/pauseBSelected.png',
+    play_B_png:  'res/images/button/playB.png',
+    play_B_S_png: 'res/images/button/playBSelected.png',
+    jump_B_png: 'res/images/button/jumpB.png',
+    jump_B_S_png: 'res/images/button/jumpBSeleted.png',
+    drillRB_png: 'res/images/button/drillRB.png',
+    drillRB_S_png: 'res/images/button/drillRBSelected.png',
+    drillLB_png: 'res/images/button/drillLB.png',
+    drillLB_S_png:  'res/images/button/drillLBSelected.png',
+    drillUB_png: 'res/images/button/drillUB.png',
+    drillUB_S_png: 'res/images/button/drillUBSelected.png',
+    drillDB_png: 'res/images/button/drillDB.png',
+    drillDB_S_png: 'res/images/button/drillDBSelected.png'
+
+
+
 
 
 };

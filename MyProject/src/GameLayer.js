@@ -4,6 +4,12 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition(new cc.Point(0, 0));
         this.addKeyboardHandlers();
         this.initComponent();
+        if (is_touch_device()){
+            // console.log("I am touch device")
+            this.createUIButton();
+        } else {
+            // console.log("I am computer")
+        }
         this.scheduleUpdate();
         this.isStart = true;
         return true;
@@ -17,6 +23,182 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOutScreen();
         this.updateScore(this.score);
         this.setPosition(0, 0);
+    },
+
+    createJumpButton:function(){
+        this.jumpButton = new ccui.Button();
+        this.jumpButton.loadTextures(res.jump_B_png,res.jump_B_S_png);
+        this.jumpButton.setPosition(100,80);
+        this.jumpButton.addTouchEventListener(this.touchJumpButton,this);
+        this.addChild(this.jumpButton,5);
+    },
+
+    touchJumpButton:function(sender,type){
+        switch(type)
+        {
+            case ccui.Widget.TOUCH_BEGAN:
+            this.player.jump();
+            break;
+        }
+
+    },
+
+    createUIButton:function(){
+        this.createDrillRButton();
+        this.createDrillLButton();
+        this.createDrillUButton();
+        this.createDrillDButton();
+        this.createJumpButton();
+    },
+
+
+    createDrillRButton:function(){
+        this.drillRButton = new ccui.Button();
+        this.drillRButton.loadTextures(res.drillRB_png,res.drillRB_S_png);
+        this.drillRButton.setPosition(710,100);
+        this.drillRButton.addTouchEventListener(this.touchDrillRButton,this);
+        this.addChild(this.drillRButton,5);
+    },
+    touchDrillRButton:function(sender,type){
+        switch(type)
+        {
+            case ccui.Widget.TOUCH_BEGAN:
+             if (this.player.drillType != 'X')
+            GameLayer.KEYS[cc.KEY.right]  = true;
+            cc.audioEngine.playEffect(res.drill_wav);
+            this.player.switchDrillType();
+            break;
+              case ccui.Widget.TOUCH_ENDED:
+            GameLayer.KEYS[cc.KEY.right] = false;
+            this.player.drillType = 'N';
+            break;
+        }
+
+
+    },
+
+    createDrillLButton:function(){
+        this.drillLButton = new ccui.Button();
+        this.drillLButton.loadTextures(res.drillLB_png,res.drillLB_S_png);
+        this.drillLButton.setPosition(590,100);
+        this.drillLButton.addTouchEventListener(this.touchDrillLButton,this);
+        this.addChild(this.drillLButton,5);
+    },
+    touchDrillLButton:function(sender,type){
+        switch(type)
+        {
+            case ccui.Widget.TOUCH_BEGAN:
+             if (this.player.drillType != 'X')
+            GameLayer.KEYS[cc.KEY.left]  = true;
+            cc.audioEngine.playEffect(res.drill_wav);
+            this.player.switchDrillType();
+            break;
+              case ccui.Widget.TOUCH_ENDED:
+            GameLayer.KEYS[cc.KEY.left] = false;
+            this.player.drillType = 'N';
+            break;
+        }
+
+
+    },
+    createDrillUButton:function(){
+        this.drillUButton = new ccui.Button();
+        this.drillUButton.loadTextures(res.drillUB_png,res.drillUB_S_png);
+        this.drillUButton.setPosition(652,160);
+        this.drillUButton.addTouchEventListener(this.touchDrillUButton,this);
+        this.addChild(this.drillUButton,5);
+    },
+    touchDrillUButton:function(sender,type){
+        switch(type)
+        {
+            case ccui.Widget.TOUCH_BEGAN:
+             if (this.player.drillType != 'X')
+            GameLayer.KEYS[cc.KEY.up]  = true;
+            cc.audioEngine.playEffect(res.drill_wav);
+            this.player.switchDrillType();
+            break;
+              case ccui.Widget.TOUCH_ENDED:
+            GameLayer.KEYS[cc.KEY.up] = false;
+            this.player.drillType = 'N';
+            break;
+        }
+
+
+    },
+     createDrillDButton:function(){
+        this.drillDButton = new ccui.Button();
+        this.drillDButton.loadTextures(res.drillDB_png,res.drillDB_S_png);
+        this.drillDButton.setPosition(652,40);
+        this.drillDButton.addTouchEventListener(this.touchDrillDButton,this);
+        this.addChild(this.drillDButton,5);
+    },
+    touchDrillDButton:function(sender,type){
+        switch(type)
+        {
+            case ccui.Widget.TOUCH_BEGAN:
+             if (this.player.drillType != 'X')
+            GameLayer.KEYS[cc.KEY.down]  = true;
+            cc.audioEngine.playEffect(res.drill_wav);
+            this.player.switchDrillType();
+            break;
+              case ccui.Widget.TOUCH_ENDED: 
+            GameLayer.KEYS[cc.KEY.down] = false;
+            this.player.drillType = 'N';
+            break;
+             // console.log('Touch down');
+            break;
+              case ccui.Widget.TOUCH_MOVED:
+              // console.log('Touch move');
+            break;
+              case ccui.Widget.TOUCH_ENDED:
+              // console.log('Touch end');
+            break;
+              case ccui.Widget.TOUCH_CANCELLED:
+              // console.log('Touch cancelled');
+            break;
+        }
+
+
+    },
+
+    createPauseButton:function(){
+        this.pauseButton = new ccui.Button();
+        this.pauseButton.loadTextures(res. pause_B_png,res. pause_B_S_png);
+        this.pauseButton.setPosition(580,418);
+        this.pauseButton.addTouchEventListener(this.touchPauseButton,this);
+        this.addChild(this.pauseButton);
+        
+    },
+
+    touchPauseButton:function(sender,type){
+        switch(type)
+        {
+            case ccui.Widget.TOUCH_BEGAN:
+             this.pauseLabel.setString("Pause");
+            if(!this.isPause){
+                this.pauseButton.loadTextures(res.play_B_png,res.play_B_S_png);
+                this.isPause = true;
+                cc.director.pause();
+            }
+            else{
+                this.pauseButton.loadTextures(res. pause_B_png,res. pause_B_S_png);
+                this.isPause = false;
+                cc.director.resume();
+                this.pauseLabel.setString("");
+            }
+            // console.log('Touch down');
+            break;
+              case ccui.Widget.TOUCH_MOVED:
+              // console.log('Touch move');
+            break;
+              case ccui.Widget.TOUCH_ENDED:
+              // console.log('Touch end');
+            break;
+              case ccui.Widget.TOUCH_CANCELLED:
+              // console.log('Touch cancelled');
+            break;
+        }
+
     },
 
     createPauseText:function(){
@@ -40,6 +222,7 @@ var GameLayer = cc.LayerColor.extend({
         this.createComboText();
         this.initSound();
         this.createPauseText();
+        this.createPauseButton();
 
     },
     createComboText: function() {
@@ -401,11 +584,13 @@ var GameLayer = cc.LayerColor.extend({
         }
         if(e==80){
             this.pauseLabel.setString("Pause");
+             this.pauseButton.loadTextures(res.play_B_png,res.play_B_S_png);
             if(!this.isPause){
                 this.isPause = true;
                 cc.director.pause();
             }
             else{
+                this.pauseButton.loadTextures(res. pause_B_png,res. pause_B_S_png);
                 this.isPause = false;
                 cc.director.resume();
                 this.pauseLabel.setString("");
