@@ -4,12 +4,7 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition(new cc.Point(0, 0));
         this.addKeyboardHandlers();
         this.initComponent();
-        if (is_touch_device()){
-            // console.log("I am touch device")
-            this.createUIButton();
-        } else {
-            // console.log("I am computer")
-        }
+        this.isTouchDevice();
         this.scheduleUpdate();
         this.isStart = true;
         return true;
@@ -23,6 +18,16 @@ var GameLayer = cc.LayerColor.extend({
         this.playerOutScreen();
         this.updateScore(this.score);
         this.setPosition(0, 0);
+    },
+
+    isTouchDevice:function(){
+        if (is_touch_device()){
+            // console.log("I am touch device")
+            this.createUIButton();
+        } else {
+            // console.log("I am computer")
+        }
+
     },
 
     createJumpButton:function(){
@@ -252,6 +257,9 @@ var GameLayer = cc.LayerColor.extend({
             if (this.floorSpeed < GameLayer.MAX_SPEED) {
                 this.floorSpeed++;
                 this.signLevelUp.call = true;
+            }
+            if(this.floorSpeed==GameLayer.MAX_SPEED){
+                console.log('speed max');
             }
             this.floorSetsRun(this.floorSets, this.floorSpeed);
             this.floorSetsRun(this.floorSets2, this.floorSpeed);
@@ -582,6 +590,35 @@ var GameLayer = cc.LayerColor.extend({
                 this.drillSFX = true;
             }
         }
+        //test ***********
+            //  if(e==49){
+            //     this.speedLevelUp();
+            // }
+            //     if ( e == 68) { //right
+            //         this.player.setPosition(new cc.Point(this.player.getPosition().x+10
+            //             ,this.player.getPosition().y));
+            //     }
+            //     if ( e == 65) {//right
+            //         this.player.setPosition(new cc.Point(this.player.getPosition().x-10
+            //             ,this.player.getPosition().y));
+            //     }
+            //     if ( e == 84) { //t stop
+            //         this.isStart = false;
+            //         Player.G = 0;
+            //         this.player.vy=0;
+            //         this.floorSetsRun(this.floorSets,0)
+            //         this.floorSetsRun(this.floorSets2,0)
+            //     }
+            //     if( e==87){//up
+            //      this.player.setPosition(new cc.Point(this.player.getPosition().x
+            //         ,this.player.getPosition().y+10));
+            //  }
+            //     if(e==83){ //down
+            //      this.player.setPosition(new cc.Point(this.player.getPosition().x
+            //         ,this.player.getPosition().y-10));
+
+            //  }
+             //test ***********
         if(e==80){
             this.pauseLabel.setString("Pause");
              this.pauseButton.loadTextures(res.play_B_png,res.play_B_S_png);
@@ -645,6 +682,6 @@ var GameLayer = cc.LayerColor.extend({
 });
 GameLayer.KEYS = [];
 var SCORE = 0;
-GameLayer.MAX_SPEED = 12.5;
+GameLayer.MAX_SPEED = 11.5;
 var ScoreRecord = 0;
 var COMBO_COUNT = 0;

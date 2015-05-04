@@ -146,7 +146,7 @@ var Player = cc.Sprite.extend({
     getPlayerRectFoot: function() {
         var spriteRect = this.getBoundingBoxToWorld();
         var footHeight = 10;
-        var footWidth = 15;
+        var footWidth = 18;
         return cc.rect(spriteRect.x + this.getBoundingBox().width / 2, spriteRect.y, footWidth, footHeight);
     },
     getPlayerRectSideR: function() {
