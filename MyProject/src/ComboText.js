@@ -10,7 +10,7 @@ var ComboText = cc.Node.extend({
         this.scheduleUpdate();
     },
     createComboText:function(){
-        this.textLabel = cc.LabelTTF.create('0', 'Arial', 30);
+        this.textLabel = cc.LabelTTF.create('0', 'Arial', 25);
         this.textLabel.setString("Combo X " + COMBO_COUNT);
         this.setPosition(screenWidth / 2, screenHeight * (9.0 / 10));
         this.addChild(this.textLabel);
@@ -40,12 +40,12 @@ var ComboText = cc.Node.extend({
     },
     motionCombotext: function() {
         if (this.isOn) {
-            this.scaleDt += 0.01;
-            if (this.scaleDt >= 0.1) {
+            this.scaleDt += 0.05;
+            if (this.scaleDt >= 0.2) {
                 this.isOn = false;
             }
         } else {
-            this.scaleDt -= 0.02;
+            this.scaleDt -= 0.025;
             if (this.scaleDt <= 0) {
                 this.scaleDt = 0;
             }
