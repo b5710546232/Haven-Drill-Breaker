@@ -23,6 +23,7 @@ var GameLayer = cc.LayerColor.extend({
     isTouchDevice:function(){
         if (is_touch_device()){
             // console.log("I am touch device")
+            
             this.createUIButton();
         } else {
             // console.log("I am computer")

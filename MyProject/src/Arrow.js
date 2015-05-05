@@ -3,6 +3,9 @@ var Arrow = cc.Sprite.extend({
         this._super();
         this.initWithFile(res.arrow_png);
         this.mon = monster;
+        this.initPosition();
+    },
+    initPosition:function(){
         var top = this.mon.getPosition().y + 55;
         this.setPosition(this.mon.getPosition().x, top);
         this.setArrow(this.mon.monType);

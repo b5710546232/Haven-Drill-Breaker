@@ -7,9 +7,7 @@ var Monster = cc.Sprite.extend({
         this.floor = floor;
         this.layer = floor.layer;
         this.player = floor.layer.player;
-        var height = 64;
-        var top = cc.rectGetMaxY(floor.getBoundingBoxToWorld()) + height / 2;
-        this.setPosition(floor.getPosition().x, top);
+        this.initPostion();
         this.initAnimation(this.monType);
         this.runAction(this.movingAction);
         this.monDie = false;
@@ -20,6 +18,13 @@ var Monster = cc.Sprite.extend({
         this.setPositionX(this.getPositionX() - this.speed);
         this.destroy(this.player);
         this.isAttacted();
+    },
+
+    initPostion:function(){
+        var height = 64;
+        var top = cc.rectGetMaxY(this.floor.getBoundingBoxToWorld()) + height / 2;
+        this.setPosition(this.floor.getPosition().x, top);
+
     },
 
     callEffect: function() {
@@ -120,26 +125,36 @@ var Monster = cc.Sprite.extend({
             if (this.player.drillType != this.monType && this.player.drillType != 'X') {
                 cc.audioEngine.playEffect(res.oops_wav);
                 this.player.hp -= 1;
-                if (COMBO_COUNT > 1) {
-                    this.layer.scoreLabelIsOn = true;
-                    this.layer.score += COMBO_COUNT;
-                }
-                COMBO_COUNT = 0;
-                this.layer.combo.isCombo = false;
+                this.playerComboBreak();
                 this.layer.shakeScreen();
                 this.removeFromParent();
-            } else {
+            } 
+            else {
                 this.player.canJump = true;
-                COMBO_COUNT++;
-                if (COMBO_COUNT > 1) {
-                    this.layer.combo.isCombo = true;
-                    this.layer.combo.isOn = true;
-                }
+                this.playerIsCombo();
                 this.layer.score++;
                 this.removeFromParent();
             }
 
         }
+    },
+    playerIsCombo:function(){
+       COMBO_COUNT++;
+       if (COMBO_COUNT > 1) {
+        this.layer.combo.isCombo = true;
+        this.layer.combo.isOn = true;
+        }
+
+    },
+
+    playerComboBreak:function(){
+        if (COMBO_COUNT > 1) {
+            this.layer.scoreLabelIsOn = true;
+            this.layer.score += COMBO_COUNT;
+        }
+        COMBO_COUNT = 0;
+        this.layer.combo.isCombo = false;
+
     },
 
     destroy: function(player) {

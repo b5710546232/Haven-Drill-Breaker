@@ -2,16 +2,21 @@ var MenuLayer = cc.LayerColor.extend({
     init: function() {
         this._super(new cc.Color(127, 127, 127, 255));
         this.setPosition(new cc.Point(0, 0));
-        this.bg = new MenuBackGround();
-        this.createPlayButton();
-        this.addChild(this.bg);
         this.scheduleUpdate();
         this.initComponent();
         this.playSoundBG();
         return true;
     },
 
+    createMenuBG:function(){
+        this.bg = new MenuBackGround();
+        this.createPlayButton();
+        this.addChild(this.bg,0);
+
+    },
+
     initComponent: function() {
+        this.createMenuBG();
         this.createPlayButton();
         this.createHowToButton();
         this.createCreditButton();
@@ -35,7 +40,7 @@ var MenuLayer = cc.LayerColor.extend({
                 cc.director.runScene(new GamePlayScene());
             }, this);
         this.playButton = new cc.Menu(this.playButItem);
-        this.addChild(this.playButton);
+        this.addChild(this.playButton,1);
     },
     createHowToButton: function() {
         this.howToButItem = new cc.MenuItemImage(
@@ -46,7 +51,7 @@ var MenuLayer = cc.LayerColor.extend({
                 cc.director.runScene(new HowToScene());
             }, this);
         this.howToButton = new cc.Menu(this.howToButItem);
-        this.addChild(this.howToButton);
+        this.addChild(this.howToButton,1);
         var deltaDistance = -80;
         this.howToButton.setPosition(screenWidth / 2, (screenHeight / 2) + deltaDistance);
     },
@@ -59,15 +64,9 @@ var MenuLayer = cc.LayerColor.extend({
                 cc.director.runScene(new CreditScene());
             }, this);
         this.creditButton = new cc.Menu(this.creditButItem);
-        this.addChild(this.creditButton);
+        this.addChild(this.creditButton,1);
         var deltaDistance = -80 * 2;
         this.creditButton.setPosition(screenWidth / 2, (screenHeight / 2) + deltaDistance);
-    },
-
-
-
-    update: function(dt) {
-
     },
 });
 
