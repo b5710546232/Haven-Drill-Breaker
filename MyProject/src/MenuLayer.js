@@ -37,7 +37,7 @@ var MenuLayer = cc.LayerColor.extend({
                 cc.audioEngine.stopMusic(res.lostVilage_mp3);
                 isPlayingSong = false;
                 cc.audioEngine.playEffect(res.press_mp3);
-                cc.director.runScene(new GamePlayScene());
+                cc.director.runScene(new cc.TransitionFade(0.2,new GamePlayScene()));
             }, this);
         this.playButton = new cc.Menu(this.playButItem);
         this.addChild(this.playButton,1);
@@ -48,7 +48,7 @@ var MenuLayer = cc.LayerColor.extend({
             res.howtoPlay2_But_png,
             function() {
                 cc.audioEngine.playEffect(res.press_mp3);
-                cc.director.runScene(new HowToScene());
+                cc.director.runScene(new cc.TransitionFade(0.5,new HowToScene()));
             }, this);
         this.howToButton = new cc.Menu(this.howToButItem);
         this.addChild(this.howToButton,1);
@@ -61,7 +61,7 @@ var MenuLayer = cc.LayerColor.extend({
             res.credit2_But_png,
             function() {
                 cc.audioEngine.playEffect(res.press_mp3);
-                cc.director.runScene(new CreditScene());
+                cc.director.runScene(new cc.TransitionFade(0.5,new CreditScene()));
             }, this);
         this.creditButton = new cc.Menu(this.creditButItem);
         this.addChild(this.creditButton,1);

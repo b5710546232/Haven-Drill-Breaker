@@ -21,7 +21,7 @@ var CreditLayer = cc.LayerColor.extend({
             res.backToMenu2_But_png,
             function() {
                 cc.audioEngine.playEffect(res.press_mp3);
-                cc.director.runScene(new StartScene());
+                cc.director.runScene(new cc.TransitionFade(0.5,new StartScene()));
             }, this);
         this.backButton = new cc.Menu(this.backButItem);
         this.addChild(this.backButton);
