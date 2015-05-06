@@ -68,10 +68,11 @@ var GameLayer = cc.LayerColor.extend({
         switch(type)
         {
             case ccui.Widget.TOUCH_BEGAN:
-             if (this.player.drillType != 'X')
-            GameLayer.KEYS[cc.KEY.right]  = true;
-            cc.audioEngine.playEffect(res.drill_wav);
-            this.player.switchDrillType();
+             if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.right]  = true;
+                cc.audioEngine.playEffect(res.drill_wav);
+                this.player.switchDrillType();
+            }
             break;
               case ccui.Widget.TOUCH_ENDED:
             GameLayer.KEYS[cc.KEY.right] = false;
@@ -93,10 +94,11 @@ var GameLayer = cc.LayerColor.extend({
         switch(type)
         {
             case ccui.Widget.TOUCH_BEGAN:
-             if (this.player.drillType != 'X')
-            GameLayer.KEYS[cc.KEY.left]  = true;
-            cc.audioEngine.playEffect(res.drill_wav);
-            this.player.switchDrillType();
+             if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.left]  = true;
+                cc.audioEngine.playEffect(res.drill_wav);
+                this.player.switchDrillType();
+            }
             break;
               case ccui.Widget.TOUCH_ENDED:
             GameLayer.KEYS[cc.KEY.left] = false;
@@ -117,10 +119,11 @@ var GameLayer = cc.LayerColor.extend({
         switch(type)
         {
             case ccui.Widget.TOUCH_BEGAN:
-             if (this.player.drillType != 'X')
-            GameLayer.KEYS[cc.KEY.up]  = true;
-            cc.audioEngine.playEffect(res.drill_wav);
-            this.player.switchDrillType();
+             if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.up]  = true;
+                cc.audioEngine.playEffect(res.drill_wav);
+                this.player.switchDrillType();
+            }
             break;
               case ccui.Widget.TOUCH_ENDED:
             GameLayer.KEYS[cc.KEY.up] = false;
@@ -141,10 +144,11 @@ var GameLayer = cc.LayerColor.extend({
         switch(type)
         {
             case ccui.Widget.TOUCH_BEGAN:
-             if (this.player.drillType != 'X')
-            GameLayer.KEYS[cc.KEY.down]  = true;
-            cc.audioEngine.playEffect(res.drill_wav);
-            this.player.switchDrillType();
+             if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.down]  = true;
+                cc.audioEngine.playEffect(res.drill_wav);
+                this.player.switchDrillType();
+            }
             break;
               case ccui.Widget.TOUCH_ENDED: 
             GameLayer.KEYS[cc.KEY.down] = false;
