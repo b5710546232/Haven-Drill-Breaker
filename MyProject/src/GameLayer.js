@@ -71,7 +71,7 @@ var GameLayer = cc.LayerColor.extend({
              if (this.player.drillType != 'X'){
                 GameLayer.KEYS[cc.KEY.right]  = true;
                 cc.audioEngine.playEffect(res.drill_wav);
-                this.player.switchDrillType();
+                // this.player.switchDrillType();
             }
             break;
               case ccui.Widget.TOUCH_ENDED:
@@ -80,8 +80,6 @@ var GameLayer = cc.LayerColor.extend({
                 GameLayer.KEYS[cc.KEY.up] = false;
                 GameLayer.KEYS[cc.KEY.left] = false;
                 GameLayer.KEYS[cc.KEY.down] = false;
-
-                this.player.drillType = 'N';
             }
             break;
             case ccui.Widget.TOUCH_CANCELLED:
@@ -114,7 +112,7 @@ var GameLayer = cc.LayerColor.extend({
              if (this.player.drillType != 'X'){
                 GameLayer.KEYS[cc.KEY.left]  = true;
                 cc.audioEngine.playEffect(res.drill_wav);
-                this.player.switchDrillType();
+                // this.player.switchDrillType();
             }
             break;
               case ccui.Widget.TOUCH_ENDED:
@@ -124,7 +122,6 @@ var GameLayer = cc.LayerColor.extend({
                 GameLayer.KEYS[cc.KEY.left] = false;
                 GameLayer.KEYS[cc.KEY.down] = false;
 
-                this.player.drillType = 'N';
             }
             break;
             case ccui.Widget.TOUCH_CANCELLED:
@@ -157,7 +154,7 @@ var GameLayer = cc.LayerColor.extend({
              if (this.player.drillType != 'X'){
                 GameLayer.KEYS[cc.KEY.up]  = true;
                 cc.audioEngine.playEffect(res.drill_wav);
-                this.player.switchDrillType();
+                // this.player.switchDrillType();
             }
             break;
               case ccui.Widget.TOUCH_ENDED:
@@ -166,8 +163,6 @@ var GameLayer = cc.LayerColor.extend({
                 GameLayer.KEYS[cc.KEY.up] = false;
                 GameLayer.KEYS[cc.KEY.left] = false;
                 GameLayer.KEYS[cc.KEY.down] = false;
-
-                this.player.drillType = 'N';
             }
             break;
 
@@ -200,7 +195,7 @@ var GameLayer = cc.LayerColor.extend({
              if (this.player.drillType != 'X'){
                 GameLayer.KEYS[cc.KEY.down]  = true;
                 cc.audioEngine.playEffect(res.drill_wav);
-                this.player.switchDrillType();
+                // this.player.switchDrillType();
             }
             break;
             case ccui.Widget.TOUCH_ENDED: 
@@ -621,7 +616,7 @@ var GameLayer = cc.LayerColor.extend({
             if (this.score > ScoreRecord) {
                 ScoreRecord = this.score;
             }
-            cc.audioEngine.stopMusic(res.sound_bg_mp3);
+            // cc.audioEngine.stopMusic(res.sound_bg_mp3);
             cc.director.runScene(new cc.TransitionFade(0.5,new GameOverScene()));
         }
     },
@@ -712,7 +707,7 @@ var GameLayer = cc.LayerColor.extend({
                     e == cc.KEY.down ||
                     e == cc.KEY.right ||
                     e == cc.KEY.left)) {
-                this.player.switchDrillType();
+                // this.player.switchDrillType();
             }
         }
     },
@@ -723,12 +718,12 @@ var GameLayer = cc.LayerColor.extend({
             e != cc.KEY.right ||
             e != cc.KEY.left) {
             this.drillSFX = false;
-            this.player.switchDrillType();
+            // this.player.switchDrillType();
         } else if (e == cc.KEY.up ||
             e == cc.KEY.down ||
             e == cc.KEY.right ||
             e == cc.KEY.left) {
-            this.player.drillType = 'N';
+            // this.player.drillType = 'N';
         }
     },
 

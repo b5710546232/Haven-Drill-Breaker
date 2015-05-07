@@ -27,6 +27,7 @@ var Player = cc.Sprite.extend({
         this.checkStatus();
         this.manangeAnim();
         this.drillDistMovement();
+        this.switchDrillType();
     },
 
     drillDistMovement: function() {
