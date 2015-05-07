@@ -80,6 +80,13 @@ var GameLayer = cc.LayerColor.extend({
                 this.player.drillType = 'N';
             }
             break;
+            case ccui.Widget.TOUCH_CANCELLED:
+              // console.log('Touch cancelled');
+            if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.right] = false;
+                this.player.drillType = 'N';
+            }
+            break;
         }
 
 
@@ -108,6 +115,14 @@ var GameLayer = cc.LayerColor.extend({
                 this.player.drillType = 'N';
             }
             break;
+            case ccui.Widget.TOUCH_CANCELLED:
+              // console.log('Touch cancelled');
+            if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.left] = false;
+                this.player.drillType = 'N';
+            }
+            break;
+
         }
 
 
@@ -132,6 +147,14 @@ var GameLayer = cc.LayerColor.extend({
               case ccui.Widget.TOUCH_ENDED:
               if (this.player.drillType != 'X'){
                 GameLayer.KEYS[cc.KEY.up] = false;
+                this.player.drillType = 'N';
+            }
+            break;
+
+            case ccui.Widget.TOUCH_CANCELLED:
+              // console.log('Touch cancelled');
+            if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.up]  = true;
                 this.player.drillType = 'N';
             }
             break;
@@ -167,11 +190,12 @@ var GameLayer = cc.LayerColor.extend({
               case ccui.Widget.TOUCH_MOVED:
               // console.log('Touch move');
             break;
-              case ccui.Widget.TOUCH_ENDED:
-              // console.log('Touch end');
-            break;
               case ccui.Widget.TOUCH_CANCELLED:
               // console.log('Touch cancelled');
+            if (this.player.drillType != 'X'){
+                GameLayer.KEYS[cc.KEY.down] = false;
+                this.player.drillType = 'N';
+            }
             break;
         }
 
