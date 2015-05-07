@@ -32,7 +32,17 @@ var HowToLayer = cc.LayerColor.extend({
 var HowToPage = cc.Sprite.extend({
     ctor: function() {
         this._super();
-        this.initWithFile(res.howToPlay_png);
+        this.isTouchDevice();
         this.setPosition(screenWidth / 2, screenHeight / 2);
     },
+    isTouchDevice:function(){
+        if (is_touch_device()){
+            this.initWithFile(res.howToPlayTouch_png);
+        } 
+        else {
+            this.initWithFile(res.howToPlay_png);
+        }
+
+    },
+
 });

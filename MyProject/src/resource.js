@@ -83,6 +83,7 @@ var res = {
     //page
     howToPlay_png: 'res/images/SceneComponent/howToPlay.png',
     credit_png: 'res/images/SceneComponent/credits.png',
+    howToPlayTouch_png: 'res/images/SceneComponent/howToPlayTouch.png',
     //bg
     gameOverBG_png: 'res/images/SceneComponent/gameOverBg.png',
     gameBG_png: 'res/images/SceneComponent/bg.png',
